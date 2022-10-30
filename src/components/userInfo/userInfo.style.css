@@ -1,0 +1,25 @@
+.userInfoDiv img {
+  border-radius: 50%;
+  width: 143px;
+  height: 143px;
+  padding: 5px;
+  border: 1px solid grey;
+  margin-bottom: 10px;
+}
+
+.userInfoDiv {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.userInfoDiv .name {
+  font-size: 1.4rem;
+  text-transform: capitalize;
+}
+
+.userInfoDiv .noInfo {
+  color: rgb(156, 156, 156);
+}
