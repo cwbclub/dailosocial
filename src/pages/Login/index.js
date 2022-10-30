@@ -21,10 +21,10 @@ export default function Login() {
   // Custom Function
 
   useEffect(() => {
-    if (user) {
+    if (user && !isLoading) {
       navigate('/')
     }
-  }, [])
+  }, [isLoading, user?.uid])
 
   return (
     <div className="wrapper">

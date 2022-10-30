@@ -1,0 +1,11 @@
+.loadingBody {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+}
+
+.loadingBody p {
+  color: rgb(187, 187, 187);
+  font-size: 1.8rem;
+  margin-top: 40vh;
+}

@@ -27,8 +27,20 @@ nav {
   color: blueviolet;
 }
 
-.navBtn {
+.navBtnLogin,
+.navBtnLogout {
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.navBtnLogin {
   color: blue;
+}
+
+.navBtnLogout {
+  color: rgb(176, 9, 9);
 }
