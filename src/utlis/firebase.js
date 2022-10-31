@@ -1,6 +1,8 @@
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
-import { db } from '../lib/firebase'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { db, storage } from '../lib/firebase'
 
+// Adding User
 export const addUser = async (uid, displayName, photoURL) => {
   const docRef = doc(db, `users/${uid}`)
 
@@ -15,7 +17,31 @@ export const addUser = async (uid, displayName, photoURL) => {
   }
 }
 
+// Update Profile
 export const updateProfile = async (uid, data) => {
   const docRef = doc(db, `users/${uid}`)
   await updateDoc(docRef, data)
+}
+
+// Storing files
+export const uploadFile = async (loc, file, handleProgress, handleUrl) => {
+  const storageRef = ref(storage, loc)
+
+  const uploadTask = uploadBytesResumable(storageRef, file)
+
+  uploadTask.on(
+    'state_changed',
+    (snapshot) => {
+      const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      handleProgress(p)
+    },
+    (error) => {
+      // Handle unsuccessful uploads
+      throw new Error(error.message)
+    },
+    async () => {
+      const res = await getDownloadURL(uploadTask.snapshot.ref)
+      return res
+    }
+  )
 }

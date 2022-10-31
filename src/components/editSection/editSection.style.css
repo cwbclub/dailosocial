@@ -51,6 +51,7 @@
   display: flex;
   width: 100%;
   gap: 10px;
+  margin-top: 5px;
 }
 
 .editSection .btnDiv button {
@@ -59,22 +60,33 @@
   font-size: 1.1rem;
   border-radius: 7px;
   transition: all 0.3s ease-in-out;
+  font-weight: 600;
 }
 
 .editSection .btnDiv button:nth-child(1) {
+  /* background-color: var(--color-red-1);
+  color: white; */
+  color: var(--color-red-1);
+  border: 2px solid var(--color-red-1);
+}
+
+.editSection .btnDiv button:nth-child(2) {
+  /* background-color: var(--color-blue-1);
+  color: white; */
+  color: var(--color-blue-1);
+  border: 2px solid var(--color-blue-1);
+}
+
+.editSection .btnDiv button:nth-child(1):active {
   background-color: var(--color-red-1);
   color: white;
 }
 
-.editSection .btnDiv button:nth-child(2) {
+.editSection .btnDiv button:nth-child(2):active {
   background-color: var(--color-blue-1);
   color: white;
 }
 
-.editSection .btnDiv button:nth-child(1):active {
-  background-color: var(--color-red-2);
-}
-
-.editSection .btnDiv button:nth-child(2):active {
-  background-color: var(--color-blue-2);
+.editSection .btnDiv button:nth-child(2):disabled {
+  opacity: 0.6;
 }

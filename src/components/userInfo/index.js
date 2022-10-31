@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import EditSection from '../editSection'
 import './userInfo.style.css'
@@ -23,7 +24,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
     />
   ) : (
     <div className="userInfoDiv">
-      <img src={photoURL} alt="User Avatar" />
+      <img src={photoURL || '/user.webp'} alt="User Avatar" />
       <p className="name">{displayName}</p>
       <div className="content">
         {info ? (
@@ -33,7 +34,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
         )}
         {isOwn ? (
           <button className="editBtn" onClick={() => handleEdit(true)}>
-            Edit Profile
+            <FaEdit /> Edit Profile
           </button>
         ) : (
           <button>Follow</button>

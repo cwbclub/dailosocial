@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
+import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
 import { useAuth } from '../../context/authContext'
 import useLiveData from '../../hooks/useLiveData'
@@ -30,6 +31,8 @@ export default function Home() {
             uid={uid}
           />
         )}
+        <SubNavBar />
+        <Outlet />
       </div>
     </div>
   )

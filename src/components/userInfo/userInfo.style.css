@@ -35,6 +35,13 @@
   color: var(--color-blue-1);
   font-weight: 600;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.userInfoDiv .editBtn svg {
+  margin-top: -3px;
 }
 
 .userInfoDiv .noInfo {

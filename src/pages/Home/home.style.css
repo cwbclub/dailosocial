@@ -1,0 +1,24 @@
+.subNavBar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-block: 20px;
+}
+
+.subNavBar a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 0;
+  color: black;
+  border-bottom: 2px solid transparent;
+}
+
+.subNavBar a.active {
+  color: blueviolet;
+  border-color: blueviolet;
+}
+
+.subNavBar a:nth-child(3) svg {
+  font-size: 1.2rem;
+}

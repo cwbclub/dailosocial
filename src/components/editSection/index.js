@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import useUpload from '../../hooks/useUpload'
-import { updateProfile } from '../../utlis/firebase'
+import { updateProfile, uploadFile } from '../../utlis/firebase'
 import './editSection.style.css'
 import ShortUniqueId from 'short-unique-id'
+import { FaHourglassStart, FaSync, FaTimes } from 'react-icons/fa'
 
 export default function EditSection({
   displayName,
@@ -21,19 +22,21 @@ export default function EditSection({
   const [file, setFile] = useState(null)
   const [myinfo, setMyinfo] = useState(info)
   const [isLoading, setIsLoading] = useState(false)
+  const [url, setUrl] = useState('')
+  const [progress, setProgress] = useState(0)
 
   // Ref
   const fileref = useRef()
-
-  // Custom Hooks for Uploading
-
-  const { progress, url, upload } = useUpload()
 
   // Custome Function
   const handleCancel = (e) => {
     e.preventDefault()
     handleEdit(false)
   }
+
+  const handleProgress = (value) => setProgress(value)
+
+  const handleUrl = (value) => setUrl(value)
 
   const handlePic = (e) => {
     e.preventDefault()
@@ -76,8 +79,12 @@ export default function EditSection({
         console.log('New Phot')
         const newFileName = suid() + file.name
         const loc = `${uid}/${newFileName}`
-        await upload(loc, file)
+        const urlDb = await uploadFile(loc, file, handleProgress, handleUrl)
+        console.log('Bahara wala url', url)
+        console.log(urlDb)
+        // If new url found
         if (url) {
+          console.log('Run huwa hai', url)
           const res = checkchanges()
           await updateProfile(uid, { ...res, photoURL: url })
         }
@@ -105,9 +112,14 @@ export default function EditSection({
         accept="image/png,image/jpeg"
         onChange={handleFile}
       />
-      <button className="changePic" onClick={handlePic}>
-        Change Profile Pic
-      </button>
+      {progress ? (
+        <p>{progress}</p>
+      ) : (
+        <button className="changePic" onClick={handlePic}>
+          Change Profile Pic
+        </button>
+      )}
+
       <input
         type="text"
         value={name}
@@ -123,9 +135,22 @@ export default function EditSection({
       />
 
       <div className="btnDiv">
-        <button onClick={handleCancel}>Cancel</button>
+        <button onClick={handleCancel}>
+          <FaTimes />
+          Cancel
+        </button>
         <button disabled={isLoading} type="submit">
-          {isLoading ? 'Updating' : 'Update'}
+          {isLoading ? (
+            <>
+              <FaHourglassStart />
+              Updating
+            </>
+          ) : (
+            <>
+              <FaSync />
+              Update
+            </>
+          )}
         </button>
       </div>
     </form>
