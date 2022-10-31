@@ -5,6 +5,8 @@ import { updateProfile, uploadFile } from '../../utlis/firebase'
 import './editSection.style.css'
 import ShortUniqueId from 'short-unique-id'
 import { FaHourglassStart, FaSync, FaTimes } from 'react-icons/fa'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { storage } from '../../lib/firebase'
 
 export default function EditSection({
   displayName,
@@ -22,7 +24,6 @@ export default function EditSection({
   const [file, setFile] = useState(null)
   const [myinfo, setMyinfo] = useState(info)
   const [isLoading, setIsLoading] = useState(false)
-  const [url, setUrl] = useState('')
   const [progress, setProgress] = useState(0)
 
   // Ref
@@ -35,8 +36,6 @@ export default function EditSection({
   }
 
   const handleProgress = (value) => setProgress(value)
-
-  const handleUrl = (value) => setUrl(value)
 
   const handlePic = (e) => {
     e.preventDefault()
@@ -63,6 +62,33 @@ export default function EditSection({
     }
   }
 
+  const uploadFile = async (loc) => {
+    const storageRef = ref(storage, loc)
+
+    const uploadTask = uploadBytesResumable(storageRef, file)
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const p = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        )
+        setProgress(p)
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+        throw new Error(error.message)
+      },
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref)
+        const res = checkchanges()
+        await updateProfile(uid, { ...res, photoURL: url })
+        handleEdit(false)
+        setIsLoading(false)
+      }
+    )
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
@@ -79,22 +105,15 @@ export default function EditSection({
         console.log('New Phot')
         const newFileName = suid() + file.name
         const loc = `${uid}/${newFileName}`
-        const urlDb = await uploadFile(loc, file, handleProgress, handleUrl)
-        console.log('Bahara wala url', url)
-        console.log(urlDb)
-        // If new url found
-        if (url) {
-          console.log('Run huwa hai', url)
-          const res = checkchanges()
-          await updateProfile(uid, { ...res, photoURL: url })
-        }
+        await uploadFile(loc)
+        toast.success(<b>Update Done</b>, { id })
       } else {
         const res = checkchanges()
         await updateProfile(uid, res)
+        handleEdit(false)
+        setIsLoading(false)
+        toast.success(<b>Update Done</b>, { id })
       }
-      toast.success(<b>Update Done</b>, { id })
-      handleEdit(false)
-      setIsLoading(false)
     } catch (error) {
       console.log(error.message)
       toast.error(<b>{error.message}</b>, { id })
@@ -102,7 +121,6 @@ export default function EditSection({
     }
   }
 
-  console.log(progress, url)
   return (
     <form onSubmit={handleSubmit} className="editSection">
       <img src={img} alt="User Avatar" />
@@ -113,7 +131,7 @@ export default function EditSection({
         onChange={handleFile}
       />
       {progress ? (
-        <p>{progress}</p>
+        <p>{progress}% Uploading</p>
       ) : (
         <button className="changePic" onClick={handlePic}>
           Change Profile Pic

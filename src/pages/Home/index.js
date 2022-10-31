@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
+import AddBtn from '../../components/addBtn'
+import PhotoUploader from '../../components/photoUploader'
 import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
 import { useAuth } from '../../context/authContext'
@@ -7,6 +10,12 @@ import useSeo from '../../hooks/useSeo'
 import './home.style.css'
 
 export default function Home() {
+  // States
+  const [isUploadOpen, setIsUploadOpen] = useState(false)
+
+  //  Custom Function
+  const handleChangeOpen = (value) => setIsUploadOpen(value)
+
   // For SEO
   useSeo('Home')
 
@@ -34,6 +43,10 @@ export default function Home() {
         <SubNavBar />
         <Outlet />
       </div>
+      <AddBtn handleChangeOpen={handleChangeOpen} />
+      {isUploadOpen ? (
+        <PhotoUploader handleChangeOpen={handleChangeOpen} />
+      ) : null}
     </div>
   )
 }

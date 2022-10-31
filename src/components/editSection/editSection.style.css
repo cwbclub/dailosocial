@@ -12,17 +12,17 @@
 
 .editSection img {
   border-radius: 50%;
-  width: 143px;
-  height: 143px;
+  width: 123px;
+  height: 123px;
   border: 1px solid grey;
   padding: 5px;
 }
 
 .editSection .changePic {
   padding: 5px 8px;
-  background-color: rgb(195, 214, 231);
+  background-color: var(--color-blue-3);
   border-radius: 50vw;
-  color: rgb(72, 72, 72);
+  color: rgb(255, 255, 255);
   margin-bottom: 10px;
 }
 
