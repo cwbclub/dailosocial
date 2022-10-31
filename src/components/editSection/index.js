@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
 import toast from 'react-hot-toast'
+import useUpload from '../../hooks/useUpload'
 import { updateProfile } from '../../utlis/firebase'
 import './editSection.style.css'
+import ShortUniqueId from 'short-unique-id'
 
 export default function EditSection({
   displayName,
@@ -10,14 +12,22 @@ export default function EditSection({
   uid,
   handleEdit,
 }) {
+  // UUID Gen
+  const suid = new ShortUniqueId({ length: 10 })
+
   // States
   const [name, setName] = useState(displayName)
   const [img, setImg] = useState(photoURL)
+  const [file, setFile] = useState(null)
   const [myinfo, setMyinfo] = useState(info)
   const [isLoading, setIsLoading] = useState(false)
 
   // Ref
   const fileref = useRef()
+
+  // Custom Hooks for Uploading
+
+  const { progress, url, upload } = useUpload()
 
   // Custome Function
   const handleCancel = (e) => {
@@ -32,10 +42,9 @@ export default function EditSection({
 
   const handleFile = (e) => {
     const selected = e.target.files[0]
-    console.log(selected)
+    setFile(selected)
     if (selected) {
       const url = URL.createObjectURL(selected)
-      console.log(url)
       setImg(url)
     }
   }
@@ -56,23 +65,37 @@ export default function EditSection({
     setIsLoading(true)
     const id = toast.loading(<b>Updating Please Wait..</b>)
 
-    if (img === photoURL && name === displayName && info === myinfo) {
-      toast.success(<b>No changes, please make some changes</b>, { id })
-      setIsLoading(false)
-      return
-    }
+    try {
+      if (img === photoURL && name === displayName && info === myinfo) {
+        toast.success(<b>No changes, please make some changes</b>, { id })
+        setIsLoading(false)
+        return
+      }
 
-    if (img !== photoURL) {
-      console.log('New Phot')
-    } else {
-      const res = checkchanges()
-      await updateProfile(uid, res)
+      if (img !== photoURL) {
+        console.log('New Phot')
+        const newFileName = suid() + file.name
+        const loc = `${uid}/${newFileName}`
+        await upload(loc, file)
+        if (url) {
+          const res = checkchanges()
+          await updateProfile(uid, { ...res, photoURL: url })
+        }
+      } else {
+        const res = checkchanges()
+        await updateProfile(uid, res)
+      }
       toast.success(<b>Update Done</b>, { id })
       handleEdit(false)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error.message)
+      toast.error(<b>{error.message}</b>, { id })
       setIsLoading(false)
     }
   }
 
+  console.log(progress, url)
   return (
     <form onSubmit={handleSubmit} className="editSection">
       <img src={img} alt="User Avatar" />
