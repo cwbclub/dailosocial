@@ -31,9 +31,6 @@ nav {
 .navBtnLogout {
   cursor: pointer;
   font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 5px;
   font-weight: 500;
 }
 
@@ -42,5 +39,5 @@ nav {
 }
 
 .navBtnLogout {
-  color: rgb(176, 9, 9);
+  color: var(--color-red-1);
 }

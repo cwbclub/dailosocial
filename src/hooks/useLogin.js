@@ -24,9 +24,9 @@ export default function useLogin() {
 
         await addUser(uid, displayName, photoURL)
         dispatch({ type: 'LOGIN', payload: res.user })
-        toast.success(<b>{`Welcome ${res.user.displayName}`}</b>, { id })
+        toast.success(<b>{`Welcome ${displayName}`}</b>, { id })
         setIsLoading(false)
-        navigate('/')
+        navigate(`/u/${uid}`)
       } else {
         throw new Error('Something went wrong, Try Again!')
       }

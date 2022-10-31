@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
 
+:root {
+  --color-red-1: #b00909;
+  --color-red-2: #890d0d;
+  --color-blue-1: #091cb0;
+  --color-blue-2: #101e8c;
+  --color-blue-3: #4a50c1;
+  --color-primary-1: blueviolet;
+  --color-primary-2: rgb(218, 178, 255);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -37,6 +47,10 @@ button {
   border: none;
   outline: none;
   background-color: transparent;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
 }
 
 a {

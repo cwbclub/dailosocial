@@ -1,7 +1,7 @@
 .userInfoDiv img {
   border-radius: 50%;
-  width: 143px;
-  height: 143px;
+  width: 123px;
+  height: 123px;
   padding: 5px;
   border: 1px solid grey;
   margin-bottom: 10px;
@@ -15,11 +15,35 @@
   align-items: center;
 }
 
+.userInfoDiv .content {
+  margin-top: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  width: 80%;
+  color: rgb(118, 101, 161);
+}
+
 .userInfoDiv .name {
   font-size: 1.4rem;
   text-transform: capitalize;
 }
 
+.userInfoDiv .editBtn {
+  color: var(--color-blue-1);
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.userInfoDiv .editBtn svg {
+  margin-top: -3px;
+}
+
 .userInfoDiv .noInfo {
-  color: rgb(156, 156, 156);
+  color: rgb(175, 175, 175);
 }
