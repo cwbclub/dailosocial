@@ -42,5 +42,5 @@ nav {
 }
 
 .navBtnLogout {
-  color: rgb(176, 9, 9);
+  color: var(--color-red-1);
 }

@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 
 export const addUser = async (uid, displayName, photoURL) => {
@@ -13,4 +13,9 @@ export const addUser = async (uid, displayName, photoURL) => {
       photoURL,
     })
   }
+}
+
+export const updateProfile = async (uid, data) => {
+  const docRef = doc(db, `users/${uid}`)
+  await updateDoc(docRef, data)
 }

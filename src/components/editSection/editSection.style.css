@@ -1,0 +1,80 @@
+.editSection input[type='file'] {
+  display: none;
+}
+
+.editSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.editSection img {
+  border-radius: 50%;
+  width: 143px;
+  height: 143px;
+  border: 1px solid grey;
+  padding: 5px;
+}
+
+.editSection .changePic {
+  padding: 5px 8px;
+  background-color: rgb(195, 214, 231);
+  border-radius: 50vw;
+  color: rgb(72, 72, 72);
+  margin-bottom: 10px;
+}
+
+.editSection input,
+.editSection textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 1.1rem;
+  border-radius: 7px;
+  border: 1px solid grey;
+  outline: none;
+}
+
+.editSection input:focus,
+.editSection textarea:focus {
+  outline: none;
+  border-color: blue;
+  color: blue;
+}
+
+.editSection ::placeholder {
+  color: rgb(207, 207, 207);
+}
+
+.editSection .btnDiv {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+
+.editSection .btnDiv button {
+  width: 50%;
+  padding: 8px 0;
+  font-size: 1.1rem;
+  border-radius: 7px;
+  transition: all 0.3s ease-in-out;
+}
+
+.editSection .btnDiv button:nth-child(1) {
+  background-color: var(--color-red-1);
+  color: white;
+}
+
+.editSection .btnDiv button:nth-child(2) {
+  background-color: var(--color-blue-1);
+  color: white;
+}
+
+.editSection .btnDiv button:nth-child(1):active {
+  background-color: var(--color-red-2);
+}
+
+.editSection .btnDiv button:nth-child(2):active {
+  background-color: var(--color-blue-2);
+}

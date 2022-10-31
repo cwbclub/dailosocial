@@ -18,6 +18,14 @@ export default function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/u/:uid"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
 
           <Route path="/login" element={<Login />} />
         </Routes>

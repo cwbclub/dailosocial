@@ -15,11 +15,28 @@
   align-items: center;
 }
 
+.userInfoDiv .content {
+  margin-top: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 80%;
+  color: rgb(118, 101, 161);
+}
+
 .userInfoDiv .name {
   font-size: 1.4rem;
   text-transform: capitalize;
 }
 
+.userInfoDiv .editBtn {
+  color: var(--color-blue-1);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
 .userInfoDiv .noInfo {
-  color: rgb(156, 156, 156);
+  color: rgb(175, 175, 175);
 }
