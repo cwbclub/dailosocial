@@ -27,7 +27,7 @@ export default function useLiveData(
       }
     )
     return () => unsub()
-  }, [])
+  }, [ref])
 
   return { data, loading }
 }

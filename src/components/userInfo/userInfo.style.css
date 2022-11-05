@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 12px;
   width: 80%;
-  color: rgb(118, 101, 161);
+  color: var(--color-black-2);
 }
 
 .userInfoDiv .name {

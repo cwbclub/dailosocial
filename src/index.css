@@ -8,6 +8,7 @@
   --color-blue-3: #4a50c1;
   --color-blue-4: #b8bae6;
   --color-black-1: #717171;
+  --color-black-2: #a29bb4;
   --color-orange-1: #c75536;
   --color-orange-2: #f9c5b6;
   --color-primary-1: blueviolet;
@@ -35,7 +36,7 @@ html {
 }
 
 .wrapper {
-  width: 90%;
+  width: 95%;
   margin-inline: auto;
   max-width: 1400px;
 }

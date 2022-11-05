@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import AddBtn from '../../components/addBtn'
 import PhotoUploader from '../../components/photoUploader'
 import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
 import { useAuth } from '../../context/authContext'
+import { useProfile } from '../../context/profileContext'
 import useLiveData from '../../hooks/useLiveData'
 import useSeo from '../../hooks/useSeo'
 import './home.style.css'
@@ -25,6 +26,10 @@ export default function Home() {
   const { user } = useAuth()
   const { uid: myuid, displayName } = user
   const { data, loading } = useLiveData(`users/${uid}`)
+  const { dispatch } = useProfile()
+  useEffect(() => {
+    dispatch({ type: 'UID', payload: uid })
+  }, [uid])
 
   return (
     <>

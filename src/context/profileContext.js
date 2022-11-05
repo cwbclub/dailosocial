@@ -13,37 +13,38 @@ const INITIAL_STATE = {
   photos: [],
   blogs: [],
   loading: true,
+  uid: '',
 }
 
 export default function ProfileContextProvider({ children }) {
-  const {
-    user: { uid },
-  } = useAuth()
   const [state, dispatch] = useReducer(ProfileReducer, INITIAL_STATE)
+  const { uid } = state
 
   useEffect(() => {
-    const q = query(
-      collection(db, `users/${uid}/posts`),
-      orderBy('timestamp', 'desc')
-    )
-    const unsub = onSnapshot(q, (snapshot) => {
-      console.log(snapshot, uid)
-      if (!snapshot.empty) {
-        const newData = snapshot.docs.map((item) => item.data())
+    if (uid) {
+      const q = query(
+        collection(db, `users/${state?.uid}/posts`),
+        orderBy('timestamp', 'desc')
+      )
+      const unsub = onSnapshot(q, (snapshot) => {
+        console.log(snapshot, state?.uid)
+        if (!snapshot.empty) {
+          const newData = snapshot.docs.map((item) => item.data())
 
-        dispatch({
-          type: 'ADD',
-          photos: newData.filter((item) => item.type === 'photo'),
-          blogs: newData.filter((item) => item.type === 'blog'),
-        })
-      }
-      dispatch({ type: 'DONE' })
-    })
-    return () => unsub()
-  }, [])
+          dispatch({
+            type: 'ADD',
+            photos: newData.filter((item) => item.type === 'photo'),
+            blogs: newData.filter((item) => item.type === 'blog'),
+          })
+        }
+        dispatch({ type: 'DONE' })
+      })
+      return () => unsub()
+    }
+  }, [uid])
 
   return (
-    <ProfileContext.Provider value={{ ...state }}>
+    <ProfileContext.Provider value={{ ...state, dispatch }}>
       {children}
     </ProfileContext.Provider>
   )
