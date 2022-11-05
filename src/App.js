@@ -2,8 +2,9 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Layout from './components/layout'
 import PrivateRoute from './components/privateRoute'
+import ProfileContextProvider from './context/profileContext'
 import Blogs from './pages/Blogs'
-import Followings from './pages/Followings'
+import Friends from './pages/Friends'
 import Home from './pages/Home'
 import Images from './pages/Images'
 import Login from './pages/Login'
@@ -21,19 +22,21 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/u/:uid"
             element={
               <PrivateRoute>
-                <Home />
+                <ProfileContextProvider>
+                  <Home />
+                </ProfileContextProvider>
               </PrivateRoute>
             }
           >
             <Route path="" element={<Images />} />
             <Route path="blogs" element={<Blogs />} />
-            <Route path="followings" element={<Followings />} />
+            <Route path="friends" element={<Friends />} />
           </Route>
-
           <Route path="/login" element={<Login />} />
         </Routes>
       </Layout>

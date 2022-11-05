@@ -23,7 +23,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
       handleEdit={handleEdit}
     />
   ) : (
-    <div className="userInfoDiv">
+    <div className="userInfoDiv wrapper">
       <img src={photoURL || '/user.webp'} alt="User Avatar" />
       <p className="name">{displayName}</p>
       <div className="content">

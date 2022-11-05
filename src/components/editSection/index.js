@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import useUpload from '../../hooks/useUpload'
 import { updateProfile, uploadFile } from '../../utlis/firebase'
@@ -15,9 +15,6 @@ export default function EditSection({
   uid,
   handleEdit,
 }) {
-  // UUID Gen
-  const suid = new ShortUniqueId({ length: 10 })
-
   // States
   const [name, setName] = useState(displayName)
   const [img, setImg] = useState(photoURL)
@@ -29,19 +26,21 @@ export default function EditSection({
   // Ref
   const fileref = useRef()
 
+  // Refs for cancelation
+  const cancelRef = useRef()
+  cancelRef.current = false
+
   // Custome Function
   const handleCancel = (e) => {
     e.preventDefault()
     handleEdit(false)
   }
 
-  const handleProgress = (value) => setProgress(value)
-
   const handlePic = (e) => {
     e.preventDefault()
     fileref.current.click()
   }
-
+  //
   const handleFile = (e) => {
     const selected = e.target.files[0]
     setFile(selected)
@@ -51,6 +50,7 @@ export default function EditSection({
     }
   }
 
+  // Checking what changes done
   const checkchanges = () => {
     if (name !== displayName && myinfo === info) {
       return { displayName: name }
@@ -62,8 +62,9 @@ export default function EditSection({
     }
   }
 
-  const uploadFile = async (loc) => {
-    const storageRef = ref(storage, loc)
+  // Firesbase upload to storage
+  const uploadFile = async (id) => {
+    const storageRef = ref(storage, `${uid}/avatar`)
 
     const uploadTask = uploadBytesResumable(storageRef, file)
 
@@ -73,7 +74,10 @@ export default function EditSection({
         const p = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         )
-        setProgress(p)
+        // Update when in mount
+        if (!cancelRef.current) {
+          setProgress(p)
+        }
       },
       (error) => {
         // Handle unsuccessful uploads
@@ -83,8 +87,13 @@ export default function EditSection({
         const url = await getDownloadURL(uploadTask.snapshot.ref)
         const res = checkchanges()
         await updateProfile(uid, { ...res, photoURL: url })
-        handleEdit(false)
-        setIsLoading(false)
+        toast.success(<b>Update Done</b>, { id })
+
+        // Update when in mount
+        if (!cancelRef.current) {
+          handleEdit(false)
+          setIsLoading(false)
+        }
       }
     )
   }
@@ -102,27 +111,38 @@ export default function EditSection({
       }
 
       if (img !== photoURL) {
-        console.log('New Phot')
-        const newFileName = suid() + file.name
-        const loc = `${uid}/${newFileName}`
-        await uploadFile(loc)
-        toast.success(<b>Update Done</b>, { id })
+        await uploadFile(id)
       } else {
         const res = checkchanges()
         await updateProfile(uid, res)
-        handleEdit(false)
-        setIsLoading(false)
+
+        // Update when in mount
+        if (!cancelRef.current) {
+          handleEdit(false)
+          setIsLoading(false)
+        }
+
         toast.success(<b>Update Done</b>, { id })
       }
     } catch (error) {
       console.log(error.message)
       toast.error(<b>{error.message}</b>, { id })
-      setIsLoading(false)
+
+      // Update when in mount
+      if (!cancelRef.current) {
+        setIsLoading(false)
+      }
     }
   }
 
+  // Cleanup function
+
+  useEffect(() => {
+    return () => (cancelRef.current = true)
+  }, [])
+
   return (
-    <form onSubmit={handleSubmit} className="editSection">
+    <form onSubmit={handleSubmit} className="editSection wrapper">
       <img src={img} alt="User Avatar" />
       <input
         ref={fileref}
@@ -130,13 +150,10 @@ export default function EditSection({
         accept="image/png,image/jpeg"
         onChange={handleFile}
       />
-      {progress ? (
-        <p>{progress}% Uploading</p>
-      ) : (
-        <button className="changePic" onClick={handlePic}>
-          Change Profile Pic
-        </button>
-      )}
+
+      <button disabled={isLoading} className="changePic" onClick={handlePic}>
+        Change Profile Pic
+      </button>
 
       <input
         type="text"
@@ -157,19 +174,18 @@ export default function EditSection({
           <FaTimes />
           Cancel
         </button>
-        <button disabled={isLoading} type="submit">
-          {isLoading ? (
-            <>
-              <FaHourglassStart />
-              Updating
-            </>
-          ) : (
-            <>
-              <FaSync />
-              Update
-            </>
-          )}
-        </button>
+
+        {isLoading ? (
+          <button className="updatingBtn" disabled>
+            <FaHourglassStart />
+            Updating
+            <span style={{ width: progress + '%' }} className="progress"></span>
+          </button>
+        ) : (
+          <button className="updateBtn" type="submit">
+            <FaSync /> Update
+          </button>
+        )}
       </div>
     </form>
   )

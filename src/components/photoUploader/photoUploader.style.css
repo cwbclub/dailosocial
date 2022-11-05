@@ -12,59 +12,115 @@
   background-color: white;
   position: absolute;
   bottom: 0;
-  width: 95%;
+  /* width: 95%; */
   margin-inline: auto;
   left: 0;
   right: 0;
+  /* max-height: 70vh; */
   border-radius: 10px 10px 0 0;
   box-shadow: -10px 0 20px rgba(0, 0, 0, 0.3);
+  padding: 10px 6px;
 }
 
-.photoUploader input {
+.photoUploader input[type='file'] {
   display: none;
 }
 
-.photoUploader .flexWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 30px 15px 20px;
-  height: 100%;
-  justify-content: flex-end;
-  height: 70vh;
-  overflow-y: scroll;
-}
-
+.photoUploader .changeBtn,
+.photoUploader .uploadBtn,
+.photoUploader .cancelBtn,
 .photoUploader .chooseBtn {
   font-size: 1.2rem;
   padding: 7px 0;
+  border-radius: 7px;
+}
+
+.photoUploader .changeBtn:disabled {
+  opacity: 0.6;
+}
+
+.photoUploader .chooseBtn {
   width: 100%;
+  margin-top: 18px;
   background-color: var(--color-primary-2);
   color: var(--color-primary-1);
   border: 1px solid var(--color-primary-1);
-  border-radius: 7px;
-  margin-top: auto;
 }
 
-.photoUploader .imgDiv svg,
-.photoUploader .imgDiv img {
-  width: 100%;
-  vertical-align: top;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  object-fit: cover;
+.photoUploader .changeBtn {
+  width: 50%;
+  background-color: var(--color-orange-2);
+  color: var(--color-orange-1);
+  border: 1px solid var(--color-orange-1);
+}
+.photoUploader .uploadBtn,
+.photoUploader .cancelBtn {
+  width: 50%;
+  color: white;
+}
+.photoUploader .uploadBtn {
+  background-color: var(--color-blue-3);
+  border: 1px solid var(--color-blue-3);
+}
+
+.photoUploader .cancelBtn {
+  background-color: var(--color-red-1);
+  border: 1px solid var(--color-red-1);
 }
 
 .photoUploader .imgDiv {
-  border: 1px dashed var(--color-primary-1);
+  padding: 7px;
+  border: 2px dashed var(--color-primary-1);
   border-radius: 7px;
-  padding: 10px;
-  /* overflow-y: scroll; */
-  height: 0;
-  overflow: hidden;
-  padding-top: 100%;
-  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.photoUploader .imgDiv img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 7px;
+  /* object-fit: contain; */
+}
+
+.photoUploader .bottomDiv {
+  padding: 0 4px 10px;
+}
+
+.photoUploader .btnDiv {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.photoUploader .progressBar {
+  height: 7px;
+  border-radius: 10px;
+  background-color: rgb(214, 211, 211);
+  width: 100%;
+  margin-top: 20px;
   position: relative;
+}
+
+.photoUploader .progress {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  border-radius: 10px;
+  background-color: var(--color-primary-1);
+}
+
+/* Privacy Group */
+
+.photoUploader .privacyDiv {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.photoUploader .privacyDiv .privacyBtn {
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }

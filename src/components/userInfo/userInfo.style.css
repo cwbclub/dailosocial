@@ -1,10 +1,10 @@
 .userInfoDiv img {
   border-radius: 50%;
-  width: 123px;
-  height: 123px;
-  padding: 5px;
+  width: 103px;
+  height: 103px;
+  padding: 4px;
   border: 1px solid grey;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .userInfoDiv {

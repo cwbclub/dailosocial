@@ -8,21 +8,23 @@ export default function Nav() {
   const { logout } = useLogout()
 
   return (
-    <div className="wrapper">
-      <nav>
-        <Link className="logo" to="/">
-          DailoSocial
-        </Link>
-        {user ? (
-          <button onClick={logout} className="navBtnLogout">
-            Logout <FaSignOutAlt />
-          </button>
-        ) : (
-          <Link className="navBtnLogin" to="/login">
-            Login <FaSignInAlt />
+    <nav>
+      <div className="wrapper">
+        <div className="nav">
+          <Link className="logo" to="/">
+            DailoSocial
           </Link>
-        )}
-      </nav>
-    </div>
+          {user ? (
+            <button onClick={logout} className="navBtnLogout">
+              Logout <FaSignOutAlt />
+            </button>
+          ) : (
+            <Link className="navBtnLogin" to="/login">
+              Login <FaSignInAlt />
+            </Link>
+          )}
+        </div>
+      </div>
+    </nav>
   )
 }

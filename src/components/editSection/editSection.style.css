@@ -12,10 +12,10 @@
 
 .editSection img {
   border-radius: 50%;
-  width: 123px;
-  height: 123px;
+  width: 103px;
+  height: 103px;
   border: 1px solid grey;
-  padding: 5px;
+  padding: 4px;
 }
 
 .editSection .changePic {
@@ -70,11 +70,22 @@
   border: 2px solid var(--color-red-1);
 }
 
-.editSection .btnDiv button:nth-child(2) {
-  /* background-color: var(--color-blue-1);
-  color: white; */
+.editSection .updateBtn,
+.editSection .updatingBtn {
   color: var(--color-blue-1);
   border: 2px solid var(--color-blue-1);
+}
+
+.editSection .updatingBtn {
+  position: relative;
+}
+.editSection .updatingBtn .progress {
+  position: absolute;
+  left: 0;
+  height: 40.8px;
+  border-radius: 7px;
+  background-color: var(--color-blue-4);
+  z-index: -1;
 }
 
 .editSection .btnDiv button:nth-child(1):active {
@@ -82,11 +93,7 @@
   color: white;
 }
 
-.editSection .btnDiv button:nth-child(2):active {
+.editSection .updateBtn:active {
   background-color: var(--color-blue-1);
   color: white;
-}
-
-.editSection .btnDiv button:nth-child(2):disabled {
-  opacity: 0.6;
 }

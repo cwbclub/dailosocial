@@ -1,4 +1,12 @@
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { db, storage } from '../lib/firebase'
 
@@ -21,6 +29,17 @@ export const addUser = async (uid, displayName, photoURL) => {
 export const updateProfile = async (uid, data) => {
   const docRef = doc(db, `users/${uid}`)
   await updateDoc(docRef, data)
+}
+
+// Adding Posts
+export const addPost = async (uid, displayName, data) => {
+  const colRef = collection(db, `users/${uid}/posts`)
+  await addDoc(colRef, {
+    ...data,
+    uid,
+    displayName,
+    timestamp: serverTimestamp(),
+  })
 }
 
 // Storing files

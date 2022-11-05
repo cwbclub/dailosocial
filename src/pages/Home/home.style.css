@@ -12,8 +12,8 @@
   gap: 5px;
   padding: 10px 0;
   color: black;
-  border-bottom: 2px solid transparent;
-  transition: border 0.3s ease-in-out;
+  border-bottom: 3px solid transparent;
+  font-size: 1.1rem;
 }
 
 .subNavBar a.active {
@@ -23,4 +23,15 @@
 
 .subNavBar a:nth-child(3) svg {
   font-size: 1.2rem;
+}
+
+.subNavBarWrapper {
+  position: sticky;
+  top: 53.5px;
+  background-color: white;
+  z-index: 9;
+}
+
+.homeContent {
+  min-height: calc(100vh - 53.8px - 44.6px - 40px);
 }

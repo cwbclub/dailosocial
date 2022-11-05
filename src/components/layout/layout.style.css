@@ -14,6 +14,13 @@ footer a {
 
 /* Nav */
 nav {
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.nav {
   padding-block: 10px;
   display: flex;
   justify-content: space-between;

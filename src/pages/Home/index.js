@@ -23,11 +23,11 @@ export default function Home() {
   const { uid } = useParams()
 
   const { user } = useAuth()
-  const { uid: myuid } = user
-  const { data, loading } = useLiveData(uid)
+  const { uid: myuid, displayName } = user
+  const { data, loading } = useLiveData(`users/${uid}`)
 
   return (
-    <div className="wrapper">
+    <>
       <div className="homeBodyWrapper">
         {loading ? (
           <p>Loading...</p>
@@ -41,12 +41,18 @@ export default function Home() {
           />
         )}
         <SubNavBar />
-        <Outlet />
+        <div className="homeContent wrapper">
+          <Outlet />
+        </div>
       </div>
       <AddBtn handleChangeOpen={handleChangeOpen} />
       {isUploadOpen ? (
-        <PhotoUploader handleChangeOpen={handleChangeOpen} />
+        <PhotoUploader
+          handleChangeOpen={handleChangeOpen}
+          uid={myuid}
+          displayName={displayName}
+        />
       ) : null}
-    </div>
+    </>
   )
 }

@@ -1,18 +1,32 @@
-import { doc, onSnapshot } from 'firebase/firestore'
+import { collection, doc, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { db } from '../lib/firebase'
 
-export default function useLiveData(uid) {
+export default function useLiveData(
+  ref, //Reference of the Doc
+  col // True if collection
+) {
   const [data, setData] = useState()
   const [loading, setloading] = useState(true)
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, `users/${uid}`), (snapshot) => {
-      if (snapshot.exists()) {
-        setData({ ...snapshot.data(), id: snapshot.id })
+    const unsub = onSnapshot(
+      col ? collection(db, ref) : doc(db, ref),
+      (snapshot) => {
+        if (col) {
+          if (!snapshot.empty) {
+            setData([...snapshot.docs.map((item) => item.data())])
+          }
+        } else {
+          if (snapshot.exists()) {
+            setData({ ...snapshot.data(), id: snapshot.id })
+          }
+        }
+
+        setloading(false)
       }
-      setloading(false)
-    })
+    )
+    return () => unsub()
   }, [])
 
   return { data, loading }
