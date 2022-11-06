@@ -5,8 +5,11 @@ import PhotoUploader from '../../components/photoUploader'
 import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
 import { useAuth } from '../../context/authContext'
-import { useProfile } from '../../context/profileContext'
+import ProfileContextProvider, {
+  useProfile,
+} from '../../context/profileContext'
 import useLiveData from '../../hooks/useLiveData'
+import useMainData from '../../hooks/useMainData'
 import useSeo from '../../hooks/useSeo'
 import './home.style.css'
 
@@ -26,10 +29,7 @@ export default function Home() {
   const { user } = useAuth()
   const { uid: myuid, displayName } = user
   const { data, loading } = useLiveData(`users/${uid}`)
-  const { dispatch } = useProfile()
-  useEffect(() => {
-    dispatch({ type: 'UID', payload: uid })
-  }, [uid])
+  const state = useMainData(uid)
 
   return (
     <>
@@ -46,9 +46,11 @@ export default function Home() {
           />
         )}
         <SubNavBar />
-        <div className="homeContent wrapper">
-          <Outlet />
-        </div>
+        <ProfileContextProvider data={state}>
+          <div className="homeContent wrapper">
+            <Outlet />
+          </div>
+        </ProfileContextProvider>
       </div>
       <AddBtn handleChangeOpen={handleChangeOpen} />
       {isUploadOpen ? (

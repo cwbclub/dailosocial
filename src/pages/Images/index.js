@@ -4,7 +4,7 @@ import ImageCard from '../../components/ImageLists'
 import { useProfile } from '../../context/profileContext'
 import './imagesPage.style.css'
 
-export default function Images(props) {
+export default function Images() {
   const { photos, loading } = useProfile()
   const [mode, setMode] = useState('grid')
 

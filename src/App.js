@@ -27,9 +27,7 @@ export default function App() {
             path="/u/:uid"
             element={
               <PrivateRoute>
-                <ProfileContextProvider>
-                  <Home />
-                </ProfileContextProvider>
+                <Home />
               </PrivateRoute>
             }
           >
