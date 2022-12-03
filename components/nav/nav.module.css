@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid grey;
+}
+
+.wrapper a {
+  font-size: 2.7rem;
+  color: var(--primary-purple);
+  font-weight: 600;
+}

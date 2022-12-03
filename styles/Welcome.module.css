@@ -1,0 +1,42 @@
+.loginPage {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.loginBox button {
+  font-size: 1.92rem;
+  padding: 0.3em 0;
+  width: 30rem;
+  border: 2px solid #ea4335;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: bisque;
+  color: #ea4335;
+}
+
+.loginBox h1 {
+  /* font-size: 1.7rem; */
+  color: var(--primary-purple);
+}
+
+.loginPage p {
+  position: absolute;
+  bottom: 20px;
+  text-align: center;
+}
+.loginPage p a {
+  color: var(--color-canwebe);
+  font-weight: 500;
+}
