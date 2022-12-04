@@ -15,5 +15,9 @@ export default function AuthWrapper({ children }) {
 
   // return isAuthReady ? <Loader /> : user ? children : null
 
-  return isAuthReady ? user ? children : null : <Loader />
+  if (!isAuthReady || !user) {
+    return <Loader />
+  }
+
+  return children
 }

@@ -9,7 +9,8 @@ import AuthWrapper from '../components/authRoutes'
 import nProgress from 'nprogress'
 import { useEffect } from 'react'
 import { Router } from 'next/router'
-import Nav from '../components/nav'
+import Nav from '../components/Layout/nav'
+import Layout from '../components/Layout'
 
 const edu_Font = Edu_QLD_Beginner()
 
@@ -49,12 +50,11 @@ function MyApp({ Component, pageProps }) {
           {pathname === '/welcome' ? (
             <Component {...pageProps} />
           ) : (
-            <>
-              <Nav />
-              <AuthWrapper>
+            <AuthWrapper>
+              <Layout>
                 <Component {...pageProps} />
-              </AuthWrapper>{' '}
-            </>
+              </Layout>
+            </AuthWrapper>
           )}
         </AuthContextProvider>
       </main>
