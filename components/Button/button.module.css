@@ -1,0 +1,65 @@
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  border-radius: 0.7rem;
+  padding: 0.44em 0;
+  font-weight: 500;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+}
+
+/* Extra Small */
+.btn:global(.xs) {
+  font-size: 1.7rem;
+  font-weight: 600;
+  padding: 0;
+}
+
+.btn:global(.xs) svg {
+  margin-top: -0.23rem;
+}
+
+/* Primary */
+.btn:global(.primary) {
+  color: var(--color-blue-4);
+}
+
+/* Red Border */
+
+.btn:global(.red-border) {
+  border: 1px solid var(--color-red-1);
+  color: var(--color-red-1);
+  background-color: #f9dbdd;
+}
+
+.btn:global(.red-border):active {
+  background-color: var(--color-red-1);
+  color: white;
+  border-color: white;
+}
+
+/* Primary */
+.btn:global(.blue) {
+  color: white;
+  background-color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
+}
+
+/* Updating */
+
+.btn:global(.updating) {
+  position: relative;
+}
+.btn:global(.updating) :global(.progress) {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  border-radius: 7px;
+  background-color: var(--color-blue-4);
+  z-index: -1;
+}

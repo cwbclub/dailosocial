@@ -1,0 +1,31 @@
+.subNavBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-block: 2rem;
+}
+
+.subNavBar div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.76rem;
+  gap: 5px;
+  padding: 0.5em 0;
+  flex-basis: 100%;
+  position: relative;
+}
+
+.subNavBar div.active {
+  color: var(--primary-blue);
+}
+
+.subNavBar div.active::after {
+  content: '';
+  height: 2.5px;
+  width: 30%;
+  position: absolute;
+  bottom: 0;
+  background-color: var(--primary-blue);
+}

@@ -24,7 +24,7 @@ export default function Login() {
   }, [isLoading, user?.uid, isAuthReady])
 
   return (
-    <div className="wrapper">
+    <div className="wrapper fullHeight">
       <div className={s.loginPage}>
         <div className={s.loginBox}>
           <h1>Welcome to DailoSocial</h1>

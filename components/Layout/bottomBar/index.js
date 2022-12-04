@@ -32,12 +32,12 @@ export default function BottomBar({ uid }) {
           {isHome ? <RiHome3Fill className="active" /> : <RiHome3Line />}
         </Link>
 
-        <div>
+        <Link href="/search">
           {isSearch ? <RiSearch2Fill className="active" /> : <RiSearch2Line />}
-        </div>
-        <div>
+        </Link>
+        <Link href="/add">
           {isAdd ? <RiAddCircleFill className="active" /> : <RiAddCircleLine />}
-        </div>
+        </Link>
         <Link href={`/u/${uid}`}>
           {isProfile ? <RiUserFill className="active" /> : <RiUserLine />}
         </Link>

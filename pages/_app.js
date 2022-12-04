@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import '../styles/nprogress.css'
-import { Edu_QLD_Beginner } from '@next/font/google'
+import { Dosis } from '@next/font/google'
 import AuthContextProvider from '../context/authContext'
 import { Toaster } from 'react-hot-toast'
 import { usePathname } from 'next/navigation'
@@ -12,7 +12,7 @@ import { Router } from 'next/router'
 import Nav from '../components/Layout/nav'
 import Layout from '../components/Layout'
 
-const edu_Font = Edu_QLD_Beginner()
+const edu_Font = Dosis({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps }) {
   // For Navigation

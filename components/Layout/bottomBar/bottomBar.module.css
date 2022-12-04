@@ -3,6 +3,8 @@
   bottom: 0;
   box-shadow: 0 -4px 18px -4px rgba(0, 0, 0, 0.3);
   width: 100%;
+  background-color: white;
+  z-index: 99;
 }
 
 .bottomBar {
@@ -18,12 +20,12 @@
   display: flex;
   justify-content: center;
   font-size: 3rem;
-  color: black;
+  color: var(--color-grey-2);
 }
 
 .bottomBar > *:nth-child(3) {
   font-size: 3.4rem;
 }
 .bottomBar svg:global(.active) {
-  color: var(--primary-purple);
+  color: var(--primary-blue);
 }
