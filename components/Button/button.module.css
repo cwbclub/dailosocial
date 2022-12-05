@@ -11,6 +11,7 @@
 
 .btn:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Extra Small */
@@ -42,13 +43,46 @@
   color: white;
   border-color: white;
 }
+/* Blue Border */
 
-/* Primary */
+.btn:global(.blue-border) {
+  border: 1.5px solid var(--color-blue-2);
+  color: var(--color-blue-2);
+  background-color: #bdb3ec;
+}
+
+.btn:global(.blue-border):active {
+  background-color: var(--color-blue-2);
+  color: white;
+  border-color: white;
+}
+
+/* Blue Light */
+
+.btn:global(.blue-light) {
+  border: 1.5px solid #d6d6e9;
+  color: var(--color-blue-3);
+  background-color: #d6d6e9;
+}
+
+.btn:global(.blue-light):active {
+  background-color: #b9b9df;
+  border-color: var(--color-blue-3);
+}
+
+/* Blue */
 .btn:global(.blue) {
   color: white;
   background-color: var(--primary-blue);
   border: 1.5px solid var(--primary-blue);
   gap: 6px;
+}
+
+/* Red */
+.btn:global(.red) {
+  color: white;
+  background-color: var(--color-red-2);
+  border: 1.5px solid var(--color-red-2);
 }
 
 /* Updating */
