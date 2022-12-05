@@ -5,17 +5,24 @@ import UserInfo from '../../components/userInfo'
 import { useAuth } from '../../context/authContext'
 import useMainData from '../../hooks/useMainData'
 import useLiveData from '../../hooks/useLiveData'
+import { useState } from 'react'
+import ImageGallery from '../../components/imageGallery'
+import BlogsList from '../../components/BlogsList'
+import FriendsList from '../../components/FriendsList'
+import s from '../../styles/Profile.module.css'
 
 export default function Profile() {
   // From Params
   const {
-    query: { uid },
+    query: { uid, menu, view },
   } = useRouter()
 
+  // States
+  // const [menu, setIsMenu] = useState()
   const { user } = useAuth()
   const { uid: myuid, displayName } = user
   const { data, loading } = useLiveData(`users/${uid}`)
-  const state = useMainData(uid)
+  const { photos, blogs, loading: dataLoading } = useMainData(uid)
 
   return (
     <>
@@ -32,8 +39,19 @@ export default function Profile() {
           />
         </div>
       )}
-
-      <SubNavBar />
+      <SubNavBar uid={uid} menu={menu} />
+      <div className={s.subPage}>
+        {!menu ? (
+          <ImageGallery
+            view={view}
+            uid={uid}
+            photos={photos}
+            loading={dataLoading}
+          />
+        ) : null}
+        {menu === 'blogs' ? <BlogsList /> : null}
+        {menu === 'friends' ? <FriendsList /> : null}
+      </div>
     </>
   )
 }

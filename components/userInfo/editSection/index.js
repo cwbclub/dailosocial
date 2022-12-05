@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaHourglassStart, FaSync, FaTimes } from 'react-icons/fa'
+import { RiCamera3Fill } from 'react-icons/ri'
 import { storage } from '../../../lib/firebase'
 import { updateProfile } from '../../../utils/firebase'
 import Button from '../../Button'
@@ -151,6 +152,13 @@ export default function EditSection({
           alt="User Avatar"
           fill
         />
+        <button
+          onClick={handlePic}
+          disabled={isLoading}
+          className={s.changePic}
+        >
+          <RiCamera3Fill />
+        </button>
       </div>
       <input
         ref={fileref}
@@ -158,10 +166,6 @@ export default function EditSection({
         accept="image/png,image/jpeg"
         onChange={handleFile}
       />
-
-      <button disabled={isLoading} className="changePic" onClick={handlePic}>
-        Change Profile Pic
-      </button>
 
       <input
         type="text"

@@ -7,19 +7,34 @@ import {
   MdOutlinePermMedia,
   MdPermMedia,
 } from 'react-icons/md'
+import Link from 'next/link'
 
-export default function SubNavBar() {
+export default function SubNavBar({ uid, menu }) {
   return (
     <div className={s.subNavBar}>
-      <div className={s.active}>
-        <MdOutlinePermMedia /> Images
-      </div>
-      <div>
-        <MdOutlineArticle /> Blogs
-      </div>
-      <div>
-        <MdOutlineGroups /> Friends
-      </div>
+      <Link href={`/u/${uid}`} className={!menu ? s.active : ''} scroll={false}>
+        {!menu ? <MdPermMedia /> : <MdOutlinePermMedia />} Images
+      </Link>
+      <Link
+        href={{
+          pathname: '/u/' + uid,
+          query: { menu: 'blogs' },
+        }}
+        className={menu === 'blogs' ? s.active : ''}
+        scroll={false}
+      >
+        {menu === 'blogs' ? <MdArticle /> : <MdOutlineArticle />} Blogs
+      </Link>
+      <Link
+        href={{
+          pathname: '/u/' + uid,
+          query: { menu: 'friends' },
+        }}
+        className={menu === 'friends' ? s.active : ''}
+        scroll={false}
+      >
+        {menu === 'friends' ? <MdGroups /> : <MdOutlineGroups />} Friends
+      </Link>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import Nav from './nav'
 
 export default function Layout({ children }) {
   const { user } = useAuth()
+
   return (
     <>
       <Nav uid={user?.uid} />

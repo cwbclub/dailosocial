@@ -5,6 +5,7 @@
   --color-grey-2: #494554;
   --color-grey-3: #ada9bb;
   --color-grey-4: #5f606d;
+  --color-grey-5: #eeedf3;
   --color-red-1: #d71c2d;
   --color-red-2: #db2781;
   --color-blue-1: #30acdd;
@@ -37,6 +38,9 @@ html,
 body,
 #__next {
   height: 100%;
+}
+main {
+  overflow: auto;
 }
 /*
   Typographic tweaks!
