@@ -1,0 +1,18 @@
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper p {
+  font-size: 3rem;
+  color: var(--primary-blue);
+}
+
+.wrapper span {
+  font-size: 1.8rem;
+  color: var(--color-grey-1);
+  font-weight: 300;
+}

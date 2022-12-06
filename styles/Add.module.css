@@ -1,0 +1,29 @@
+.addPage {
+  padding: 2rem 0 17rem;
+}
+
+.topMenu {
+  display: flex;
+  align-items: center;
+  padding: 0.7em;
+  background-color: var(--color-grey-5);
+  position: sticky;
+  top: 5.21rem;
+}
+
+.topMenu a {
+  flex: 1;
+  font-size: 1.9rem;
+  border-radius: 0.4rem;
+  display: grid;
+  place-items: center;
+  height: 4rem;
+  font-weight: 500;
+  padding: 0.3em 0;
+  color: var(--color-blue-3);
+}
+
+.topMenu a.active {
+  background-color: var(--color-blue-3);
+  color: white;
+}
