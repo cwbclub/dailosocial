@@ -30,7 +30,13 @@ export default function ImageGallery({ view, uid, photos, loading }) {
       ) : photos?.length ? (
         <div className={`${s.imagesList} ${grid ? 'grid' : 'list'}`}>
           {photos.map((photo, i) => (
-            <Photo key={i} src={photo.imgSrc} />
+            <Photo
+              key={i}
+              src={photo.imgSrc}
+              grid={grid}
+              aRatio={photo?.aspectRatio}
+              caption={photo?.caption}
+            />
           ))}
         </div>
       ) : (

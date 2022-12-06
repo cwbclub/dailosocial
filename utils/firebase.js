@@ -21,6 +21,7 @@ export const addUser = async (uid, displayName, photoURL) => {
     await setDoc(docRef, {
       displayName,
       photoURL,
+      uid,
     })
   }
 }
@@ -40,27 +41,4 @@ export const addPost = async (uid, displayName, data) => {
     displayName,
     timestamp: serverTimestamp(),
   })
-}
-
-// Storing files
-export const uploadFile = async (loc, file, handleProgress, handleUrl) => {
-  const storageRef = ref(storage, loc)
-
-  const uploadTask = uploadBytesResumable(storageRef, file)
-
-  uploadTask.on(
-    'state_changed',
-    (snapshot) => {
-      const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      handleProgress(p)
-    },
-    (error) => {
-      // Handle unsuccessful uploads
-      throw new Error(error.message)
-    },
-    async () => {
-      const res = await getDownloadURL(uploadTask.snapshot.ref)
-      return res
-    }
-  )
 }

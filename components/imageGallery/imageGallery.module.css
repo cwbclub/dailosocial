@@ -132,3 +132,12 @@
 .imagesList:global(.list) .img img {
   object-fit: contain;
 } */
+.imagesList:global(.list) .img img {
+  object-fit: contain;
+}
+
+.imagesList:global(.list) .img {
+  object-fit: contain;
+  max-height: 65vh;
+  margin-inline: auto;
+}

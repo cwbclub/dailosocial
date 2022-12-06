@@ -20,7 +20,7 @@ export default function Profile() {
   // States
   // const [menu, setIsMenu] = useState()
   const { user } = useAuth()
-  const { uid: myuid, displayName } = user
+  const { uid: myuid } = user
   const { data, loading } = useLiveData(`users/${uid}`)
   const { photos, blogs, loading: dataLoading } = useMainData(uid)
 

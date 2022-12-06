@@ -5,25 +5,36 @@ import PhotoInfoForm from './photoInfoForm'
 import s from './photoUpload.module.css'
 import ShortUniqueId from 'short-unique-id'
 import { useAuth } from '../../context/authContext'
+import { useRouter } from 'next/navigation'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { storage } from '../../lib/firebase'
+import { addPost } from '../../utils/firebase'
 
-export default function PhotoUpload() {
-  // uid
-
-  const { user } = useAuth()
+export default function PhotoUpload({
+  handleRadio,
+  img,
+  file,
+  privacy,
+  setFile,
+  setImg,
+  uid,
+  displayName,
+  loading,
+}) {
   // UUID Gen
   const suid = new ShortUniqueId({ length: 10 })
-
+  // Router
+  const router = useRouter()
   // Refs
   const fileRef = useRef()
   const cancelRef = useRef()
   const taskRef = useRef()
+  const imgRef = useRef()
+  const captionRef = useRef()
 
   // States
-  const [file, setFile] = useState(null)
-  const [img, setImg] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [privacy, setPrivacy] = useState('onlyme')
 
   // Variables
   cancelRef.current = false
@@ -53,10 +64,10 @@ export default function PhotoUpload() {
   // Function to upload photo
   const handleSubmit = async () => {
     if (!file) return
-    setProgress(1)
+    setProgress(10)
     setIsLoading(true)
     const fileName = suid() + file.name
-    const storageRef = ref(storage, `${user?.uid}/photos/${fileName}`)
+    const storageRef = ref(storage, `${uid}/photos/${fileName}`)
     uploadTask = uploadBytesResumable(storageRef, file)
     taskRef.current = uploadTask
     uploadTask.on(
@@ -83,54 +94,99 @@ export default function PhotoUpload() {
       },
       async () => {
         const url = await getDownloadURL(uploadTask.snapshot.ref)
+
+        const aspectRatio = (
+          imgRef.current?.naturalWidth / imgRef.current?.naturalHeight
+        )?.toFixed(4)
         const postData = {
           type: 'photo',
           imgSrc: url,
           privacy,
+          aspectRatio,
+          caption: captionRef.current?.value || '',
         }
         await addPost(uid, displayName, postData)
         if (!cancelRef.current) {
           setIsLoading(false)
           setProgress(0)
+          setImg('')
+          setFile()
         }
         console.log(url)
         toast.success(<b>Upload done</b>)
+        router.push('/u/' + uid)
       }
     )
   }
-  // Handle radio btn
-  const handleRadio = (e) => setPrivacy(e.target.value)
 
   useEffect(() => {
     return () => {
       cancelRef.current = true
     }
   }, [])
-  console.log('file', file)
+
   return (
     <>
-      <div className={s.imgContainer}>
-        {img ? <img src={img} alt="Uploaded Asset" /> : null}
-      </div>
-
-      <PhotoInfoForm
-        privacy={privacy}
-        handleRadio={handleRadio}
-        handleChange={handleChange}
-        fileRef={fileRef}
+      {img ? (
+        <>
+          <div className={s.imgContainer}>
+            <img ref={imgRef} src={img} alt="Uploaded Asset" />
+          </div>
+          <PhotoInfoForm
+            privacy={privacy}
+            handleRadio={handleRadio}
+            captionRef={captionRef}
+          />
+        </>
+      ) : null}
+      {/* File */}
+      <input
+        className={s.fileInput}
+        type="file"
+        onChange={handleChange}
+        ref={fileRef}
       />
+
       <div className={s.bottomDivWrapper}>
         <div className={`wrapper ${s.bottomDiv}`}>
-          {/* <Button types="blue-border">Choose to upload</Button> */}
-          <Button onClick={() => fileRef.current.click()} types="blue-light">
-            Choose another
-          </Button>
-          <Button onClick={handleSubmit} types="blue">
-            Upload
-          </Button>
-          <Button onClick={handleCancel} types="red">
-            Cancel
-          </Button>
+          {progress > 0 ? (
+            <div className={s.progressBar}>
+              <div style={{ width: progress + '%' }} className={s.progress} />
+            </div>
+          ) : null}
+          <div className={s.bottomBtnDiv}>
+            {img ? (
+              <>
+                <Button
+                  disabled={isLoading}
+                  onClick={() => fileRef.current.click()}
+                  types="blue-light"
+                >
+                  Choose another
+                </Button>
+                {isLoading ? (
+                  <Button onClick={handleCancel} types="red">
+                    Cancel
+                  </Button>
+                ) : (
+                  <Button
+                    disabled={loading}
+                    onClick={handleSubmit}
+                    types="blue"
+                  >
+                    Upload
+                  </Button>
+                )}
+              </>
+            ) : (
+              <Button
+                onClick={() => fileRef.current.click()}
+                types="blue-border"
+              >
+                Choose to upload
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </>

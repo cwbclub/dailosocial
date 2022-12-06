@@ -9,7 +9,6 @@ import AuthWrapper from '../components/authRoutes'
 import nProgress from 'nprogress'
 import { useEffect } from 'react'
 import { Router } from 'next/router'
-import Nav from '../components/Layout/nav'
 import Layout from '../components/Layout'
 import LayoutContextProvider from '../context/layoutContext'
 

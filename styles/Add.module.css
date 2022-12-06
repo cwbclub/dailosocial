@@ -1,5 +1,5 @@
 .addPage {
-  padding-top: 2rem;
+  padding: 2rem 0 17rem;
 }
 
 .topMenu {
@@ -7,6 +7,8 @@
   align-items: center;
   padding: 0.7em;
   background-color: var(--color-grey-5);
+  position: sticky;
+  top: 5.21rem;
 }
 
 .topMenu a {
