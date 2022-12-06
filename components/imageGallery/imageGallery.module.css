@@ -41,7 +41,6 @@
 /* Images list */
 .imagesList {
   display: grid;
-
   gap: 0.4rem;
   padding: 1rem 0;
 }
