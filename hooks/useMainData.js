@@ -20,7 +20,10 @@ export default function useMainData(uid) {
       )
       const unsub = onSnapshot(q, (snapshot) => {
         if (!snapshot.empty) {
-          const newData = snapshot.docs.map((item) => item.data())
+          const newData = snapshot.docs.map((item) => ({
+            ...item.data(),
+            id: item.id,
+          }))
 
           dispatch({
             type: 'ADD',

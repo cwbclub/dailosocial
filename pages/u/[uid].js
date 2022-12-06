@@ -10,6 +10,7 @@ import ImageGallery from '../../components/imageGallery'
 import BlogsList from '../../components/BlogsList'
 import FriendsList from '../../components/FriendsList'
 import s from '../../styles/Profile.module.css'
+import ScrollTop from '../../components/scrollTop'
 
 export default function Profile() {
   // From Params
@@ -23,7 +24,7 @@ export default function Profile() {
   const { uid: myuid } = user
   const { data, loading } = useLiveData(`users/${uid}`)
   const { photos, blogs, loading: dataLoading } = useMainData(uid)
-
+  const isOwn = uid === myuid
   return (
     <>
       {loading ? (
@@ -47,11 +48,13 @@ export default function Profile() {
             uid={uid}
             photos={photos}
             loading={dataLoading}
+            isOwn={isOwn}
           />
         ) : null}
         {menu === 'blogs' ? <BlogsList /> : null}
         {menu === 'friends' ? <FriendsList /> : null}
       </div>
+      <ScrollTop />
     </>
   )
 }

@@ -1,14 +1,23 @@
 import s from './imageGallery.module.css'
 import { HiOutlineViewGrid, HiOutlineViewList } from 'react-icons/hi'
 import { useState } from 'react'
-import Link from 'next/link'
-import Photo from './photo'
 import { useLayoutData } from '../../context/layoutContext'
-export default function ImageGallery({ view, uid, photos, loading }) {
-  // States
-  // const [grid, setGrid] = useState(true)
+import Photo from '../photo/photo'
+import ImgModal from '../imgModal'
+export default function ImageGallery({ uid, photos, loading, isOwn }) {
   const { grid, setGrid } = useLayoutData()
-  console.log(grid)
+
+  const [modalImg, setModalImg] = useState('')
+  const [sort, setSort] = useState('latest')
+
+  const handleModal = (value) => {
+    setModalImg(value)
+  }
+
+  const handleChange = (e) => {
+    setSort(e.target.value)
+  }
+
   return (
     <div className={s.mainWrapper}>
       <div className={s.imageTopMenuWrapper}>
@@ -19,9 +28,9 @@ export default function ImageGallery({ view, uid, photos, loading }) {
           <div onClick={() => setGrid(false)} className={grid ? '' : 'active'}>
             <HiOutlineViewList /> List
           </div>
-          <select>
-            <option value="">Latest</option>
-            <option value="">Oldest</option>
+          <select onChange={handleChange} value={sort}>
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
           </select>
         </div>
       </div>
@@ -36,39 +45,22 @@ export default function ImageGallery({ view, uid, photos, loading }) {
               grid={grid}
               aRatio={photo?.aspectRatio}
               caption={photo?.caption}
+              timestamp={photo?.timestamp}
+              id={photo?.id}
+              fileRef={photo?.fileRef}
+              uid={uid}
+              privacy={photo?.privacy}
+              isOwn={isOwn}
+              handleModal={handleModal}
             />
           ))}
         </div>
       ) : (
-        <p>Gallery is empty add some photos here!!</p>
+        <p className="noinfo">Gallery is empty add some photos here!!</p>
       )}
+      {modalImg ? (
+        <ImgModal modalImg={modalImg} handleModal={handleModal} />
+      ) : null}
     </div>
   )
-}
-
-{
-  /*  */
-}
-
-{
-  /* <Link
-            href={{
-              pathname: '/u/' + uid,
-              // query: { view: false },
-            }}
-            replace
-            className={view ? '' : 'active'}
-          >
-            <HiOutlineViewGrid /> Grid
-          </Link>
-          <Link
-            href={{
-              pathname: '/u/' + uid,
-              query: { view: 'list' },
-            }}
-            replace
-            className={view === 'list' ? 'active' : ''}
-          >
-            <HiOutlineViewList /> List
-          </Link> */
 }

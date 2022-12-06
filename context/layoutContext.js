@@ -4,7 +4,7 @@ const LayoutContext = createContext()
 export const useLayoutData = () => useContext(LayoutContext)
 
 export default function LayoutContextProvider({ value, children }) {
-  const [grid, setGrid] = useState(false)
+  const [grid, setGrid] = useState(true)
   return (
     <LayoutContext.Provider value={{ grid, setGrid }}>
       {children}

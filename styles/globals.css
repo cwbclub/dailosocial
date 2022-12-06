@@ -149,3 +149,9 @@ nav {
   background-color: white;
   z-index: 99;
 }
+
+.noinfo {
+  text-align: center;
+  margin-top: 10rem;
+  color: var(--color-grey-4);
+}

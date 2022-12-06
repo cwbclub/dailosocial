@@ -1,13 +1,19 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   serverTimestamp,
   setDoc,
   updateDoc,
 } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage'
 import { db, storage } from '../lib/firebase'
 
 // Adding User
@@ -40,5 +46,23 @@ export const addPost = async (uid, displayName, data) => {
     uid,
     displayName,
     timestamp: serverTimestamp(),
+  })
+}
+
+// Delete Post
+export const deletePost = async (uid, id, fileRef) => {
+  const docRef = doc(db, 'users', uid, 'posts', id)
+  await deleteDoc(docRef)
+  if (fileRef) {
+    const fileLoc = ref(storage, fileRef)
+    await deleteObject(fileLoc)
+  }
+}
+
+// Adding Posts
+export const updatePost = async (uid, id, value) => {
+  const docRef = doc(db, `users/${uid}/posts/${id}`)
+  await updateDoc(docRef, {
+    privacy: value,
   })
 }

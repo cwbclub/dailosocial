@@ -67,7 +67,8 @@ export default function PhotoUpload({
     setProgress(10)
     setIsLoading(true)
     const fileName = suid() + file.name
-    const storageRef = ref(storage, `${uid}/photos/${fileName}`)
+    const fileRef = uid + '/photos/' + fileName
+    const storageRef = ref(storage, fileRef)
     uploadTask = uploadBytesResumable(storageRef, file)
     taskRef.current = uploadTask
     uploadTask.on(
@@ -103,6 +104,7 @@ export default function PhotoUpload({
           imgSrc: url,
           privacy,
           aspectRatio,
+          fileRef,
           caption: captionRef.current?.value || '',
         }
         await addPost(uid, displayName, postData)
