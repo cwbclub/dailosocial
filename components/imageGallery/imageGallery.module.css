@@ -17,25 +17,13 @@
   gap: 0.34rem;
   padding: 0.2em 0.5em;
   border-radius: 0.4rem;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
 }
 
 .imageTopMenu div:global(.active) {
   /* background-color: #b8c2e9; */
   background-color: #a4bae9;
   color: #0b1272;
-}
-
-.imageTopMenu select {
-  margin-left: auto;
-  background-color: #a4bae9;
-  border: none;
-  color: #0b1272;
-}
-
-.imageTopMenu select:focus,
-.imageTopMenu select:active {
-  outline: 1px solid #0b1272;
 }
 
 /* Images list */

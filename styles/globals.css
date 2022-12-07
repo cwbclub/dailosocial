@@ -141,6 +141,7 @@ button {
 a {
   text-decoration: none;
   font-size: 1.4rem;
+  color: inherit;
 }
 
 nav {

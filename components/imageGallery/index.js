@@ -8,14 +8,9 @@ export default function ImageGallery({ uid, photos, loading, isOwn }) {
   const { grid, setGrid } = useLayoutData()
 
   const [modalImg, setModalImg] = useState('')
-  const [sort, setSort] = useState('latest')
 
   const handleModal = (value) => {
     setModalImg(value)
-  }
-
-  const handleChange = (e) => {
-    setSort(e.target.value)
   }
 
   return (
@@ -28,10 +23,6 @@ export default function ImageGallery({ uid, photos, loading, isOwn }) {
           <div onClick={() => setGrid(false)} className={grid ? '' : 'active'}>
             <HiOutlineViewList /> List
           </div>
-          <select onChange={handleChange} value={sort}>
-            <option value="latest">Latest</option>
-            <option value="oldest">Oldest</option>
-          </select>
         </div>
       </div>
       {loading ? (

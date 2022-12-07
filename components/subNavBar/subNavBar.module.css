@@ -3,12 +3,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   margin-bottom: 1rem;
   /* background-color: var(--color-grey-5); */
   border-bottom: 1px solid #d6d6d6;
   position: sticky;
-  top: 5.21rem;
+  top: 5.49rem;
   z-index: 98;
   background-color: white;
 }
@@ -17,7 +17,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.76rem;
+  font-size: 2.2rem;
+  font-weight: 600;
   gap: 5px;
   padding: 0.5em 0;
   flex-basis: 100%;
