@@ -12,7 +12,7 @@
   font-weight: 700;
 }
 
-.wrapper div {
+.logoutBtn {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -23,3 +23,39 @@
 /* .wrapper div svg {
   margin-top: 0.2rem;
 } */
+/* For Search */
+.wrapper:global(.search) {
+  height: 7.5rem;
+}
+
+.searchBar {
+  width: 100%;
+  position: relative;
+  font-size: 2.2rem;
+}
+
+.searchBar input {
+  padding: 0.35em 0.5em 0.35em 2.2em;
+  width: 100%;
+  border-radius: 0.4em;
+  border: 1px solid var(--color-grey-2);
+  outline: none;
+}
+
+.searchBar svg {
+  position: absolute;
+  top: 0.2em;
+  left: 0.17em;
+  font-size: 1.5em;
+  color: var(--color-grey-2);
+}
+
+.searchBar input:focus {
+  border-color: var(--color-blue-3);
+  outline: 1.5px solid var(--color-blue-3);
+  color: var(--color-blue-3);
+}
+
+.searchBar input:focus ~ svg {
+  color: var(--color-blue-3);
+}
