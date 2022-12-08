@@ -51,7 +51,14 @@ export default function Profile() {
             isOwn={isOwn}
           />
         ) : null}
-        {menu === 'blogs' ? <BlogsList /> : null}
+        {menu === 'blogs' ? (
+          <BlogsList
+            uid={uid}
+            blogs={blogs}
+            loading={dataLoading}
+            isOwn={isOwn}
+          />
+        ) : null}
         {menu === 'friends' ? <FriendsList /> : null}
       </div>
       <ScrollTop />

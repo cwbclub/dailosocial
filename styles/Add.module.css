@@ -9,6 +9,7 @@
   background-color: var(--color-grey-5);
   position: sticky;
   top: 5.21rem;
+  z-index: 9;
 }
 
 .topMenu a {

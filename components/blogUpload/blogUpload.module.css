@@ -1,0 +1,63 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-top: 2rem;
+}
+
+.form :global(.ql-toolbar),
+.form :global(.ql-container),
+.form input,
+.form textarea {
+  border: 1px solid var(--color-grey-1);
+}
+
+.form :global(#editor-content):focus-within {
+  outline: 1px solid var(--color-blue-3);
+  border-radius: 0.7rem;
+}
+
+.form :global(.ql-toolbar) {
+  border-radius: 0.7rem 0.7rem 0 0;
+  top: calc(5.5rem + 5.15rem);
+  position: sticky;
+  background-color: white;
+  z-index: 8;
+}
+.form :global(.ql-container) {
+  border-radius: 0 0 0.7rem 0.7rem;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 0.47em 0.59em;
+  font-size: 1.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid var(--color-grey-1);
+  outline: none;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: var(--color-blue-3);
+  color: var(--color-blue-3);
+}
+
+.form ::placeholder {
+  color: rgb(207, 207, 207);
+}
+
+.formDiv label {
+  font-size: 1.5rem;
+}
+.formDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form button:global(.blue) {
+  margin-top: 1rem;
+}

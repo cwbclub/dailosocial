@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import BlogUpload from '../components/blogUpload'
 import PhotoUpload from '../components/photoUpload'
 import { useAuth } from '../context/authContext'
 import useLiveData from '../hooks/useLiveData'
@@ -50,7 +51,11 @@ export default function Add() {
       </div>
       <div className={s.subpage}>
         {menu === 'blog' ? (
-          <p>Blog</p>
+          <BlogUpload
+            displayName={data?.displayName}
+            uid={user?.uid}
+            loading={loading}
+          />
         ) : (
           <PhotoUpload
             handleRadio={handleRadio}

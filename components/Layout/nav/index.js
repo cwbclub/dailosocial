@@ -4,16 +4,23 @@ import { IoMdLogOut } from 'react-icons/io'
 import useLogout from '../../../hooks/useLogout'
 import { usePathname } from 'next/navigation'
 import { RiUserSearchFill, RiUserSearchLine } from 'react-icons/ri'
+import { useRouter } from 'next/router'
+import Button from '../../Button'
 
 export default function Nav({ uid }) {
   const { logout } = useLogout()
-  const path = usePathname()
+
+  const router = useRouter()
+  const { pathname } = router
+
   return (
     <nav>
       <div
-        className={`wrapper ${s.wrapper} ${path === '/search' ? 'search' : ''}`}
+        className={`wrapper ${s.wrapper} ${
+          pathname === '/search' ? 'search' : ''
+        }`}
       >
-        {path === '/search' ? (
+        {pathname === '/search' ? (
           <div className={s.searchBar}>
             <input autoFocus type="search" placeholder="Type to search user" />
             {/* <RiUserSearchFill /> */}
@@ -21,7 +28,14 @@ export default function Nav({ uid }) {
           </div>
         ) : (
           <>
-            <Link href="/">DailoSocial</Link>
+            {pathname === '/blog/[blogid]' ? (
+              <button onClick={() => router.back()} className={s.backBtn}>
+                Back
+              </button>
+            ) : (
+              <Link href="/">DailoSocial</Link>
+            )}
+
             {uid ? (
               <div className={s.logoutBtn} onClick={logout}>
                 Logout <IoMdLogOut />
