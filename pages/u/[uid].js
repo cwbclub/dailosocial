@@ -1,16 +1,25 @@
-import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
-import SubNavBar from '../../components/subNavBar'
-import UserInfo from '../../components/userInfo'
 import { useAuth } from '../../context/authContext'
 import useMainData from '../../hooks/useMainData'
 import useLiveData from '../../hooks/useLiveData'
 import { useState } from 'react'
-import ImageGallery from '../../components/imageGallery'
-import BlogsList from '../../components/BlogsList'
-import FriendsList from '../../components/FriendsList'
 import s from '../../styles/Profile.module.css'
-import ScrollTop from '../../components/scrollTop'
+import dynamic from 'next/dynamic'
+// import ScrollTop from '../../components/scrollTop'
+// import Loader from '../../components/loader'
+// import ImageGallery from '../../components/imageGallery'
+// import BlogsList from '../../components/BlogsList'
+// import FriendsList from '../../components/FriendsList'
+// import SubNavBar from '../../components/subNavBar'
+import UserInfo from '../../components/userInfo'
+
+const SubNavBar = dynamic(() => import('../../components/subNavBar'))
+// const UserInfo = dynamic(() => import('../../components/userInfo'))
+const ScrollTop = dynamic(() => import('../../components/scrollTop'))
+const Loader = dynamic(() => import('../../components/loader'))
+const ImageGallery = dynamic(() => import('../../components/imageGallery'))
+const BlogsList = dynamic(() => import('../../components/BlogsList'))
+const FriendsList = dynamic(() => import('../../components/FriendsList'))
 
 export default function Profile() {
   // For Params
@@ -36,7 +45,7 @@ export default function Profile() {
   return (
     <>
       {loading ? (
-        <p>Loading</p>
+        <Loader />
       ) : (
         <div className="wrapper">
           <UserInfo

@@ -3,7 +3,9 @@ import { HiOutlineViewGrid, HiOutlineViewList } from 'react-icons/hi'
 import { useState } from 'react'
 import { useLayoutData } from '../../context/layoutContext'
 import Photo from '../photo/photo'
-import ImgModal from '../imgModal'
+import dynamic from 'next/dynamic'
+const ImgModal = dynamic(() => import('../imgModal'))
+
 export default function ImageGallery({
   uid,
   photos,
@@ -42,7 +44,7 @@ export default function ImageGallery({
         </div>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <p className="loading">Getting photos...</p>
       ) : photos?.length ? (
         <div className={`${s.imagesList} ${grid ? 'grid' : 'list'}`}>
           {sortedData.map((photo, i) => (

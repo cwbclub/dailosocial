@@ -4,6 +4,8 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
+  limit,
   serverTimestamp,
   setDoc,
   updateDoc,
@@ -58,6 +60,8 @@ export const deletePost = async (uid, id, fileRef) => {
   if (fileRef) {
     const fileLoc = ref(storage, fileRef)
     await deleteObject(fileLoc)
+  } else {
+    await deleteDoc(doc(db, 'blogs', id))
   }
 }
 
@@ -71,11 +75,12 @@ export const updatePost = async (uid, id, value) => {
 
 // Adding Blog
 export const addBlog = async (uid, displayName, data) => {
-  const { content, title, shortinfo } = data
+  const { content, title, shortinfo, privacy } = data
   const res = await addPost(uid, displayName, {
     type: 'blog',
     shortinfo,
     title,
+    privacy,
   })
   if (res?.id) {
     await setDoc(doc(db, 'blogs', res.id), {
@@ -84,6 +89,7 @@ export const addBlog = async (uid, displayName, data) => {
       timestamp: serverTimestamp(),
       content,
       title,
+      privacy,
     })
   }
   return res?.id
@@ -101,5 +107,30 @@ export const getBlog = async (id) => {
     }
   } else {
     return {}
+  }
+}
+
+// get doc data
+export const getDocData = async (loc) => {
+  const snapshot = await getDoc(doc(db, loc))
+  if (snapshot.exists()) {
+    return snapshot.data()
+  }
+}
+
+// Update blog
+export const updateBlog = async (uid, id, data) => {
+  const docRef1 = doc(db, 'users', uid, 'posts', id)
+  const docRef2 = doc(db, 'blogs', id)
+  await updateDoc(docRef1, data)
+  await updateDoc(docRef2, data)
+}
+
+// Get Recomended Users
+export const getRecomendedUsers = async (uid) => {
+  const q = query(collection(db, 'users'), limit(7))
+  const snapshot = await getDocs(q)
+  if (!snapshot.empty) {
+    return snapshot.docs.map((item) => item.data())
   }
 }

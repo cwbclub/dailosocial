@@ -4,15 +4,15 @@ import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 const ReactQuill = dynamic(import('react-quill'), {
   ssr: false,
-  loading: () => <p className="noinfo">Loading ...</p>,
+  loading: () => <p className="loading">Loading ...</p>,
 })
 import hljs from 'highlight.js/lib/common'
 import 'highlight.js/styles/monokai-sublime.css'
 import PrivacyGroup from '../privacyGroup'
 import Button from '../Button'
 import toast from 'react-hot-toast'
-import { addBlog, addPost } from '../../utils/firebase'
-import { useRouter } from 'next/navigation'
+import { addBlog, addPost, getDocData, updateBlog } from '../../utils/firebase'
+import { useRouter } from 'next/router'
 
 const modules = {
   toolbar: [
@@ -44,6 +44,7 @@ const modules = {
 }
 
 export default function BlogUpload({ uid, displayName, loading }) {
+  const [data, setData] = useState({})
   const [content, setContent] = useState('')
   const [blogInfo, setBlogInfo] = useState({
     privacy: 'onlyme',
@@ -51,6 +52,7 @@ export default function BlogUpload({ uid, displayName, loading }) {
     shortinfo: '',
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [editLoading, setEditLoading] = useState(true)
 
   // Ref for cancelation
   const isCancel = useRef()
@@ -59,6 +61,9 @@ export default function BlogUpload({ uid, displayName, loading }) {
 
   // Router
   const router = useRouter()
+  const {
+    query: { edit },
+  } = router
 
   const { title, privacy, shortinfo } = blogInfo
 
@@ -99,10 +104,11 @@ export default function BlogUpload({ uid, displayName, loading }) {
         title,
         shortinfo,
         content,
+        privacy,
       })
       toast.success(<b>Blog uploaded successfully</b>, { id: toastId })
       if (res) {
-        router.push('/blog/' + res)
+        router.push(`/u/${uid}?menu=blogs`)
       }
       if (!isCancel.current) {
         setBlogInfo({
@@ -122,48 +128,126 @@ export default function BlogUpload({ uid, displayName, loading }) {
     }
   }
 
+  const checkChangeData = () => {
+    let updateData = {}
+    if (data?.title !== title.trim()) {
+      updateData = { ...updateData, title }
+    }
+    if (data?.shortinfo !== shortinfo.trim()) {
+      updateData = { ...updateData, shortinfo }
+    }
+    if (data?.content !== content.trim()) {
+      updateData = { ...updateData, content }
+    }
+    if (data?.privacy !== privacy) {
+      updateData = { ...updateData, privacy }
+    }
+
+    return updateData
+  }
+
+  const handleUpdate = async (e) => {
+    e.preventDefault()
+    const res = checkChangeData()
+    if (!Object.keys(res)?.length) {
+      toast.error(<b>No changes found!</b>)
+      return
+    }
+    setIsLoading(true)
+    const toastId = toast.loading(<b>Updating Please Wait!</b>)
+    try {
+      await updateBlog(uid, edit, res)
+      router.push(`/u/${uid}?menu=blogs`)
+      toast.success(<b>Updated Done Successfully</b>, { id: toastId })
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error.message)
+      toast.error(<b>{error.message}</b>, { id: toastId })
+      setIsLoading(false)
+    }
+    console.log(res)
+  }
+
+  // Side Effects
   useEffect(() => {
     return () => (isCancel.current = true)
   }, [])
-  return (
-    <>
-      {console.log(content)}
-      <form onSubmit={handleSubmit} className={s.form}>
-        <div className={s.formDiv}>
-          <label>Title</label>
-          <input
-            type="text"
-            placeholder="Enter Title of The Blog"
-            value={title}
-            onChange={handleChange}
-            name="title"
-            maxLength={80}
-          />
-        </div>
-        <div className={s.formDiv}>
-          <label>Short Info</label>
-          <textarea
-            name="shortinfo"
-            placeholder="Enter short info about blog"
-            value={shortinfo}
-            onChange={handleChange}
-            maxLength={120}
-          />
-        </div>
 
-        <ReactQuill
-          id="editor-content"
-          modules={modules}
-          theme="snow"
-          value={content}
-          placeholder="Type your main content here..."
-          onChange={setContent}
+  useEffect(() => {
+    if (edit && uid) {
+      const handleData = async () => {
+        const postData = await getDocData(`users/${uid}/posts/${edit}`)
+        if (postData?.title) {
+          const { content } = await getDocData(`blogs/${edit}`)
+          setContent(content)
+          setBlogInfo({
+            title: postData?.title,
+            shortinfo: postData?.shortinfo,
+            privacy: postData?.privacy,
+          })
+          setData({
+            title: postData?.title,
+            shortinfo: postData?.shortinfo,
+            privacy: postData?.privacy,
+            content,
+          })
+          setEditLoading(false)
+        } else {
+          router.push('/')
+        }
+      }
+      handleData()
+    }
+  }, [edit, router, uid])
+
+  return editLoading && edit ? (
+    <p className="loading">Getting Data Please Wait..</p>
+  ) : (
+    <form onSubmit={handleSubmit} className={s.form}>
+      <div className={s.formDiv}>
+        <label>Title</label>
+        <input
+          type="text"
+          placeholder="Enter Title of The Blog"
+          value={title}
+          onChange={handleChange}
+          name="title"
+          maxLength={80}
         />
-        <PrivacyGroup privacy={privacy} handleRadio={handleRadio} />
+      </div>
+      <div className={s.formDiv}>
+        <label>Short Info</label>
+        <textarea
+          name="shortinfo"
+          placeholder="Enter short info about blog"
+          value={shortinfo}
+          onChange={handleChange}
+          maxLength={120}
+        />
+      </div>
+
+      <ReactQuill
+        id="editor-content"
+        modules={modules}
+        theme="snow"
+        value={content}
+        placeholder="Type your main content here..."
+        onChange={setContent}
+      />
+      <PrivacyGroup privacy={privacy} handleRadio={handleRadio} />
+      {edit ? (
+        <Button
+          disabled={isLoading || loading}
+          onClick={handleUpdate}
+          types="blue"
+        >
+          {isLoading ? 'Loading..' : 'Update'}
+        </Button>
+      ) : (
         <Button disabled={isLoading || loading} type="submit" types="blue">
           {isLoading ? 'Loading..' : privacy === 'onlyme' ? 'Save' : 'Post'}
         </Button>
-      </form>
-    </>
+      )}
+    </form>
   )
 }

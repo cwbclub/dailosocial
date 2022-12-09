@@ -14,35 +14,21 @@ export default function Nav({ uid }) {
   const { pathname } = router
 
   return (
-    <nav>
-      <div
-        className={`wrapper ${s.wrapper} ${
-          pathname === '/search' ? 'search' : ''
-        }`}
-      >
-        {pathname === '/search' ? (
-          <div className={s.searchBar}>
-            <input autoFocus type="search" placeholder="Type to search user" />
-            {/* <RiUserSearchFill /> */}
-            <RiUserSearchLine />
-          </div>
+    <nav className={pathname === '/search' ? s.search : null}>
+      <div className={`wrapper ${s.wrapper}`}>
+        {pathname === '/blog/[blogid]' ? (
+          <button onClick={() => router.back()} className={s.backBtn}>
+            Back
+          </button>
         ) : (
-          <>
-            {pathname === '/blog/[blogid]' ? (
-              <button onClick={() => router.back()} className={s.backBtn}>
-                Back
-              </button>
-            ) : (
-              <Link href="/">DailoSocial</Link>
-            )}
-
-            {uid ? (
-              <div className={s.logoutBtn} onClick={logout}>
-                Logout <IoMdLogOut />
-              </div>
-            ) : null}
-          </>
+          <Link href="/">DailoSocial</Link>
         )}
+
+        {uid ? (
+          <div className={s.logoutBtn} onClick={logout}>
+            Logout <IoMdLogOut />
+          </div>
+        ) : null}
       </div>
     </nav>
   )
