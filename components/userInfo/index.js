@@ -1,10 +1,11 @@
-import EditSection from './editSection'
 import { FaEdit } from 'react-icons/fa'
 import Image from 'next/image'
 import s from './userInfo.module.css'
 import Button from '../Button'
 import { useState } from 'react'
 import userImg from '../../public/user.webp'
+import dynamic from 'next/dynamic'
+const EditSection = dynamic(() => import('./editSection'))
 
 export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
   // Checking own profile'

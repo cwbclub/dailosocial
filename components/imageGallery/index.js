@@ -3,8 +3,17 @@ import { HiOutlineViewGrid, HiOutlineViewList } from 'react-icons/hi'
 import { useState } from 'react'
 import { useLayoutData } from '../../context/layoutContext'
 import Photo from '../photo/photo'
-import ImgModal from '../imgModal'
-export default function ImageGallery({ uid, photos, loading, isOwn }) {
+import dynamic from 'next/dynamic'
+const ImgModal = dynamic(() => import('../imgModal'))
+
+export default function ImageGallery({
+  uid,
+  photos,
+  loading,
+  isOwn,
+  imgSort,
+  setSort,
+}) {
   const { grid, setGrid } = useLayoutData()
 
   const [modalImg, setModalImg] = useState('')
@@ -12,6 +21,8 @@ export default function ImageGallery({ uid, photos, loading, isOwn }) {
   const handleModal = (value) => {
     setModalImg(value)
   }
+
+  const sortedData = imgSort === 'latest' ? photos : [...photos].reverse()
 
   return (
     <div className={s.mainWrapper}>
@@ -23,13 +34,20 @@ export default function ImageGallery({ uid, photos, loading, isOwn }) {
           <div onClick={() => setGrid(false)} className={grid ? '' : 'active'}>
             <HiOutlineViewList /> List
           </div>
+          <select
+            value={imgSort}
+            onChange={(e) => setSort('img', e.target.value)}
+          >
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
+          </select>
         </div>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <p className="loading">Getting photos...</p>
       ) : photos?.length ? (
         <div className={`${s.imagesList} ${grid ? 'grid' : 'list'}`}>
-          {photos.map((photo, i) => (
+          {sortedData.map((photo, i) => (
             <Photo
               key={i}
               src={photo.imgSrc}
