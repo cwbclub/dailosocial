@@ -13,18 +13,26 @@ import s from '../../styles/Profile.module.css'
 import ScrollTop from '../../components/scrollTop'
 
 export default function Profile() {
-  // From Params
+  // For Params
   const {
     query: { uid, menu, view },
   } = useRouter()
 
   // States
-  // const [menu, setIsMenu] = useState()
-  const { user } = useAuth()
+  // Sorting States
+  const [imgSort, setImgSort] = useState('latest')
+  const [blogSort, setBlogSort] = useState('latest')
+
+  // Callback Function to pass to child
+  const setSort = (name, value) => {
+    name === 'blog' ? setBlogSort(value) : setImgSort(value)
+  }
+
+  const { user } = useAuth() // Chceking Auth User
   const { uid: myuid } = user
-  const { data, loading } = useLiveData(`users/${uid}`)
-  const { photos, blogs, loading: dataLoading } = useMainData(uid)
-  const isOwn = uid === myuid
+  const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
+  const { photos, blogs, loading: dataLoading } = useMainData(uid) //Getting Data Photos, Blogs
+  const isOwn = uid === myuid // To check own profile
   return (
     <>
       {loading ? (
@@ -49,6 +57,8 @@ export default function Profile() {
             photos={photos}
             loading={dataLoading}
             isOwn={isOwn}
+            imgSort={imgSort}
+            setSort={setSort}
           />
         ) : null}
         {menu === 'blogs' ? (
@@ -57,6 +67,8 @@ export default function Profile() {
             blogs={blogs}
             loading={dataLoading}
             isOwn={isOwn}
+            blogSort={blogSort}
+            setSort={setSort}
           />
         ) : null}
         {menu === 'friends' ? <FriendsList /> : null}

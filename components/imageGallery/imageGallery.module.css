@@ -25,6 +25,23 @@
   background-color: #a4bae9;
   color: #0b1272;
 }
+.imageTopMenu select {
+  margin-left: auto;
+}
+
+.imageTopMenu select {
+  margin-left: auto;
+  /* background-color: #becdec; */
+  /* border: none; */
+  color: #0b1272;
+  border-radius: 0.3em;
+  padding: 0.2em 0.3em;
+}
+
+.imageTopMenu select:focus,
+.imageTopMenu select:active {
+  outline: 1px solid #0b1272;
+}
 
 /* Images list */
 .imagesList {
