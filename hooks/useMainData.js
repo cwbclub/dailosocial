@@ -18,6 +18,7 @@ export default function useMainData(uid) {
         collection(db, `users/${uid}/posts`),
         orderBy('timestamp', 'desc')
       )
+
       const unsub = onSnapshot(q, (snapshot) => {
         if (!snapshot.empty) {
           const newData = snapshot.docs.map((item) => ({
@@ -32,6 +33,7 @@ export default function useMainData(uid) {
           })
         }
         dispatch({ type: 'DONE' })
+        console.count('photos')
       })
       return () => unsub()
     }

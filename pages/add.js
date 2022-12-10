@@ -1,10 +1,14 @@
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import PhotoUpload from '../components/photoUpload'
 import { useAuth } from '../context/authContext'
 import useLiveData from '../hooks/useLiveData'
 import s from '../styles/Add.module.css'
+// import BlogUpload from '../components/blogUpload'
+// import PhotoUpload from '../components/photoUpload'
+const BlogUpload = dynamic(() => import('../components/blogUpload'))
+const PhotoUpload = dynamic(() => import('../components/photoUpload'))
 
 export default function Add() {
   const {
@@ -50,7 +54,11 @@ export default function Add() {
       </div>
       <div className={s.subpage}>
         {menu === 'blog' ? (
-          <p>Blog</p>
+          <BlogUpload
+            displayName={data?.displayName}
+            uid={user?.uid}
+            loading={loading}
+          />
         ) : (
           <PhotoUpload
             handleRadio={handleRadio}

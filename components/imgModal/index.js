@@ -1,10 +1,13 @@
 import Image from 'next/image'
 import s from './imgModal.module.css'
+import { RiCloseFill } from 'react-icons/ri'
 
 export default function ImgModal({ modalImg, handleModal }) {
   return (
     <div className={s.wrapper}>
-      <button onClick={() => handleModal('')}>Close</button>
+      <button onClick={() => handleModal('')}>
+        <RiCloseFill />
+      </button>
       <div className={s.img}>
         <Image
           placeholder="blur"

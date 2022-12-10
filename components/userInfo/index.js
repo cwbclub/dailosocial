@@ -1,10 +1,11 @@
-import EditSection from './editSection'
 import { FaEdit } from 'react-icons/fa'
 import Image from 'next/image'
 import s from './userInfo.module.css'
 import Button from '../Button'
 import { useState } from 'react'
 import userImg from '../../public/user.webp'
+import dynamic from 'next/dynamic'
+const EditSection = dynamic(() => import('./editSection'))
 
 export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
   // Checking own profile'
@@ -40,9 +41,9 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
       <div className={s.content}>
         {info ? (
           <p>{info}</p>
-        ) : (
-          <p className={s.noInfo}>No info Found edit your info now</p>
-        )}
+        ) : isOwn ? (
+          <p className={s.noInfo}>{isOwn}No info Found edit your info now</p>
+        ) : null}
         {isOwn ? (
           <Button types="xs primary" onClick={() => handleEdit(true)}>
             <FaEdit /> Edit Profile

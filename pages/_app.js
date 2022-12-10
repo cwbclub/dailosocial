@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { Router } from 'next/router'
 import Layout from '../components/Layout'
 import LayoutContextProvider from '../context/layoutContext'
+import FriendsContextProvider from '../context/friendsContext'
 
 const edu_Font = Dosis({ subsets: ['latin'] })
 
@@ -53,7 +54,9 @@ function MyApp({ Component, pageProps }) {
             <AuthWrapper>
               <Layout>
                 <LayoutContextProvider>
-                  <Component {...pageProps} />
+                  <FriendsContextProvider>
+                    <Component {...pageProps} />
+                  </FriendsContextProvider>
                 </LayoutContextProvider>
               </Layout>
             </AuthWrapper>

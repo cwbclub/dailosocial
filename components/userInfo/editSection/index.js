@@ -53,13 +53,13 @@ export default function EditSection({
 
   // Checking what changes done
   const checkchanges = () => {
-    if (name !== displayName && myinfo === info) {
-      return { displayName: name }
+    if (name.toLowerCase() !== displayName && myinfo === info) {
+      return { displayName: name.toLowerCase() }
     }
-    if (myinfo !== info && name === displayName) {
+    if (myinfo !== info && name.toLowerCase() === displayName) {
       return { info: myinfo }
     } else {
-      return { displayName: name, info: myinfo }
+      return { displayName: name.toLowerCase(), info: myinfo }
     }
   }
 
@@ -105,7 +105,11 @@ export default function EditSection({
     const id = toast.loading(<b>Updating Please Wait..</b>)
 
     try {
-      if (img === photoURL && name === displayName && info === myinfo) {
+      if (
+        img === photoURL &&
+        name.toLowerCase() === displayName &&
+        info === myinfo
+      ) {
         toast.success(<b>No changes, please make some changes</b>, { id })
         setIsLoading(false)
         return

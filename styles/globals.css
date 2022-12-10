@@ -108,8 +108,28 @@ h3 {
   font-size: 2.08rem;
 }
 h4,
-p {
+p,
+blockquote {
   font-size: 1.7rem;
+}
+ul,
+ol {
+  font-size: 2rem;
+}
+
+blockquote {
+  border-left: 0.4rem solid #ccc;
+  padding-left: 1.6rem;
+  color: grey;
+  line-height: 1.3;
+}
+code,
+pre {
+  font-size: 1.8rem;
+  padding: 0.4em 0.5em;
+  background-color: #23241f;
+  color: #f8f8f2;
+  white-space: pre-wrap;
 }
 
 main {
@@ -140,7 +160,8 @@ button {
 }
 a {
   text-decoration: none;
-  font-size: 1.4rem;
+  color: inherit;
+  cursor: pointer;
 }
 
 nav {
@@ -150,8 +171,133 @@ nav {
   z-index: 99;
 }
 
-.noinfo {
+.noinfo,
+.loading {
   text-align: center;
   margin-top: 10rem;
+
+  margin-top: 15rem;
+}
+.loading {
+  font-size: 2.5rem;
   color: var(--color-grey-4);
+}
+
+.noinfo {
+  font-size: 2rem;
+  color: rgb(245, 136, 124);
+}
+/* Blog Posts Format */
+
+#editor-content .ql-container {
+  font-family: inherit;
+}
+
+/* Bottom Margin */
+blockquote,
+pre,
+#editor-content h1,
+#post-content h1,
+#editor-content h2,
+#post-content h2,
+#editor-content p,
+#post-content p,
+#editor-content ul,
+#post-content ul,
+#editor-content ol,
+#post-content ol {
+  margin-bottom: 1rem;
+}
+
+/* Strong */
+#editor-content strong,
+#post-content strong {
+  font-weight: bold;
+}
+
+/* em */
+
+#editor-content em,
+#post-content em {
+  font-style: italic;
+}
+
+/* H1 */
+#editor-content h1,
+#post-content h1 {
+  font-size: 3.6rem;
+  line-height: 1.2;
+  border-bottom: 1px solid #e0e0e2;
+  padding-bottom: 0.2em;
+}
+
+/* H2 */
+#editor-content h2,
+#post-content h2 {
+  font-size: 2.5rem;
+  line-height: 1.14;
+  font-weight: 600;
+}
+
+/* Para */
+
+#editor-content p,
+#post-content p {
+  font-size: 2rem;
+}
+/* UL and OL */
+
+#editor-content ul,
+#post-content ul,
+#editor-content ol,
+#post-content ol {
+  padding-left: 2em;
+}
+
+#editor-content ul li,
+#editor-content ol li {
+  padding-left: 0;
+}
+
+/* Image */
+
+#editor-content img,
+#post-content img {
+  margin: 0.5rem auto 2rem;
+  max-height: 50vh;
+  object-fit: contain;
+}
+
+/* Image */
+
+#editor-content a,
+#post-content a {
+  font: inherit;
+  color: #06c;
+  text-decoration: underline;
+}
+
+/* Editor Style */
+.ql-formats > * {
+  font-size: 1.5rem !important;
+  height: 3.5rem !important;
+  width: 3.5rem !important;
+}
+
+#editor-content .ql-formats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-right: 0;
+  justify-content: space-evenly;
+}
+
+.ql-color-picker {
+  height: 2.9rem !important;
+}
+
+#editor-content .ql-picker.ql-header {
+  width: 12.3rem !important;
+  height: 2.2rem !important;
 }

@@ -12,7 +12,12 @@ import Link from 'next/link'
 export default function SubNavBar({ uid, menu }) {
   return (
     <div className={s.subNavBar}>
-      <Link href={`/u/${uid}`} className={!menu ? s.active : ''} scroll={false}>
+      <Link
+        replace={true}
+        href={`/u/${uid}`}
+        className={!menu ? s.active : ''}
+        scroll={false}
+      >
         {!menu ? <MdPermMedia /> : <MdOutlinePermMedia />} Images
       </Link>
       <Link
@@ -22,6 +27,7 @@ export default function SubNavBar({ uid, menu }) {
         }}
         className={menu === 'blogs' ? s.active : ''}
         scroll={false}
+        replace={true}
       >
         {menu === 'blogs' ? <MdArticle /> : <MdOutlineArticle />} Blogs
       </Link>
@@ -32,6 +38,7 @@ export default function SubNavBar({ uid, menu }) {
         }}
         className={menu === 'friends' ? s.active : ''}
         scroll={false}
+        replace={true}
       >
         {menu === 'friends' ? <MdGroups /> : <MdOutlineGroups />} Friends
       </Link>

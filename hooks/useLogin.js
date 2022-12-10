@@ -21,9 +21,9 @@ export default function useLogin() {
       if (res) {
         const { displayName, uid, photoURL } = res?.user
 
-        await addUser(uid, displayName, photoURL)
+        await addUser(uid, displayName?.toLowerCase(), photoURL)
         dispatch({ type: 'LOGIN', payload: res.user })
-        toast.success(<b>{`Welcome ${displayName}`}</b>, { id })
+        toast.success(<b>{`Welcome Back ${displayName}`}</b>, { id })
         setIsLoading(false)
         router.push(`/u/${uid}`)
       } else {

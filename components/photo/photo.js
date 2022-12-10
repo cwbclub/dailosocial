@@ -1,7 +1,6 @@
 import moment from 'moment/moment'
 import Image from 'next/image'
 import s from './photo.module.css'
-import { SlOptionsVertical } from 'react-icons/sl'
 import toast from 'react-hot-toast'
 import { deletePost, updatePost } from '../../utils/firebase'
 

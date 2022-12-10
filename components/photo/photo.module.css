@@ -5,9 +5,10 @@
 
 .photoWrapper {
   background-color: #e8e8e8;
-  padding: 1rem 0;
-  border-top: 1px solid grey;
+  /* padding-top: 1rem; */
+  border-top: 1px solid #a5a5a5;
   border-bottom: 1px solid grey;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* For grid */
@@ -27,20 +28,22 @@
 
 .img:global(.list) {
   object-fit: contain;
-  max-height: 60vh;
+  max-height: 50vh;
   margin-inline: auto;
+  margin-block: 1rem;
 }
 
 .imgInfoDiv {
   background-color: #d1d0e5;
+  background-color: #ffffff;
   padding: 0.6em 0.7em 1em;
-  margin-top: 1rem;
+  padding-top: 1rem;
   position: relative;
 }
 
 .time {
   font-size: 1.4rem;
-  color: var(--color-blue-3);
+  color: var(--color-grey-3);
 }
 
 .caption {
@@ -56,18 +59,18 @@
   margin-top: 0.6rem;
 }
 
-.imgBottomDiv select {
+/* .imgBottomDiv select {
   margin-left: auto;
   border: none;
   border-radius: 0.3em;
   padding: 0.2em 0.3em;
   background-color: var(--color-grey-3);
-}
+} */
 
 .viewBtn,
 .dltBtn {
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .dltBtn {
@@ -76,4 +79,19 @@
 
 .viewBtn {
   color: var(--color-blue-4);
+}
+
+/* Baad me kaam hai */
+.imgBottomDiv select {
+  margin-left: auto;
+  background-color: #becdec;
+  border: none;
+  color: #0b1272;
+  border-radius: 0.3em;
+  padding: 0.2em 0.3em;
+}
+
+.imgBottomDiv select:focus,
+.imgBottomDiv select:active {
+  outline: 1px solid #0b1272;
 }

@@ -16,7 +16,7 @@
   justify-content: center;
   gap: 0.23em;
   border-radius: 0.5rem;
-  padding: 0.25em 0;
+  padding-block: 0.3em;
   white-space: nowrap;
 }
 

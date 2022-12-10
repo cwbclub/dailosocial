@@ -9,7 +9,7 @@
 
 .bottomBar {
   display: flex;
-  padding: 0.9rem 0;
+  padding: 1rem 0;
   align-items: center;
   max-width: 900px;
   justify-content: center;
@@ -19,12 +19,12 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--color-grey-2);
 }
 
 .bottomBar > *:nth-child(3) {
-  font-size: 3.4rem;
+  font-size: 3.9rem;
 }
 .bottomBar svg:global(.active) {
   color: var(--primary-blue);
