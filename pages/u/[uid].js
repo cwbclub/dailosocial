@@ -10,10 +10,10 @@ import dynamic from 'next/dynamic'
 // import ImageGallery from '../../components/imageGallery'
 // import BlogsList from '../../components/BlogsList'
 // import FriendsList from '../../components/FriendsList'
-// import SubNavBar from '../../components/subNavBar'
+import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
 
-const SubNavBar = dynamic(() => import('../../components/subNavBar'))
+// const SubNavBar = dynamic(() => import('../../components/subNavBar'))
 // const UserInfo = dynamic(() => import('../../components/userInfo'))
 const ScrollTop = dynamic(() => import('../../components/scrollTop'))
 const Loader = dynamic(() => import('../../components/loader'))

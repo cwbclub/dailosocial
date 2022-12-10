@@ -3,32 +3,30 @@ import { useEffect, useState } from 'react'
 import { db } from '../lib/firebase'
 
 export default function useSearchData(search) {
-  const [data, setData] = useState()
+  const [searchData, setSearchData] = useState()
+  const [searchLoading, setSearchLoading] = useState(true)
   // .where('name', '>=', queryText)
   // .where('name', '<=', queryText + '\uf8ff')
-  console.count('search hooks baahar')
   useEffect(() => {
     let unsub
-    if (search.length > 4) {
+    if (search.length > 3) {
       unsub = onSnapshot(
         query(
           collection(db, 'users'),
           where('displayName', '>=', search.trim().toLowerCase()),
-          where('displayName', '<=', search.trim().toLowerCase() + '\uf8ff')
+          where('displayName', '<=', search.trim().toLowerCase() + '~')
         ),
         (snapshot) => {
           if (!snapshot.empty) {
-            setData(snapshot.docs.map((item) => item.data()))
+            setSearchData(snapshot.docs.map((item) => item.data()))
           }
+          setSearchLoading(false)
         }
       )
-      console.count('search hooks andaaar')
-    } else {
-      setData()
     }
 
     return () => unsub && unsub()
   }, [search])
 
-  return data
+  return { searchData, searchLoading }
 }

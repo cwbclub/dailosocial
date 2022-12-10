@@ -6,9 +6,11 @@ import {
   getDoc,
   getDocs,
   limit,
+  query,
   serverTimestamp,
   setDoc,
   updateDoc,
+  where,
   writeBatch,
 } from 'firebase/firestore'
 import {
@@ -127,8 +129,8 @@ export const updateBlog = async (uid, id, data) => {
 }
 
 // Get Recomended Users
-export const getRecomendedUsers = async (uid) => {
-  const q = query(collection(db, 'users'), limit(7))
+export const getSuggestedUsers = async (uid) => {
+  const q = query(collection(db, 'users'), where('uid', '!=', uid), limit(20))
   const snapshot = await getDocs(q)
   if (!snapshot.empty) {
     return snapshot.docs.map((item) => item.data())

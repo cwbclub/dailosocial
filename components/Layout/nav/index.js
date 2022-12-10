@@ -11,12 +11,16 @@ export default function Nav({ uid }) {
   const { logout } = useLogout()
 
   const router = useRouter()
-  const { pathname } = router
-
+  const {
+    pathname,
+    query: { uid: paramsUid },
+  } = router
+  const isOwn = paramsUid === uid
+  console.log(isOwn)
   return (
     <nav className={pathname === '/search' ? s.search : null}>
       <div className={`wrapper ${s.wrapper}`}>
-        {pathname === '/blog/[blogid]' ? (
+        {pathname === '/blog/[blogid]' || !isOwn ? (
           <button onClick={() => router.back()} className={s.backBtn}>
             Back
           </button>

@@ -36,3 +36,48 @@
 .searchBar input:focus ~ svg {
   color: var(--color-blue-3);
 }
+
+/* Users List */
+.usersList {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem;
+}
+
+.usersListWrapper {
+  padding: 2em 2em 3em;
+  /* border: 1px dashed grey; */
+  margin-top: 2rem;
+  box-shadow: inset 0 0 20px rgba(106, 106, 106, 0.2);
+  border-radius: 0.7rem;
+  background-color: white;
+}
+
+.usersListWrapper h3 {
+  font-weight: 600;
+  font-size: 2.5rem;
+  width: fit-content;
+}
+
+.usersListWrapper h3::after {
+  content: '';
+  height: 1px;
+  background-color: var(--color-grey-2);
+  width: 100%;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.loading,
+.nodata {
+  margin-block: 6rem;
+  font-size: 2.3rem;
+  text-align: center;
+}
+
+.loading {
+  color: var(--color-grey-1);
+}
+.nodata {
+  color: var(--color-red-2);
+}

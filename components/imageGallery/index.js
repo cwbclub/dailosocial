@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useLayoutData } from '../../context/layoutContext'
 import Photo from '../photo/photo'
 import dynamic from 'next/dynamic'
+import { displayName } from 'react-quill'
 const ImgModal = dynamic(() => import('../imgModal'))
 
 export default function ImageGallery({
@@ -65,7 +66,11 @@ export default function ImageGallery({
           ))}
         </div>
       ) : (
-        <p className="noinfo">Gallery is empty add some photos here!!</p>
+        <p className="noinfo">
+          {isOwn
+            ? 'Gallery is empty add some photos here!!'
+            : 'User did not upload any Photos yet!!'}
+        </p>
       )}
       {modalImg ? (
         <ImgModal modalImg={modalImg} handleModal={handleModal} />

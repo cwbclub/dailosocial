@@ -15,7 +15,9 @@ export default function useLiveData(
       (snapshot) => {
         if (col) {
           if (!snapshot.empty) {
-            setData([...snapshot.docs.map((item) => item.data())])
+            setData(
+              snapshot.docs.map((item) => ({ ...item.data(), id: item.id }))
+            )
           }
         } else {
           if (snapshot.exists()) {

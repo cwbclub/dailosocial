@@ -45,6 +45,8 @@ export default function BlogsList({
       </div>
     </div>
   ) : (
-    <p className="noinfo">No Blogs found, Add some blogs here! </p>
+    <p className="noinfo">
+      {isOwn ? 'No Blogs found, Add some blogs here!' : 'No blogs added yet!'}{' '}
+    </p>
   )
 }

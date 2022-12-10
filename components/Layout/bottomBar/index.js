@@ -17,13 +17,14 @@ import { useRouter } from 'next/router'
 
 export default function BottomBar({ uid }) {
   // Pathname
-  const { pathname } = useRouter()
+  const pathname = usePathname()
+  console.log(usePathname())
 
   // Active link check
   const isHome = pathname === '/'
   const isSearch = pathname === '/search'
   const isAdd = pathname === '/add'
-  const isProfile = pathname === '/u/[uid]'
+  const isProfile = pathname === '/u/' + uid
 
   return (
     <div className={s.bottomBarWrapper}>
