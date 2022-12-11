@@ -39,6 +39,8 @@ export default function UserInfo({
     }
   }
 
+  console.log('user info', isFollowed, followed)
+
   return isEdit ? (
     <EditSection
       displayName={displayName}

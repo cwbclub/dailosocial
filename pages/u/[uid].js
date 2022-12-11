@@ -47,9 +47,6 @@ export default function Profile() {
     return <Error statusCode={404} title="page Not Found" />
   }
 
-  console.count('Profile')
-  console.log('Main Data', dataLoading, photos, uid)
-
   return (
     <>
       {loading ? (
