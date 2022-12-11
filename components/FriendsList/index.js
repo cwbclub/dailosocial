@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import UserCard from '../userCard'
-import FriendCard from './friendCard'
 import s from './friendList.module.css'
 
 export default function FriendsList({
@@ -42,14 +41,12 @@ const renderLists = (data, loading, myuid) => {
   ) : (
     <div>
       {data.map((user) => (
-        <>
-          <UserCard
-            key={user?.uid}
-            data={user}
-            myuid={myuid}
-            followed={data.some((item) => item.uid === user?.uid)}
-          />
-        </>
+        <UserCard
+          key={user?.uid}
+          data={user}
+          myuid={myuid}
+          followed={data.some((item) => item.uid === user?.uid)}
+        />
       ))}
     </div>
   )

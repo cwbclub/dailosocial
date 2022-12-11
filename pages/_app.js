@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
   const pathname = usePathname()
   // Configuration of NProgress
   nProgress.configure({ showSpinner: false })
-
+  console.count('app')
   // UseEffect for nprogress
   useEffect(() => {
     const handleStart = () => nProgress.start()

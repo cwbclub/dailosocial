@@ -19,7 +19,7 @@ export default function UserCard({ data, followed, myuid }) {
     }
   }
   const isOwn = uid === myuid
-  console.log(displayName, followed, isFollowed)
+  console.count('run')
 
   return (
     <div className={s.userCard}>

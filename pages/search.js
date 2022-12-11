@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { RiUserSearchLine } from 'react-icons/ri'
 import UserCard from '../components/userCard'
 import { useAuth } from '../context/authContext'
@@ -15,9 +15,9 @@ export default function Search() {
   // Getting Auth Info
   const { user } = useAuth()
 
-  const { searchData, searchLoading } = useSearchData(debounceValue, user?.uid)
+  const { searchData, searchLoading } = useSearchData(debounceValue)
   const { data, loading } = useLiveData(`friends/${user?.uid}`)
-  const followings = data?.followings || []
+  const followings = useMemo(() => data?.followings || [], [data?.followings])
   const { dataList, suggestLoading } = useSuggestedUsers(
     followings,
     loading,
@@ -48,15 +48,12 @@ export default function Search() {
           ) : searchData?.length ? (
             <div className={s.usersList}>
               {searchData?.map((item) => (
-                <>
-                  <UserCard
-                    data={item}
-                    key={item?.uid}
-                    followed={followings.includes(item?.uid)}
-                    myuid={user?.uid}
-                  />
-                  {console.log(followings, item?.uid, item.displayName)}
-                </>
+                <UserCard
+                  data={item}
+                  key={item?.uid}
+                  followed={followings.includes(item?.uid)}
+                  myuid={user?.uid}
+                />
               ))}
             </div>
           ) : (
@@ -64,7 +61,7 @@ export default function Search() {
           )}
         </div>
       ) : null}
-      {/* <div className={s.usersListWrapper}>
+      <div className={s.usersListWrapper}>
         <h3>Suggested Users</h3>
         {suggestLoading ? (
           <p className={s.loading}>Loading...</p>
@@ -75,14 +72,14 @@ export default function Search() {
                 data={item}
                 myuid={user?.uid}
                 key={item?.uid}
-                followed={followings.includes(item?.id)}
+                followed={followings.includes(item?.uid)}
               />
             ))}
           </div>
         ) : (
           <p className={s.nodata}>No Data Found</p>
         )}
-      </div> */}
+      </div>
     </div>
   )
 }
