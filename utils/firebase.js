@@ -1,5 +1,7 @@
 import {
   addDoc,
+  arrayRemove,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -134,5 +136,38 @@ export const getSuggestedUsers = async (uid) => {
   const snapshot = await getDocs(q)
   if (!snapshot.empty) {
     return snapshot.docs.map((item) => item.data())
+  }
+}
+
+// Update Following list
+export const toggleFollowing = async (myuid, targetUid, followed) => {
+  const followingsRef = doc(db, 'friends', myuid)
+  const followersRef = doc(db, 'friends', targetUid)
+
+  // Update Following List
+  await setDoc(
+    followingsRef,
+    {
+      followings: followed ? arrayRemove(targetUid) : arrayUnion(targetUid),
+    },
+    { merge: true }
+  )
+
+  // Update Followers List
+  await setDoc(
+    followersRef,
+    {
+      followers: followed ? arrayRemove(myuid) : arrayUnion(myuid),
+    },
+    { merge: true }
+  )
+}
+
+// get profile
+
+export const getProfile = async (uid) => {
+  const snapshot = await getDoc(doc(db, 'users', uid))
+  if (snapshot.exists) {
+    return snapshot.data()
   }
 }
