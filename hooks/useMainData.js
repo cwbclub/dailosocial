@@ -13,8 +13,8 @@ export default function useMainData(uid) {
   const [state, dispatch] = useReducer(ProfileReducer, INITIAL_STATE)
 
   useEffect(() => {
+    dispatch({ type: 'RESET' })
     if (uid) {
-      dispatch({ type: 'START' })
       const q = query(
         collection(db, `users/${uid}/posts`),
         orderBy('timestamp', 'desc')
@@ -32,8 +32,6 @@ export default function useMainData(uid) {
             photos: newData.filter((item) => item.type === 'photo'),
             blogs: newData.filter((item) => item.type === 'blog'),
           })
-        } else {
-          dispatch({ type: 'RESET' })
         }
         dispatch({ type: 'DONE' })
         console.count('photos')

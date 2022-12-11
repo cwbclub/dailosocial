@@ -11,7 +11,6 @@ export default function FriendsList({
 }) {
   const [followingMenu, setFollowingMenu] = useState(true)
 
-  const listData = followingMenu ? followings : followers
   return (
     <div className="wrapper">
       <div className={s.subNavBar}>
@@ -29,13 +28,13 @@ export default function FriendsList({
         </div>
       </div>
       {followingMenu
-        ? renderLists(followings, loading1, myuid)
-        : renderLists(followers, loading2, myuid)}
+        ? renderLists(followings, loading1, myuid, followings)
+        : renderLists(followers, loading2, myuid, followings)}
     </div>
   )
 }
 
-const renderLists = (data, loading, myuid) => {
+const renderLists = (data, loading, myuid, followings) => {
   return loading ? (
     <p>Loading....</p>
   ) : (
@@ -45,7 +44,7 @@ const renderLists = (data, loading, myuid) => {
           key={user?.uid}
           data={user}
           myuid={myuid}
-          followed={data.some((item) => item.uid === user?.uid)}
+          followed={followings.some((item) => item.uid === user?.uid)}
         />
       ))}
     </div>

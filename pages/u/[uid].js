@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../../context/authContext'
 import useLiveData from '../../hooks/useLiveData'
 import useMainData from '../../hooks/useMainData'
@@ -39,10 +39,16 @@ export default function Profile() {
   const isOwn = uid === myuid // To check own profile
   const { followingsList, followingsLoading, followersList, followersLoading } =
     useFriendsList(uid) // Get followings ,  followers list with data list
-
+  const isFollowed = useMemo(
+    () => followingsList.some((item) => item.uid === uid),
+    [followingsList, uid]
+  )
   if (!data?.displayName && !loading) {
     return <Error statusCode={404} title="page Not Found" />
   }
+
+  console.count('Profile')
+  console.log('Main Data', dataLoading, photos, uid)
 
   return (
     <>
@@ -56,6 +62,7 @@ export default function Profile() {
             info={data?.info}
             myuid={myuid}
             uid={uid}
+            isFollowed={isFollowed}
           />
         </div>
       )}
