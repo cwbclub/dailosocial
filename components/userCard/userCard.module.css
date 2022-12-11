@@ -20,9 +20,14 @@
   margin-left: auto;
   color: var(--color-blue-4);
   font-weight: 600;
+  gap: 0.3rem;
 }
 
 .userCard a {
   font-size: 2.2rem;
   text-transform: capitalize;
+}
+
+.userCard button.unfollow {
+  color: var(--color-red-2);
 }

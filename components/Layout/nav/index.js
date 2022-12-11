@@ -3,7 +3,11 @@ import s from './nav.module.css'
 import { IoMdLogOut } from 'react-icons/io'
 import useLogout from '../../../hooks/useLogout'
 import { usePathname } from 'next/navigation'
-import { RiUserSearchFill, RiUserSearchLine } from 'react-icons/ri'
+import {
+  RiArrowGoBackFill,
+  RiUserSearchFill,
+  RiUserSearchLine,
+} from 'react-icons/ri'
 import { useRouter } from 'next/router'
 import Button from '../../Button'
 
@@ -20,8 +24,10 @@ export default function Nav({ uid }) {
   return (
     <nav className={pathname === '/search' ? s.search : null}>
       <div className={`wrapper ${s.wrapper}`}>
-        {pathname === '/blog/[blogid]' || !isOwn ? (
+        {pathname === '/blog/[blogid]' ||
+        (pathname === '/u/[uid]' && !isOwn) ? (
           <button onClick={() => router.back()} className={s.backBtn}>
+            <RiArrowGoBackFill />
             Back
           </button>
         ) : (

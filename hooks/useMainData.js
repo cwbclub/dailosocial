@@ -13,6 +13,7 @@ export default function useMainData(uid) {
   const [state, dispatch] = useReducer(ProfileReducer, INITIAL_STATE)
 
   useEffect(() => {
+    dispatch({ type: 'RESET' })
     if (uid) {
       const q = query(
         collection(db, `users/${uid}/posts`),

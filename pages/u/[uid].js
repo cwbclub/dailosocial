@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../../context/authContext'
 import useLiveData from '../../hooks/useLiveData'
 import useMainData from '../../hooks/useMainData'
@@ -8,6 +8,8 @@ import s from '../../styles/Profile.module.css'
 import dynamic from 'next/dynamic'
 import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
+import useFriendsList from '../../hooks/useFriendsList'
+import Error from 'next/error'
 const ScrollTop = dynamic(() => import('../../components/scrollTop'))
 const Loader = dynamic(() => import('../../components/loader'))
 const ImageGallery = dynamic(() => import('../../components/imageGallery'))
@@ -16,10 +18,10 @@ const FriendsList = dynamic(() => import('../../components/FriendsList'))
 
 export default function Profile() {
   // For Params
+  const router = useRouter()
   const {
     query: { uid, menu, view },
-  } = useRouter()
-
+  } = router
   // States
   // Sorting States
   const [imgSort, setImgSort] = useState('latest')
@@ -35,6 +37,15 @@ export default function Profile() {
   const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
   const { photos, blogs, loading: dataLoading } = useMainData(uid) //Getting Data Photos, Blogs
   const isOwn = uid === myuid // To check own profile
+  const { followingsList, followingsLoading, followersList, followersLoading } =
+    useFriendsList(uid) // Get followings ,  followers list with data list
+  const isFollowed = useMemo(
+    () => followingsList.some((item) => item.uid === uid),
+    [followingsList, uid]
+  )
+  if (!data?.displayName && !loading) {
+    return <Error statusCode={404} title="page Not Found" />
+  }
 
   return (
     <>
@@ -48,6 +59,7 @@ export default function Profile() {
             info={data?.info}
             myuid={myuid}
             uid={uid}
+            isFollowed={isFollowed}
           />
         </div>
       )}
@@ -73,7 +85,15 @@ export default function Profile() {
             setSort={setSort}
           />
         ) : null}
-        {menu === 'friends' ? <FriendsList /> : null}
+        {menu === 'friends' ? (
+          <FriendsList
+            followings={followingsList}
+            followers={followersList}
+            loading1={followingsLoading}
+            loading2={followersLoading}
+            myuid={myuid}
+          />
+        ) : null}
       </div>
       <ScrollTop />
     </>

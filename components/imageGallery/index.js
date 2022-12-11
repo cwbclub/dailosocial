@@ -1,6 +1,6 @@
 import s from './imageGallery.module.css'
 import { HiOutlineViewGrid, HiOutlineViewList } from 'react-icons/hi'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useLayoutData } from '../../context/layoutContext'
 import Photo from '../photo/photo'
 import dynamic from 'next/dynamic'
@@ -22,9 +22,12 @@ export default function ImageGallery({
     setModalImg(value)
   }
 
-  const sortedData =
-    (imgSort === 'latest' ? photos : [...photos].reverse()) || []
+  const sortedData = useMemo(
+    () => (imgSort === 'latest' ? photos : [...photos].reverse()) || [],
+    [imgSort, photos]
+  )
 
+  console.count('image')
   return (
     <div className={s.mainWrapper}>
       <div className={s.imageTopMenuWrapper}>

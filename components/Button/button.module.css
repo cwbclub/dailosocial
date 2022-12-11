@@ -29,6 +29,10 @@
 .btn:global(.primary) {
   color: var(--color-blue-4);
 }
+/* Red */
+.btn:global(.secondary) {
+  color: var(--color-red-2);
+}
 
 /* Red Border */
 

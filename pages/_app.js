@@ -11,7 +11,6 @@ import { useEffect } from 'react'
 import { Router } from 'next/router'
 import Layout from '../components/Layout'
 import LayoutContextProvider from '../context/layoutContext'
-import FriendsContextProvider from '../context/friendsContext'
 
 const edu_Font = Dosis({ subsets: ['latin'] })
 
@@ -20,7 +19,7 @@ function MyApp({ Component, pageProps }) {
   const pathname = usePathname()
   // Configuration of NProgress
   nProgress.configure({ showSpinner: false })
-
+  console.count('app')
   // UseEffect for nprogress
   useEffect(() => {
     const handleStart = () => nProgress.start()
@@ -54,9 +53,7 @@ function MyApp({ Component, pageProps }) {
             <AuthWrapper>
               <Layout>
                 <LayoutContextProvider>
-                  <FriendsContextProvider>
-                    <Component {...pageProps} />
-                  </FriendsContextProvider>
+                  <Component {...pageProps} />
                 </LayoutContextProvider>
               </Layout>
             </AuthWrapper>

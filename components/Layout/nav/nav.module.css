@@ -27,3 +27,9 @@
 nav.search {
   display: none;
 }
+
+.backBtn {
+  font-weight: 600;
+  gap: 0.1em;
+  font-size: 2rem;
+}
