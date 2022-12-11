@@ -1,0 +1,109 @@
+.img {
+  border-radius: 50%;
+  width: 10.3rem;
+  height: 10.3rem;
+  outline: 1px solid var(--color-blue-3);
+  outline-offset: 4px;
+  margin-bottom: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.img img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfoDiv {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.userInfoDiv .content {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 80%;
+  color: var(--color-grey-4);
+}
+
+.userInfoDiv .name {
+  font-size: 2.24rem;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.userInfoDiv .noInfo {
+  color: var(--color-grey-3);
+}
+
+/* Edit Section */
+.editSection input[type='file'] {
+  display: none;
+}
+
+.editSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* .editSection .changePic {
+  padding: 5px 8px;
+  background-color: var(--color-blue-3);
+  border-radius: 50vw;
+  color: rgb(255, 255, 255);
+  margin-bottom: 10px;
+} */
+.changePic {
+  position: absolute;
+  bottom: 0;
+  /* background-color: rgb(83, 83, 83); */
+  background-image: linear-gradient(rgba(47, 47, 47, 0.119), rgb(0, 0, 0));
+  z-index: 9;
+  width: 100%;
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.8rem 0 0.6rem;
+}
+
+.editSection input,
+.editSection textarea {
+  width: 100%;
+  padding: 0.47em 0.59em;
+  font-size: 1.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid var(--color-grey-1);
+  outline: none;
+}
+
+.editSection input:focus,
+.editSection textarea:focus {
+  outline: none;
+  border-color: var(--color-blue-3);
+  color: var(--color-blue-3);
+}
+
+.editSection ::placeholder {
+  color: rgb(207, 207, 207);
+}
+
+.editSection .btnDiv {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.editSection .btnDiv button {
+  flex-basis: 100%;
+}

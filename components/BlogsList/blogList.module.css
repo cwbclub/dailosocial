@@ -1,0 +1,42 @@
+.blogsList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1.6rem;
+}
+
+/* Blog top Menu */
+
+.blogTopMenu {
+  font-size: 1.9rem;
+  padding: 0.3em 0 0.36em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  position: sticky;
+  top: calc(5.5rem + 5.36rem);
+  z-index: 7;
+}
+.blogTopMenu select {
+  /* background-color: #becdec; */
+  /* border: none; */
+  color: #0b1272;
+  border-radius: 0.3em;
+  padding: 0.2em 0.45em;
+}
+
+.blogTopMenu select:focus,
+.blogTopMenu select:active {
+  outline: 1px solid #0b1272;
+}
+
+.blogTopMenu button {
+  padding: 0 0.3em;
+  font-weight: 500;
+  color: var(--color-red-1);
+}
+
+.blogTopMenu button.normalMode {
+  color: #0b1272;
+}

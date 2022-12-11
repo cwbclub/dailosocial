@@ -1,0 +1,31 @@
+.bottomBarWrapper {
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0 -4px 18px -4px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  background-color: white;
+  z-index: 99;
+}
+
+.bottomBar {
+  display: flex;
+  padding: 1rem 0;
+  align-items: center;
+  max-width: 900px;
+  justify-content: center;
+}
+
+.bottomBar > * {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  font-size: 3.5rem;
+  color: var(--color-grey-2);
+}
+
+.bottomBar > *:nth-child(3) {
+  font-size: 3.9rem;
+}
+.bottomBar svg:global(.active) {
+  color: var(--primary-blue);
+}

@@ -1,0 +1,45 @@
+.blogCard {
+  padding: 1.2em 1.5em;
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 0.7rem;
+}
+.title {
+  color: var(--color-blue-3);
+  font-weight: 500;
+  font-size: 2.7rem;
+}
+
+.readNow {
+  color: var(--color-blue-3);
+  margin-right: auto;
+}
+
+.date {
+  font-size: 1.4rem;
+  color: var(--color-grey-4);
+}
+
+.editBar {
+  position: relative;
+  margin-top: 0.6rem;
+}
+
+.editBar > * {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.editBar button {
+  font-size: 1.8rem;
+  display: inline-block;
+}
+
+.editBar button:nth-of-type(2) {
+  color: var(--color-red-1);
+  margin-left: 1.6rem;
+}
+
+.editBtnDiv {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

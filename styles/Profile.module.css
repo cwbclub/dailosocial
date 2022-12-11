@@ -1,0 +1,4 @@
+.subPage {
+  min-height: calc(100% - 5.5rem - 6.38rem);
+  padding-bottom: 13rem;
+}
