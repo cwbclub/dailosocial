@@ -6,12 +6,19 @@
   flex-basis: 100%;
   text-align: center;
   font-size: 2rem;
-  padding: 0.3em;
-  border-radius: 0.7rem;
+  padding: 0.3em 0 0.5em;
   color: #0b1272;
+  border-bottom: 2px solid transparent;
 }
 
-.active {
-  background-color: #a4bae9;
-  color: #0b1272;
+.subNavBar div.active {
+  /* background-color:#e8ecf3 */
+  /* color: #0b1272; */
+  border-color: #0b1272;
+  font-weight: 600;
+  background-color: aliceblue;
+}
+
+.userLists {
+  padding: 2rem 1rem;
 }

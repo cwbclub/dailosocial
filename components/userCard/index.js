@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { RiUserFollowFill, RiUserUnfollowFill } from 'react-icons/ri'
 import { toggleFollowing } from '../../utils/firebase'
 import s from './userCard.module.css'
 
@@ -39,7 +40,17 @@ export default function UserCard({ data, followed, myuid }) {
           className={isFollowed ? s.unfollow : null}
           onClick={handleClick}
         >
-          {isFollowed ? 'Unfollow' : 'Follow'}
+          {isFollowed ? (
+            <>
+              <RiUserUnfollowFill />
+              Unfollow
+            </>
+          ) : (
+            <>
+              <RiUserFollowFill />
+              Follow
+            </>
+          )}
         </button>
       )}
     </div>

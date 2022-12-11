@@ -38,7 +38,7 @@ const renderLists = (data, loading, myuid, followings) => {
   return loading ? (
     <p>Loading....</p>
   ) : (
-    <div>
+    <div className={s.userLists}>
       {data.map((user) => (
         <UserCard
           key={user?.uid}

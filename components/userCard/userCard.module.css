@@ -20,6 +20,7 @@
   margin-left: auto;
   color: var(--color-blue-4);
   font-weight: 600;
+  gap: 0.3rem;
 }
 
 .userCard a {
