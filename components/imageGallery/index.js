@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useLayoutData } from '../../context/layoutContext'
 import Photo from '../photo/photo'
 import dynamic from 'next/dynamic'
-import { displayName } from 'react-quill'
 const ImgModal = dynamic(() => import('../imgModal'))
 
 export default function ImageGallery({
@@ -23,7 +22,8 @@ export default function ImageGallery({
     setModalImg(value)
   }
 
-  const sortedData = imgSort === 'latest' ? photos : [...photos].reverse()
+  const sortedData =
+    (imgSort === 'latest' ? photos : [...photos].reverse()) || []
 
   return (
     <div className={s.mainWrapper}>

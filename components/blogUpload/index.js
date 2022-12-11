@@ -165,7 +165,6 @@ export default function BlogUpload({ uid, displayName, loading }) {
       toast.error(<b>{error.message}</b>, { id: toastId })
       setIsLoading(false)
     }
-    console.log(res)
   }
 
   // Side Effects

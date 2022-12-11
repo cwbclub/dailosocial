@@ -16,7 +16,7 @@ export default function Nav({ uid }) {
     query: { uid: paramsUid },
   } = router
   const isOwn = paramsUid === uid
-  console.log(isOwn)
+
   return (
     <nav className={pathname === '/search' ? s.search : null}>
       <div className={`wrapper ${s.wrapper}`}>

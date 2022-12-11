@@ -114,7 +114,7 @@ export default function PhotoUpload({
           setImg('')
           setFile()
         }
-        console.log(url)
+
         toast.success(<b>Upload done</b>)
         router.push('/u/' + uid)
       }

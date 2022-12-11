@@ -20,7 +20,7 @@ export default function useUpload() {
       'state_changed',
       (snapshot) => {
         const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        console.log(p)
+
         setProgress(p)
       },
       (error) => {
@@ -29,13 +29,11 @@ export default function useUpload() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log(downloadURL)
           setUrl(downloadURL)
         })
       }
     )
   }
-  console.log('From Hooks', progress, url)
 
   return { upload, progress, url }
 }

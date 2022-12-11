@@ -17,7 +17,6 @@ export default function Search() {
 
   const { searchData, searchLoading } = useSearchData(debounceValue)
   const { followings, loading } = useFriends()
-  console.log('Search Data', searchData, searchLoading)
   const { dataList, suggestLoading } = useSuggestedUsers(
     followings,
     loading,

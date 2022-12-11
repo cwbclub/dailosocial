@@ -18,7 +18,6 @@ import { useRouter } from 'next/router'
 export default function BottomBar({ uid }) {
   // Pathname
   const pathname = usePathname()
-  console.log(usePathname())
 
   // Active link check
   const isHome = pathname === '/'
