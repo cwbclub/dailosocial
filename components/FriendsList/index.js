@@ -36,8 +36,8 @@ export default function FriendsList({
 
 const renderLists = (data, loading, myuid, followings) => {
   return loading ? (
-    <p>Loading....</p>
-  ) : (
+    <p className="loading">Getting Friends List....</p>
+  ) : data?.length ? (
     <div className={s.userLists}>
       {data.map((user) => (
         <UserCard
@@ -48,5 +48,7 @@ const renderLists = (data, loading, myuid, followings) => {
         />
       ))}
     </div>
+  ) : (
+    <p className="noinfo">No friends data found</p>
   )
 }
