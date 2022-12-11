@@ -37,27 +37,9 @@ export default function Profile() {
   const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
   const { photos, blogs, loading: dataLoading } = useMainData(uid) //Getting Data Photos, Blogs
   const isOwn = uid === myuid // To check own profile
-  // const { data: fData, loading: fLoading } = useLiveData(`friends/${uid}`) //Getting friends list
-
   const { followingsList, followingsLoading, followersList, followersLoading } =
-    useFriendsList(uid)
-  // const { resList: followers, isLoading: followersLoading } = useFriendsList(
-  //   fData?.followers,
-  //   fLoading
-  // )
+    useFriendsList(uid) // Get followings ,  followers list with data list
 
-  console.log(
-    followingsList,
-    followingsLoading,
-    followersList,
-    followersLoading
-  )
-
-  // useEffect(() => {
-  //   if (!data?.displayName && !loading) {
-  //     router.push('/404')
-  //   }
-  // }, [uid, loading, data?.displayName])
   if (!data?.displayName && !loading) {
     return <Error statusCode={404} title="page Not Found" />
   }

@@ -14,6 +14,7 @@ export default function useMainData(uid) {
 
   useEffect(() => {
     if (uid) {
+      dispatch({ type: 'START' })
       const q = query(
         collection(db, `users/${uid}/posts`),
         orderBy('timestamp', 'desc')
@@ -31,6 +32,8 @@ export default function useMainData(uid) {
             photos: newData.filter((item) => item.type === 'photo'),
             blogs: newData.filter((item) => item.type === 'blog'),
           })
+        } else {
+          dispatch({ type: 'RESET' })
         }
         dispatch({ type: 'DONE' })
         console.count('photos')

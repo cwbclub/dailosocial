@@ -10,6 +10,7 @@ export default function useLiveData(
   const [loading, setloading] = useState(true)
 
   useEffect(() => {
+    setloading(true)
     const unsub = onSnapshot(
       col ? collection(db, ref) : doc(db, ref),
       (snapshot) => {
