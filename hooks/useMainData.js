@@ -1,5 +1,5 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { useEffect, useReducer } from 'react'
+import { useEffect, useLayoutEffect, useReducer } from 'react'
 import { db } from '../lib/firebase'
 import ProfileReducer from '../reducers/profileReducer'
 
@@ -12,14 +12,13 @@ const INITIAL_STATE = {
 export default function useMainData(uid) {
   const [state, dispatch] = useReducer(ProfileReducer, INITIAL_STATE)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch({ type: 'RESET' })
     if (uid) {
       const q = query(
         collection(db, `users/${uid}/posts`),
         orderBy('timestamp', 'desc')
       )
-
       const unsub = onSnapshot(q, (snapshot) => {
         if (!snapshot.empty) {
           const newData = snapshot.docs.map((item) => ({
