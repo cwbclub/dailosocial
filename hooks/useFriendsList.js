@@ -6,7 +6,6 @@ import { getProfile } from '../utils/firebase'
 import useLiveData from './useLiveData'
 
 export default function useFriendsList(uid) {
-  const [isLoading, setIsLoading] = useState(true)
   const [followersList, setFollowersList] = useState([])
   const [followingsList, setFollowingsList] = useState([])
   const [followersLoading, setFollowersLoading] = useState(true)

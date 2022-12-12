@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { RiUserSearchLine } from 'react-icons/ri'
 import UserCard from '../components/userCard'
 import { useAuth } from '../context/authContext'
+import { useFriends } from '../context/friendsContext'
 import useDebounce from '../hooks/useDebounce'
 import useLiveData from '../hooks/useLiveData'
 import useSearchData from '../hooks/useSearchData'
@@ -16,8 +17,7 @@ export default function Search() {
   const { user } = useAuth()
 
   const { searchData, searchLoading } = useSearchData(debounceValue)
-  const { data, loading } = useLiveData(`friends/${user?.uid}`)
-  const followings = useMemo(() => data?.followings || [], [data?.followings])
+  const { followings, loading } = useFriends()
   const { dataList, suggestLoading } = useSuggestedUsers(
     followings,
     loading,
