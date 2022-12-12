@@ -1,11 +1,13 @@
 .blogWrapper {
-  padding: 1rem 0 2rem;
+  padding: 1.6rem 0 10rem;
 }
 .namedateDiv {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin: 0.2rem 0 2rem;
+  margin: 1rem 0 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-grey-4);
 }
 .name {
   text-transform: capitalize;
@@ -18,4 +20,5 @@
 
 .title {
   color: var(--color-blue-4);
+  line-height: 1.2;
 }

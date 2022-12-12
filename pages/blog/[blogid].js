@@ -4,15 +4,38 @@ import s from '../../styles/Blog.module.css'
 import moment from 'moment/moment'
 import Link from 'next/link'
 import { useAuth } from '../../context/authContext'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import 'highlight.js/styles/monokai-sublime.css'
+import { toast } from 'react-hot-toast'
+import Error from 'next/error'
 
-export default function BlogPage({ data }) {
+export default function BlogPage() {
+  const [data, setData] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
   const { content, title, displayName, timestamp, uid, privacy } = data
   const { user } = useAuth()
 
   const router = useRouter()
+  const { blogid } = router.query
+
+  useEffect(() => {
+    const handleData = async () => {
+      setIsLoading(true)
+      try {
+        const res = await getBlog(blogid)
+        if (res?.title) {
+          setData(res)
+        }
+        setIsLoading(false)
+      } catch (error) {
+        toast.error(<b>{error.message}</b>)
+        console.log(error.message)
+        setIsLoading(false)
+      }
+    }
+    handleData()
+  }, [blogid])
 
   useEffect(() => {
     if (user?.uid !== uid && privacy === 'onlyme') {
@@ -20,28 +43,22 @@ export default function BlogPage({ data }) {
     }
   }, [user?.uid, privacy, uid, router])
 
-  return (
+  if (!data?.title && !isLoading) {
+    return <Error statusCode={404} />
+  }
+
+  return isLoading ? (
+    <p className="loading">Loading...</p>
+  ) : (
     <div className={`wrapper ${s.blogWrapper}`}>
       <h1 className={s.title}>{title}</h1>
       <div className={s.namedateDiv}>
         <p className={s.name}>
           By <Link href={'/u/' + uid}>{displayName}</Link> ,
         </p>
-
         <p>{moment(timestamp).format('dddd, Do MMM YY')}</p>
       </div>
       <div id="post-content">{parse(content)}</div>
     </div>
   )
-}
-
-export async function getServerSideProps({ params: { blogid } }) {
-  const data = await getBlog(blogid)
-
-  if (!data?.title) {
-    return {
-      notFound: true,
-    }
-  }
-  return { props: { data } }
 }
