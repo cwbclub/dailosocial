@@ -1,0 +1,29 @@
+.wrapper {
+  margin-top: 12vh;
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+}
+
+.wrapper p {
+  color: var(--color-grey-4);
+}
+
+.wrapper svg {
+  shape-rendering: auto;
+  width: 8rem;
+  height: 8rem;
+}
+
+.wrapper:global(.high) {
+  margin-top: 30vh;
+}
+
+.wrapper.wrapper:global(.inside) {
+  margin-block: 5vh;
+}
+
+.wrapper.wrapper:global(.inside) svg {
+  height: 6rem;
+  width: 6rem;
+}

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import 'highlight.js/styles/monokai-sublime.css'
 import { toast } from 'react-hot-toast'
 import Error from 'next/error'
+import Loader from '../../components/loader'
 
 export default function BlogPage() {
   const [data, setData] = useState({})
@@ -48,7 +49,7 @@ export default function BlogPage() {
   }
 
   return isLoading ? (
-    <p className="loading">Loading...</p>
+    <Loader />
   ) : (
     <div className={`wrapper ${s.blogWrapper}`}>
       <h1 className={s.title}>{title}</h1>

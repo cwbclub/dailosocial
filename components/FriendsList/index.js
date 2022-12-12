@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ContentLoader from '../contentLoader'
 import UserCard from '../userCard'
 import s from './friendList.module.css'
 
@@ -36,7 +37,7 @@ export default function FriendsList({
 
 const renderLists = (data, loading, myuid, followings) => {
   return loading ? (
-    <p className="loading">Getting Friends List....</p>
+    <ContentLoader title="Getting Friends Data" />
   ) : data?.length ? (
     <div className={s.userLists}>
       {data.map((user) => (

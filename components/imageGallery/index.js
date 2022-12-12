@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { useLayoutData } from '../../context/layoutContext'
 import Photo from '../photo/photo'
 import dynamic from 'next/dynamic'
+import ContentLoader from '../contentLoader'
 const ImgModal = dynamic(() => import('../imgModal'))
 
 export default function ImageGallery({
@@ -48,7 +49,8 @@ export default function ImageGallery({
         </div>
       </div>
       {loading ? (
-        <p className="loading">Getting photos...</p>
+        // <p className="loading">Getting photos...</p>
+        <ContentLoader title="Getting Photos" />
       ) : photos?.length ? (
         <div className={`${s.imagesList} ${grid ? 'grid' : 'list'}`}>
           {sortedData.map((photo, i) => (

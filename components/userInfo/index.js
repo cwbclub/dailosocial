@@ -8,7 +8,10 @@ import dynamic from 'next/dynamic'
 import { RiUserFollowFill, RiUserUnfollowFill } from 'react-icons/ri'
 import { toggleFollowing } from '../../utils/firebase'
 import { useFriends } from '../../context/friendsContext'
-const EditSection = dynamic(() => import('./editSection'))
+import ContentLoader from '../contentLoader'
+const EditSection = dynamic(() => import('./editSection'), {
+  loading: () => <p className="loading">Loading..</p>,
+})
 
 export default function UserInfo({
   photoURL,

@@ -2,13 +2,18 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import ContentLoader from '../components/contentLoader'
 import { useAuth } from '../context/authContext'
 import useLiveData from '../hooks/useLiveData'
 import s from '../styles/Add.module.css'
 // import BlogUpload from '../components/blogUpload'
 // import PhotoUpload from '../components/photoUpload'
-const BlogUpload = dynamic(() => import('../components/blogUpload'))
-const PhotoUpload = dynamic(() => import('../components/photoUpload'))
+const BlogUpload = dynamic(() => import('../components/blogUpload'), {
+  loading: () => <p className="loading">Loading...</p>,
+})
+const PhotoUpload = dynamic(() => import('../components/photoUpload'), {
+  loading: () => <p className="loading">Loading...</p>,
+})
 
 export default function Add() {
   const {

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { RiUserSearchLine } from 'react-icons/ri'
+import ContentLoader from '../components/contentLoader'
 import UserCard from '../components/userCard'
 import { useAuth } from '../context/authContext'
 import { useFriends } from '../context/friendsContext'
@@ -64,7 +65,7 @@ export default function Search() {
       <div className={s.usersListWrapper}>
         <h3>Suggested Users</h3>
         {suggestLoading ? (
-          <p className={s.loading}>Loading...</p>
+          <ContentLoader type="inside" />
         ) : dataList?.length ? (
           <div className={s.usersList}>
             {dataList?.map((item) => (
