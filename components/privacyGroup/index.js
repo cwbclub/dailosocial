@@ -1,6 +1,7 @@
 import { RiLock2Fill } from 'react-icons/ri'
 import { MdPublic } from 'react-icons/md'
 import { HiUsers } from 'react-icons/hi'
+import { CgFeed } from 'react-icons/cg'
 import s from './privacyGroup.module.css'
 
 export default function PrivacyGroup({ privacy, handleRadio }) {
@@ -23,11 +24,11 @@ export default function PrivacyGroup({ privacy, handleRadio }) {
           Friends
         </div>
         <div
-          onClick={() => handleRadio('all')}
-          className={privacy === 'all' ? s.active : ''}
+          onClick={() => handleRadio('feed')}
+          className={privacy === 'feed' ? s.active : ''}
         >
-          <MdPublic />
-          All
+          <CgFeed />
+          Feed
         </div>
       </div>
     </div>

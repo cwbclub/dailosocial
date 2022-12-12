@@ -3,6 +3,7 @@ import Image from 'next/image'
 import s from './photo.module.css'
 import toast from 'react-hot-toast'
 import { deletePost, updatePost } from '../../utils/firebase'
+import Link from 'next/link'
 
 export default function Photo({
   src,
@@ -16,6 +17,7 @@ export default function Photo({
   privacy,
   isOwn,
   handleModal,
+  displayName,
 }) {
   const handleDelete = async () => {
     const isConfirm = window.confirm('Are you confirm to delete the post?')
@@ -58,6 +60,13 @@ export default function Photo({
   }
   return (
     <div className={s.photoWrapper}>
+      {displayName ? (
+        <Link className={s.userName} href={'/u/' + uid}>
+          @ {displayName}
+        </Link>
+      ) : (
+        <div className={s.whiteSpace} />
+      )}
       <div className={`${s.img} list`} style={{ aspectRatio: aRatio || 1 }}>
         <Image
           placeholder="blur"
@@ -82,7 +91,7 @@ export default function Photo({
               <select onChange={handleChange} value={privacy}>
                 <option value="onlyme">Onlyme</option>
                 <option value="friends">Friends</option>
-                <option value="all">All</option>
+                <option value="feed">Feed</option>
               </select>
               <div onClick={handleDelete} className={s.dltBtn}>
                 Delete Post
