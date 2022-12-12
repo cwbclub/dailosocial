@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ContentLoader from '../contentLoader'
+import ErrorImg from '../errorImg'
 import UserCard from '../userCard'
 import s from './friendList.module.css'
 
@@ -50,6 +51,6 @@ const renderLists = (data, loading, myuid, followings) => {
       ))}
     </div>
   ) : (
-    <p className="noinfo">No friends data found</p>
+    <ErrorImg type="three" title="No friends data found!" />
   )
 }

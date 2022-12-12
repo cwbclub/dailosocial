@@ -53,6 +53,19 @@
   background-color: white;
 }
 
+.error {
+  display: grid;
+  place-items: center;
+  margin: 2rem auto;
+}
+.error svg {
+  width: 100px;
+}
+.error p {
+  color: var(--color-grey-1);
+  margin-top: -0.5rem;
+}
+
 .usersListWrapper h3 {
   font-weight: 600;
   font-size: 2.5rem;
