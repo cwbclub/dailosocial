@@ -229,7 +229,7 @@ export default function BlogUpload({ uid, displayName, loading }) {
         id="editor-content"
         modules={modules}
         theme="snow"
-        value={content}
+        defaultValue={content}
         placeholder="Type your main content here..."
         onChange={setContent}
       />
