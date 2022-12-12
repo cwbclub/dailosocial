@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast'
 import { deleteBlog, deletePost } from '../../utils/firebase'
 import s from './blogCard.module.css'
 
-export default function BlogCard({ data, editMode, uid }) {
+export default function BlogCard({ data, editMode, uid, displayName }) {
   const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
@@ -39,9 +39,18 @@ export default function BlogCard({ data, editMode, uid }) {
     })
   }
   return (
-    <div className={s.blogCard}>
+    <div className={`${s.blogCard} ${displayName ? s.post : null}`}>
+      {displayName ? (
+        <Link className={s.userName} href={'/u/' + data?.uid}>
+          @ {displayName}
+        </Link>
+      ) : null}
       <p className={s.date}>
-        {moment.unix(data.timestamp.seconds).format('dddd, Do MMM YY')}
+        {displayName ? (
+          <>Posted {moment.unix(data?.timestamp?.seconds).fromNow()}</>
+        ) : (
+          moment.unix(data?.timestamp?.seconds).format('dddd, Do MMM YY')
+        )}
       </p>
       <Link className={s.title} href={'/blog/' + data?.id}>
         {data?.title}

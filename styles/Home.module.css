@@ -1,0 +1,9 @@
+.homeBody {
+  padding: 2rem 0 10rem;
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}

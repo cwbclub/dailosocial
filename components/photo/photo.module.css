@@ -30,20 +30,19 @@
   object-fit: contain;
   max-height: 50vh;
   margin-inline: auto;
-  margin-block: 1rem;
+  /* margin-block: 1rem; */
 }
 
 .imgInfoDiv {
-  background-color: #d1d0e5;
   background-color: #ffffff;
-  padding: 0.6em 0.7em 1em;
+  padding: 0.6em 1.5em 1em;
   padding-top: 1rem;
   position: relative;
 }
 
 .time {
   font-size: 1.4rem;
-  color: var(--color-grey-3);
+  color: var(--color-grey-4);
 }
 
 .caption {
@@ -79,6 +78,21 @@
 
 .viewBtn {
   color: var(--color-blue-4);
+}
+
+.whiteSpace {
+  padding-block: 0.5rem;
+}
+
+.userName {
+  font-size: 2rem;
+  padding: 0.5em 0.75em;
+  font-weight: 500;
+  color: var(--color-blue-3);
+  width: 100%;
+  display: block;
+  text-transform: capitalize;
+  background-color: rgb(255, 255, 255);
 }
 
 /* Baad me kaam hai */

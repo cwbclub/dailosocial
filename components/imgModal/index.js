@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import s from './imgModal.module.css'
 import { RiCloseFill } from 'react-icons/ri'
+import { createPortal } from 'react-dom'
 
 export default function ImgModal({ modalImg, handleModal }) {
-  return (
+  return createPortal(
     <div className={s.wrapper}>
       <button onClick={() => handleModal('')}>
         <RiCloseFill />
@@ -18,6 +19,7 @@ export default function ImgModal({ modalImg, handleModal }) {
           sizes="100vw"
         />
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

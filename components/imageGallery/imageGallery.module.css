@@ -46,7 +46,7 @@
 .imagesList {
   display: grid;
   gap: 0.4rem;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 }
 
 .imagesList:global(.grid) {
@@ -54,5 +54,5 @@
 }
 .imagesList:global(.list) {
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 3rem;
 }

@@ -46,3 +46,23 @@
   right: 0;
   top: 0;
 }
+
+.blogCard.post {
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid #a5a5a5;
+  border-bottom: 1px solid grey;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.userName {
+  font-size: 2rem;
+  padding-bottom: 0.35em;
+  margin-bottom: 0.35em;
+  font-weight: 500;
+  color: var(--color-blue-3);
+  width: 100%;
+  display: block;
+  text-transform: capitalize;
+  border-bottom: 1px solid grey;
+}
