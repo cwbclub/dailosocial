@@ -13,6 +13,7 @@ import Button from '../Button'
 import toast from 'react-hot-toast'
 import { addBlog, addPost, getDocData, updateBlog } from '../../utils/firebase'
 import { useRouter } from 'next/router'
+import ContentLoader from '../contentLoader'
 
 const modules = {
   toolbar: [
@@ -200,7 +201,7 @@ export default function BlogUpload({ uid, displayName, loading }) {
   }, [edit, router, uid])
 
   return editLoading && edit ? (
-    <p className="loading">Getting Data Please Wait..</p>
+    <ContentLoader type="high" title="Getting blog data" />
   ) : (
     <form onSubmit={handleSubmit} className={s.form}>
       <div className={s.formDiv}>
@@ -229,7 +230,7 @@ export default function BlogUpload({ uid, displayName, loading }) {
         id="editor-content"
         modules={modules}
         theme="snow"
-        value={content}
+        defaultValue={content}
         placeholder="Type your main content here..."
         onChange={setContent}
       />

@@ -39,10 +39,7 @@ export default function Profile() {
   const isOwn = uid === myuid // To check own profile
   const { followingsList, followingsLoading, followersList, followersLoading } =
     useFriendsList(uid) // Get followings ,  followers list with data list
-  const isFollowed = useMemo(
-    () => followingsList.some((item) => item.uid === uid),
-    [followingsList, uid]
-  )
+
   if (!data?.displayName && !loading) {
     return <Error statusCode={404} title="page Not Found" />
   }
@@ -59,7 +56,6 @@ export default function Profile() {
             info={data?.info}
             myuid={myuid}
             uid={uid}
-            isFollowed={isFollowed}
           />
         </div>
       )}

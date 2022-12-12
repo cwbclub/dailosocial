@@ -19,7 +19,7 @@
 
 .form :global(.ql-toolbar) {
   border-radius: 0.7rem 0.7rem 0 0;
-  top: calc(5.5rem + 5.15rem);
+  top: calc(5.5rem + 5rem);
   position: sticky;
   background-color: white;
   z-index: 8;

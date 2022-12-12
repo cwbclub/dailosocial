@@ -7,7 +7,11 @@ import userImg from '../../public/user.webp'
 import dynamic from 'next/dynamic'
 import { RiUserFollowFill, RiUserUnfollowFill } from 'react-icons/ri'
 import { toggleFollowing } from '../../utils/firebase'
-const EditSection = dynamic(() => import('./editSection'))
+import { useFriends } from '../../context/friendsContext'
+import ContentLoader from '../contentLoader'
+const EditSection = dynamic(() => import('./editSection'), {
+  loading: () => <p className="loading">Loading..</p>,
+})
 
 export default function UserInfo({
   photoURL,
@@ -19,6 +23,7 @@ export default function UserInfo({
 }) {
   // Checking own profile'
   const isOwn = myuid === uid
+  const { followings, loading } = useFriends()
 
   // States
   const [isEdit, setIsEdit] = useState(false)
@@ -26,7 +31,7 @@ export default function UserInfo({
     setIsEdit(value)
   }
 
-  const [followed, setFollowed] = useState(isFollowed || false)
+  const [followed, setFollowed] = useState(followings.includes(uid) || false)
   // Handle Following
   const handleFollowing = async () => {
     setFollowed((prev) => !prev)
@@ -39,7 +44,7 @@ export default function UserInfo({
     }
   }
 
-  console.log('user info', isFollowed, followed)
+  console.log('user info', isFollowed, followed, loading)
 
   return isEdit ? (
     <EditSection
@@ -74,10 +79,13 @@ export default function UserInfo({
           </Button>
         ) : (
           <Button
+            disabled={loading}
             onClick={handleFollowing}
             types={`xs ${followed ? 'secondary' : 'primary'}`}
           >
-            {followed ? (
+            {loading ? (
+              'loading'
+            ) : followed ? (
               <>
                 <RiUserUnfollowFill /> Unfollow
               </>

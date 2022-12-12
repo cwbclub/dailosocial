@@ -7,6 +7,9 @@
   color: var(--color-blue-3);
   font-weight: 500;
   font-size: 2.7rem;
+  line-height: 1.2;
+  display: block;
+  margin: 0.1em 0 0.2em;
 }
 
 .readNow {

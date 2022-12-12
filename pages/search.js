@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { RiUserSearchLine } from 'react-icons/ri'
+import ContentLoader from '../components/contentLoader'
 import UserCard from '../components/userCard'
 import { useAuth } from '../context/authContext'
+import { useFriends } from '../context/friendsContext'
 import useDebounce from '../hooks/useDebounce'
 import useLiveData from '../hooks/useLiveData'
 import useSearchData from '../hooks/useSearchData'
@@ -16,8 +18,7 @@ export default function Search() {
   const { user } = useAuth()
 
   const { searchData, searchLoading } = useSearchData(debounceValue)
-  const { data, loading } = useLiveData(`friends/${user?.uid}`)
-  const followings = useMemo(() => data?.followings || [], [data?.followings])
+  const { followings, loading } = useFriends()
   const { dataList, suggestLoading } = useSuggestedUsers(
     followings,
     loading,
@@ -64,7 +65,7 @@ export default function Search() {
       <div className={s.usersListWrapper}>
         <h3>Suggested Users</h3>
         {suggestLoading ? (
-          <p className={s.loading}>Loading...</p>
+          <ContentLoader type="inside" />
         ) : dataList?.length ? (
           <div className={s.usersList}>
             {dataList?.map((item) => (

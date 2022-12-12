@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import BlogCard from '../blogCard'
+import ContentLoader from '../contentLoader'
 import s from './blogList.module.css'
 
 export default function BlogsList({
@@ -18,7 +19,7 @@ export default function BlogsList({
   const sortedData = blogSort === 'latest' ? blogs : [...blogs].reverse()
 
   return loading ? (
-    <p className="loading">Getting Blogs List..</p>
+    <ContentLoader title="Getting Blogs" />
   ) : blogs?.length ? (
     <div className="wrapper">
       <div className={s.blogTopMenu}>
