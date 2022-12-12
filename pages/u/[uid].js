@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useAuth } from '../../context/authContext'
 import useLiveData from '../../hooks/useLiveData'
 import useMainData from '../../hooks/useMainData'
@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
 import useFriendsList from '../../hooks/useFriendsList'
-import Error from 'next/error'
+import Custom404 from '../404'
 const ScrollTop = dynamic(() => import('../../components/scrollTop'))
 const Loader = dynamic(() => import('../../components/loader'))
 const ImageGallery = dynamic(() => import('../../components/imageGallery'))
@@ -41,7 +41,7 @@ export default function Profile() {
     useFriendsList(uid) // Get followings ,  followers list with data list
 
   if (!data?.displayName && !loading) {
-    return <Error statusCode={404} title="page Not Found" />
+    return <Custom404 />
   }
 
   return (

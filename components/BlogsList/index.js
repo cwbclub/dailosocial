@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import BlogCard from '../blogCard'
 import ContentLoader from '../contentLoader'
+import ErrorImg from '../errorImg'
 import s from './blogList.module.css'
 
 export default function BlogsList({
@@ -46,8 +47,6 @@ export default function BlogsList({
       </div>
     </div>
   ) : (
-    <p className="noinfo">
-      {isOwn ? 'No Blogs found, Add some blogs here!' : 'No blogs added yet!'}{' '}
-    </p>
+    <ErrorImg type="two" title="No Blogs added yet!" />
   )
 }

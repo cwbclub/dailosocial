@@ -5,6 +5,7 @@ import { useLayoutData } from '../../context/layoutContext'
 import Photo from '../photo/photo'
 import dynamic from 'next/dynamic'
 import ContentLoader from '../contentLoader'
+import ErrorImg from '../errorImg'
 const ImgModal = dynamic(() => import('../imgModal'))
 
 export default function ImageGallery({
@@ -71,11 +72,7 @@ export default function ImageGallery({
           ))}
         </div>
       ) : (
-        <p className="noinfo">
-          {isOwn
-            ? 'Gallery is empty add some photos here!!'
-            : 'User did not upload any Photos yet!!'}
-        </p>
+        <ErrorImg type="one" title="No photos found!" />
       )}
       {modalImg ? (
         <ImgModal modalImg={modalImg} handleModal={handleModal} />

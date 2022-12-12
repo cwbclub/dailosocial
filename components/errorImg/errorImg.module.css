@@ -1,0 +1,25 @@
+.wrapper {
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+  margin-top: 8vh;
+  color: var(--color-grey-1);
+}
+
+.img {
+  position: relative;
+  width: 100%;
+  height: 20rem;
+}
+
+.wrapper.big .img {
+  height: 25rem;
+}
+
+.wrapper.big p {
+  margin-top: -5rem;
+}
+
+.wrapper.big {
+  margin-top: 6vh;
+}
