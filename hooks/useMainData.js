@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   loading: true,
 }
 
-export default function useMainData(uid) {
+export default function useMainData(uid, isOwn) {
   const [state, dispatch] = useReducer(ProfileReducer, INITIAL_STATE)
 
   useLayoutEffect(() => {

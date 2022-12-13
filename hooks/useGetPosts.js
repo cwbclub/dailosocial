@@ -22,9 +22,13 @@ export default function useGetPosts(followings, myuid, loading) {
 
       (snapshot) => {
         if (!snapshot.empty) {
-          const res = snapshot.docs.map((item) => {
-            if (followings.includes(item?.uid) || myuid) {
-              return { ...item.data(), id: item.id }
+          let res = []
+          snapshot.docs.forEach((item) => {
+            if (
+              followings.includes(item.data()?.uid) ||
+              item.data()?.uid === myuid
+            ) {
+              res.push({ ...item.data(), id: item.id })
             }
           })
           setData(res)
@@ -37,5 +41,6 @@ export default function useGetPosts(followings, myuid, loading) {
     return () => unsub()
   }, [followings, loading, myuid])
 
+  console.log('Following Loading MyUid', followings, loading, myuid, data)
   return { data, isLoading }
 }

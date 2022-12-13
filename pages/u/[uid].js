@@ -34,9 +34,10 @@ export default function Profile() {
 
   const { user } = useAuth() // Chceking Auth User
   const { uid: myuid } = user
-  const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
-  const { photos, blogs, loading: dataLoading } = useMainData(uid) //Getting Data Photos, Blogs
   const isOwn = uid === myuid // To check own profile
+  const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
+  const { photos, blogs, loading: dataLoading } = useMainData(uid, isOwn) //Getting Data Photos, Blogs
+
   const { followingsList, followingsLoading, followersList, followersLoading } =
     useFriendsList(uid) // Get followings ,  followers list with data list
 
