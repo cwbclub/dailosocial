@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { FaHourglassStart } from 'react-icons/fa'
 import { RiUserSearchLine } from 'react-icons/ri'
 import ContentLoader from '../components/contentLoader'
 import UserCard from '../components/userCard'
@@ -9,6 +10,8 @@ import useLiveData from '../hooks/useLiveData'
 import useSearchData from '../hooks/useSearchData'
 import useSuggestedUsers from '../hooks/useSuggestedUsers'
 import s from '../styles/Search.module.css'
+import { IoHourglassOutline } from 'react-icons/io5'
+import { MdOutlineHourglassTop } from 'react-icons/md'
 
 export default function Search() {
   const [value, setValue] = useState('')
@@ -37,7 +40,7 @@ export default function Search() {
             placeholder="Type to search user"
           />
           {/* <RiUserSearchFill /> */}
-          <RiUserSearchLine />
+          {searchLoading ? <MdOutlineHourglassTop /> : <RiUserSearchLine />}
         </div>
       </div>
 
@@ -45,7 +48,7 @@ export default function Search() {
         <div className={s.usersListWrapper}>
           <h3>Found Users : {searchData?.length}</h3>
           {searchLoading ? (
-            <p className={s.loading}>Getting Users</p>
+            <ContentLoader type="inside" />
           ) : searchData?.length ? (
             <div className={s.usersList}>
               {searchData?.map((item) => (

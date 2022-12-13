@@ -4,12 +4,13 @@ import { db } from '../lib/firebase'
 
 export default function useSearchData(search) {
   const [searchData, setSearchData] = useState()
-  const [searchLoading, setSearchLoading] = useState(true)
+  const [searchLoading, setSearchLoading] = useState(false)
   // .where('name', '>=', queryText)
   // .where('name', '<=', queryText + '\uf8ff')
   useEffect(() => {
     let unsub
     if (search.length > 3) {
+      setSearchLoading(true)
       unsub = onSnapshot(
         query(
           collection(db, 'users'),
