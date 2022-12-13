@@ -1,14 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { RiUserSearchLine } from 'react-icons/ri'
 import ContentLoader from '../components/contentLoader'
 import UserCard from '../components/userCard'
 import { useAuth } from '../context/authContext'
 import { useFriends } from '../context/friendsContext'
 import useDebounce from '../hooks/useDebounce'
-import useLiveData from '../hooks/useLiveData'
 import useSearchData from '../hooks/useSearchData'
 import useSuggestedUsers from '../hooks/useSuggestedUsers'
 import s from '../styles/Search.module.css'
+import { MdOutlineHourglassTop } from 'react-icons/md'
+import Head from 'next/head'
 
 export default function Search() {
   const [value, setValue] = useState('')
@@ -26,34 +27,58 @@ export default function Search() {
   )
 
   return (
-    <div className="wrapper">
-      <div className={s.wrapper}>
-        <div className={s.searchBar}>
-          <input
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
-            autoFocus
-            type="search"
-            placeholder="Type to search user"
-          />
-          {/* <RiUserSearchFill /> */}
-          <RiUserSearchLine />
+    <>
+      <Head>
+        <title>Search | DailoSocial</title>
+      </Head>
+      <div className="wrapper">
+        <div className={s.wrapper}>
+          <div className={s.searchBar}>
+            <input
+              onChange={(e) => setValue(e.target.value)}
+              value={value}
+              autoFocus
+              type="search"
+              placeholder="Type to search user"
+            />
+            {/* <RiUserSearchFill /> */}
+            {searchLoading ? <MdOutlineHourglassTop /> : <RiUserSearchLine />}
+          </div>
         </div>
-      </div>
 
-      {debounceValue?.length > 3 ? (
+        {debounceValue?.length > 3 ? (
+          <div className={s.usersListWrapper}>
+            <h3>Found Users : {searchData?.length}</h3>
+            {searchLoading ? (
+              <ContentLoader type="inside" />
+            ) : searchData?.length ? (
+              <div className={s.usersList}>
+                {searchData?.map((item) => (
+                  <UserCard
+                    data={item}
+                    key={item?.uid}
+                    followed={followings.includes(item?.uid)}
+                    myuid={user?.uid}
+                  />
+                ))}
+              </div>
+            ) : (
+              <ErrorSvg />
+            )}
+          </div>
+        ) : null}
         <div className={s.usersListWrapper}>
-          <h3>Found Users : {searchData?.length}</h3>
-          {searchLoading ? (
-            <p className={s.loading}>Getting Users</p>
-          ) : searchData?.length ? (
+          <h3>Suggested Users</h3>
+          {suggestLoading ? (
+            <ContentLoader type="inside" />
+          ) : dataList?.length ? (
             <div className={s.usersList}>
-              {searchData?.map((item) => (
+              {dataList?.map((item) => (
                 <UserCard
                   data={item}
+                  myuid={user?.uid}
                   key={item?.uid}
                   followed={followings.includes(item?.uid)}
-                  myuid={user?.uid}
                 />
               ))}
             </div>
@@ -61,27 +86,8 @@ export default function Search() {
             <ErrorSvg />
           )}
         </div>
-      ) : null}
-      <div className={s.usersListWrapper}>
-        <h3>Suggested Users</h3>
-        {suggestLoading ? (
-          <ContentLoader type="inside" />
-        ) : dataList?.length ? (
-          <div className={s.usersList}>
-            {dataList?.map((item) => (
-              <UserCard
-                data={item}
-                myuid={user?.uid}
-                key={item?.uid}
-                followed={followings.includes(item?.uid)}
-              />
-            ))}
-          </div>
-        ) : (
-          <ErrorSvg />
-        )}
       </div>
-    </div>
+    </>
   )
 }
 

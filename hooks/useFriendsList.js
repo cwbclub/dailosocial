@@ -1,7 +1,4 @@
-import { doc, onSnapshot } from '@firebase/firestore'
-import { async } from '@firebase/util'
 import { useEffect, useMemo, useState } from 'react'
-import { db } from '../lib/firebase'
 import { getProfile } from '../utils/firebase'
 import useLiveData from './useLiveData'
 

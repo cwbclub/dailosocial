@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { useAuth } from '../../context/authContext'
 import useLiveData from '../../hooks/useLiveData'
 import useMainData from '../../hooks/useMainData'
-
 import s from '../../styles/Profile.module.css'
 import dynamic from 'next/dynamic'
 import SubNavBar from '../../components/subNavBar'
 import UserInfo from '../../components/userInfo'
 import useFriendsList from '../../hooks/useFriendsList'
-import Custom404 from '../404'
+import Head from 'next/head'
+const Custom404 = dynamic(() => import('../404'))
 const ScrollTop = dynamic(() => import('../../components/scrollTop'))
 const Loader = dynamic(() => import('../../components/loader'))
 const ImageGallery = dynamic(() => import('../../components/imageGallery'))
@@ -20,7 +20,7 @@ export default function Profile() {
   // For Params
   const router = useRouter()
   const {
-    query: { uid, menu, view },
+    query: { uid, menu },
   } = router
   // States
   // Sorting States
@@ -34,9 +34,10 @@ export default function Profile() {
 
   const { user } = useAuth() // Chceking Auth User
   const { uid: myuid } = user
-  const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
-  const { photos, blogs, loading: dataLoading } = useMainData(uid) //Getting Data Photos, Blogs
   const isOwn = uid === myuid // To check own profile
+  const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
+  const { photos, blogs, loading: dataLoading } = useMainData(uid, isOwn) //Getting Data Photos, Blogs
+
   const { followingsList, followingsLoading, followersList, followersLoading } =
     useFriendsList(uid) // Get followings ,  followers list with data list
 
@@ -46,6 +47,11 @@ export default function Profile() {
 
   return (
     <>
+      <Head>
+        <title>
+          {data?.displayName?.toUpperCase() || 'Profile'} | DailoSocial
+        </title>
+      </Head>
       {loading ? (
         <Loader />
       ) : (

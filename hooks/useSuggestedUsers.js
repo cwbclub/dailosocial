@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useAuth } from '../context/authContext'
 import { getSuggestedUsers } from '../utils/firebase'
 
 export default function useSuggestedUsers(followings, loading, uid) {
   const [dataList, setDataList] = useState([])
   const [suggestLoading, setSuggestLoading] = useState(true)
-  console.log(followings, loading, uid)
+
   useEffect(() => {
     if (!loading && uid) {
       const handleData = async () => {

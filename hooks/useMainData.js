@@ -1,5 +1,11 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { useEffect, useLayoutEffect, useReducer } from 'react'
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore'
+import { useLayoutEffect, useReducer } from 'react'
 import { db } from '../lib/firebase'
 import ProfileReducer from '../reducers/profileReducer'
 
@@ -9,16 +15,22 @@ const INITIAL_STATE = {
   loading: true,
 }
 
-export default function useMainData(uid) {
+export default function useMainData(uid, isOwn) {
   const [state, dispatch] = useReducer(ProfileReducer, INITIAL_STATE)
 
   useLayoutEffect(() => {
     dispatch({ type: 'RESET' })
     if (uid) {
-      const q = query(
-        collection(db, `users/${uid}/posts`),
-        orderBy('timestamp', 'desc')
-      )
+      const q = isOwn
+        ? query(
+            collection(db, `users/${uid}/posts`),
+            orderBy('timestamp', 'desc')
+          )
+        : query(
+            collection(db, `users/${uid}/posts`),
+            where('privacy', 'in', ['feed', 'friends']),
+            orderBy('timestamp', 'desc')
+          )
       const unsub = onSnapshot(q, (snapshot) => {
         if (!snapshot.empty) {
           const newData = snapshot.docs.map((item) => ({
@@ -37,7 +49,7 @@ export default function useMainData(uid) {
       })
       return () => unsub()
     }
-  }, [uid])
+  }, [uid, isOwn])
 
   return state
 }

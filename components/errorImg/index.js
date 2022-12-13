@@ -13,13 +13,15 @@ export default function ErrorImg({ title, type }) {
         return img2
       case 'three':
         return img3
+      case 'high':
+        return img1
       default:
         return img1
     }
   }
 
   return (
-    <div className={`${s.wrapper} ${type === 'three' ? s.big : null}`}>
+    <div className={`${s.wrapper} ${type}`}>
       <div className={s.img}>
         <Image src={getImg(type)} alt={title} fill />
       </div>
