@@ -3,24 +3,21 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  collectionGroup,
   deleteDoc,
   doc,
   getDoc,
   getDocs,
   limit,
+  orderBy,
   query,
   serverTimestamp,
   setDoc,
+  startAfter,
   updateDoc,
   where,
-  writeBatch,
 } from 'firebase/firestore'
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage'
+import { deleteObject, ref } from 'firebase/storage'
 import { db, storage } from '../lib/firebase'
 
 // Adding User
@@ -169,5 +166,35 @@ export const getProfile = async (uid) => {
   const snapshot = await getDoc(doc(db, 'users', uid))
   if (snapshot.exists) {
     return snapshot.data()
+  }
+}
+
+// Get All Posts
+export const getAllPosts = async (followings, myuid, index) => {
+  const colRef = index
+    ? query(
+        collectionGroup(db, 'posts'),
+        where('privacy', '==', 'feed'),
+        orderBy('timestamp', 'desc'),
+        limit(2),
+        startAfter(index)
+      )
+    : query(
+        collectionGroup(db, 'posts'),
+        where('privacy', '==', 'feed'),
+        orderBy('timestamp', 'desc'),
+        limit(10)
+      )
+  const snapshot = await getDocs(colRef)
+  console.count('Get Posts')
+  if (!snapshot.empty) {
+    let res = []
+    snapshot.docs.forEach((item) => {
+      if (followings.includes(item.data()?.uid) || item.data()?.uid === myuid) {
+        res.push({ ...item.data(), id: item.id })
+      }
+    })
+    const [last] = snapshot.docs.slice(-1)
+    return { res, last }
   }
 }

@@ -22,3 +22,10 @@
   color: var(--color-blue-4);
   line-height: 1.2;
 }
+
+.namedateDiv button {
+  align-items: center;
+  gap: 0.15rem;
+  color: var(--primary-blue);
+  font-weight: 500;
+}

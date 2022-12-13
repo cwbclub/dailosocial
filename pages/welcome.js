@@ -4,6 +4,7 @@ import useLogin from '../hooks/useLogin'
 import { FaGoogle } from 'react-icons/fa'
 import s from '../styles/Welcome.module.css'
 import { useEffect } from 'react'
+import Head from 'next/head'
 
 export default function Login() {
   // For navigation
@@ -24,31 +25,36 @@ export default function Login() {
   }, [isLoading, user?.uid, isAuthReady])
 
   return (
-    <div className="wrapper fullHeight">
-      <div className={s.loginPage}>
-        <div className={s.loginBox}>
-          <h1>Welcome to DailoSocial</h1>
+    <>
+      <Head>
+        <title>Welcome | DailoSocial</title>
+      </Head>
+      <div className="wrapper fullHeight">
+        <div className={s.loginPage}>
+          <div className={s.loginBox}>
+            <h1>Welcome to DailoSocial</h1>
 
-          {isLoading ? (
-            <button disabled>Loading...</button>
-          ) : (
-            <button onClick={login}>
-              <FaGoogle />
-              Sign in with Google
-            </button>
-          )}
+            {isLoading ? (
+              <button disabled>Loading...</button>
+            ) : (
+              <button onClick={login}>
+                <FaGoogle />
+                Sign in with Google
+              </button>
+            )}
+          </div>
+          <p>
+            Powered by{' '}
+            <a
+              href="https://canwebe.tech"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CanWeBe!
+            </a>
+          </p>
         </div>
-        <p>
-          Powered by{' '}
-          <a
-            href="https://canwebe.tech"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            CanWeBe!
-          </a>
-        </p>
       </div>
-    </div>
+    </>
   )
 }

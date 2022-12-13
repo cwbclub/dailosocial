@@ -9,7 +9,10 @@ import { useRouter } from 'next/router'
 import 'highlight.js/styles/monokai-sublime.css'
 import { toast } from 'react-hot-toast'
 import Loader from '../../components/loader'
-import Custom404 from '../404'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import { RiShareFill } from 'react-icons/ri'
+const Custom404 = dynamic(() => import('../404'))
 
 export default function BlogPage() {
   const [data, setData] = useState({})
@@ -44,22 +47,45 @@ export default function BlogPage() {
     }
   }, [user?.uid, privacy, uid, router])
 
+  const share = () => {
+    const shareData = {
+      text: 'Read this Blog only at DailoSocial',
+      title: data?.title || 'My Blog',
+      url: 'https://dailosocial.vercel.app' + router.asPath,
+    }
+    if (navigator.canShare(shareData)) {
+      navigator.share(shareData)
+    } else {
+      alert('Not shareable')
+    }
+  }
+
   if (!data?.title && !isLoading) {
     return <Custom404 />
   }
 
-  return isLoading ? (
-    <Loader />
-  ) : (
-    <div className={`wrapper ${s.blogWrapper}`}>
-      <h1 className={s.title}>{title}</h1>
-      <div className={s.namedateDiv}>
-        <p className={s.name}>
-          By <Link href={'/u/' + uid}>{displayName}</Link> ,
-        </p>
-        <p>{moment(timestamp).format('dddd, Do MMM YY')}</p>
-      </div>
-      <div id="post-content">{parse(content)}</div>
-    </div>
+  return (
+    <>
+      <Head>
+        <title>{data?.title || 'Blog'} | DailoSocial</title>
+      </Head>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={`wrapper ${s.blogWrapper}`}>
+          <h1 className={s.title}>{title}</h1>
+          <div className={s.namedateDiv}>
+            <p className={s.name}>
+              By <Link href={'/u/' + uid}>{displayName}</Link> ,
+            </p>
+            <p>{moment(timestamp).format('dddd, Do MMM YY')}</p>
+            <button onClick={share}>
+              <RiShareFill /> share
+            </button>
+          </div>
+          <div id="post-content">{parse(content)}</div>
+        </div>
+      )}
+    </>
   )
 }

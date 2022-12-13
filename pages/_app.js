@@ -12,6 +12,7 @@ import { Router } from 'next/router'
 import Layout from '../components/Layout'
 import LayoutContextProvider from '../context/layoutContext'
 import FriendsContextProvider from '../context/friendsContext'
+import PostsContextProvider from '../context/postsContext'
 
 const edu_Font = Dosis({ subsets: ['latin'] })
 
@@ -55,7 +56,9 @@ function MyApp({ Component, pageProps }) {
               <Layout>
                 <LayoutContextProvider>
                   <FriendsContextProvider>
-                    <Component {...pageProps} />
+                    <PostsContextProvider>
+                      <Component {...pageProps} />
+                    </PostsContextProvider>
                   </FriendsContextProvider>
                 </LayoutContextProvider>
               </Layout>
