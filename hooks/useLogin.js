@@ -23,9 +23,9 @@ export default function useLogin() {
 
         await addUser(uid, displayName?.toLowerCase(), photoURL)
         dispatch({ type: 'LOGIN', payload: res.user })
-        toast.success(<b>{`Welcome Back ${displayName}`}</b>, { id })
+        toast.success(<b>Welcome Back to DailoSocial</b>, { id })
         setIsLoading(false)
-        router.push(`/u/${uid}`)
+        router.push('/')
       } else {
         throw new Error('Something went wrong, Try Again!')
       }

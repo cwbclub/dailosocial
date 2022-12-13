@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import ContentLoader from '../components/contentLoader'
 import { useAuth } from '../context/authContext'
 import useLiveData from '../hooks/useLiveData'
 import s from '../styles/Add.module.css'
@@ -42,42 +42,47 @@ export default function Add() {
   const { data, loading } = useLiveData(`users/${user?.uid}`)
 
   return (
-    <div className={`wrapper ${s.addPage}`}>
-      <div className={s.topMenu}>
-        <Link className={menu ? '' : s.active} href="/add">
-          Image
-        </Link>
-        <Link
-          className={menu ? s.active : ''}
-          href={{
-            pathname: '/add',
-            query: { menu: 'blog' },
-          }}
-        >
-          Blog
-        </Link>
+    <>
+      <Head>
+        <title>Add | DailoSocial</title>
+      </Head>
+      <div className={`wrapper ${s.addPage}`}>
+        <div className={s.topMenu}>
+          <Link className={menu ? '' : s.active} href="/add">
+            Image
+          </Link>
+          <Link
+            className={menu ? s.active : ''}
+            href={{
+              pathname: '/add',
+              query: { menu: 'blog' },
+            }}
+          >
+            Blog
+          </Link>
+        </div>
+        <div className={s.subpage}>
+          {menu === 'blog' ? (
+            <BlogUpload
+              displayName={data?.displayName}
+              uid={user?.uid}
+              loading={loading}
+            />
+          ) : (
+            <PhotoUpload
+              handleRadio={handleRadio}
+              img={img}
+              file={file}
+              privacy={privacy}
+              setImg={handleChnageImg}
+              setFile={handleChnageFile}
+              loading={loading}
+              displayName={data?.displayName}
+              uid={user?.uid}
+            />
+          )}
+        </div>
       </div>
-      <div className={s.subpage}>
-        {menu === 'blog' ? (
-          <BlogUpload
-            displayName={data?.displayName}
-            uid={user?.uid}
-            loading={loading}
-          />
-        ) : (
-          <PhotoUpload
-            handleRadio={handleRadio}
-            img={img}
-            file={file}
-            privacy={privacy}
-            setImg={handleChnageImg}
-            setFile={handleChnageFile}
-            loading={loading}
-            displayName={data?.displayName}
-            uid={user?.uid}
-          />
-        )}
-      </div>
-    </div>
+    </>
   )
 }

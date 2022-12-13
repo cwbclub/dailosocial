@@ -5,7 +5,7 @@ import {
   query,
   where,
 } from 'firebase/firestore'
-import { useEffect, useLayoutEffect, useReducer } from 'react'
+import { useLayoutEffect, useReducer } from 'react'
 import { db } from '../lib/firebase'
 import ProfileReducer from '../reducers/profileReducer'
 
@@ -28,7 +28,7 @@ export default function useMainData(uid, isOwn) {
           )
         : query(
             collection(db, `users/${uid}/posts`),
-            where('privacy', '!=', 'onlyme'),
+            where('privacy', 'in', ['feed', 'friends']),
             orderBy('timestamp', 'desc')
           )
       const unsub = onSnapshot(q, (snapshot) => {

@@ -12,14 +12,18 @@
   height: 20rem;
 }
 
-.wrapper.big .img {
+.wrapper:global(.three) .img {
   height: 25rem;
 }
 
-.wrapper.big p {
+.wrapper:global(.three) p {
   margin-top: -5rem;
 }
 
-.wrapper.big {
+.wrapper:global(.three) {
   margin-top: 6vh;
+}
+
+.wrapper:global(.high) {
+  margin-top: 15vh;
 }
