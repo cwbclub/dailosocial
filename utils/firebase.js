@@ -176,14 +176,14 @@ export const getAllPosts = async (followings, myuid, index) => {
         collectionGroup(db, 'posts'),
         where('privacy', '==', 'feed'),
         orderBy('timestamp', 'desc'),
-        limit(2),
+        limit(10),
         startAfter(index)
       )
     : query(
         collectionGroup(db, 'posts'),
         where('privacy', '==', 'feed'),
         orderBy('timestamp', 'desc'),
-        limit(10)
+        limit(20)
       )
   const snapshot = await getDocs(colRef)
   console.count('Get Posts')
