@@ -1,6 +1,6 @@
 import moment from 'moment'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../context/authContext'
 import { usePosts } from '../context/postsContext'
 import s from '../styles/Home.module.css'
@@ -24,6 +24,21 @@ export default function Home() {
   // if (!postsLoading && posts?.length) {
   //   return <ContentLoader title="Getting Posts Data" />
   // }
+  const btnRef = useRef()
+
+  useEffect(() => {
+    if (!postsLoading && btnRef?.current) {
+      const observer = new IntersectionObserver(
+        ([entries]) => {
+          if (entries.isIntersecting) {
+            handleData(true)
+          }
+        },
+        { threshold: 1 }
+      )
+      observer.observe(btnRef.current)
+    }
+  }, [postsLoading, btnRef?.current])
 
   return (
     <div className={s.homeBody}>
@@ -62,7 +77,11 @@ export default function Home() {
           ) : postsLoading ? (
             <p className={s.loading}>Getting Posts..</p>
           ) : (
-            <button className={s.loadMore} onClick={() => handleData(true)}>
+            <button
+              ref={btnRef}
+              className={s.loadMore}
+              onClick={() => handleData(true)}
+            >
               Load More
             </button>
           )}
