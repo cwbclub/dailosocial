@@ -30,7 +30,6 @@ const modules = {
       { list: 'bullet' },
 
       'link',
-      'image',
       'clean',
     ],
   ],

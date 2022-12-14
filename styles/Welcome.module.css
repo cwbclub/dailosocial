@@ -1,7 +1,7 @@
 .loginPage {
-  display: grid;
-  place-items: center;
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .loginBox {
@@ -10,6 +10,9 @@
   justify-content: center;
   align-items: center;
   gap: 14px;
+  background-color: white;
+  height: 45%;
+  box-shadow: 0 -3px 25px rgba(0, 0, 0, 0.3);
 }
 
 .loginBox button {
@@ -26,14 +29,48 @@
 .loginBox h1 {
   /* font-size: 1.7rem; */
   color: var(--primary-blue);
+  margin-top: -4rem;
 }
 
 .loginPage p {
   position: absolute;
   bottom: 20px;
   text-align: center;
+  width: 100%;
 }
 .loginPage p a {
   color: var(--color-canwebe);
   font-weight: 500;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  object-position: top;
+}
+
+.videooverlay {
+  background-color: #8a9ac1;
+  opacity: 0.7;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.videoDiv {
+  height: 55%;
+  position: relative;
+  width: 100%;
+}
+
+.videoDiv img {
+  object-fit: cover;
+  object-position: top;
+  z-index: -2;
 }

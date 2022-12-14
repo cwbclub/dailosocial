@@ -3,20 +3,26 @@ import { useAuth } from '../context/authContext'
 import useLogin from '../hooks/useLogin'
 import { FaGoogle } from 'react-icons/fa'
 import s from '../styles/Welcome.module.css'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
+import thumb from '../public/thumbnail.webp'
 
 export default function Login() {
   // For navigation
   const router = useRouter()
 
   // Getting AUth info
-
   const { user, isAuthReady } = useAuth()
-
   const { login, isLoading } = useLogin()
 
+  // State
+  const [isReady, setIsReady] = useState(false)
+
   // Custom Function
+  const handleVideo = useCallback(() => {
+    setIsReady(true)
+  }, [])
 
   useEffect(() => {
     if (user && !isLoading && isAuthReady) {
@@ -29,8 +35,30 @@ export default function Login() {
       <Head>
         <title>Welcome | DailoSocial</title>
       </Head>
-      <div className="wrapper fullHeight">
+      <div className="fullHeight">
         <div className={s.loginPage}>
+          <div className={s.videoDiv}>
+            <div className={s.videooverlay} />
+            <Image
+              style={{ opacity: !isReady ? 1 : 0 }}
+              src={thumb}
+              alt={'Thumbnail'}
+              fill
+              priority
+            />
+            <video
+              onLoadedData={handleVideo}
+              style={{ opacity: isReady ? 1 : 0 }}
+              className={s.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/welcome.mp4" type="video/mp4" />
+            </video>
+          </div>
+
           <div className={s.loginBox}>
             <h1>Welcome to DailoSocial</h1>
 
@@ -57,4 +85,25 @@ export default function Login() {
       </div>
     </>
   )
+}
+
+{
+  /* <div className={styles.videooverlay} />
+          <div
+            style={{ opacity: !isReady ? 1 : 0 }}
+            className={styles.thumbnail}
+          >
+            <Image src={thumb} alt={'Thumbnail'} layout="fill" priority />
+          </div>
+          <video
+            onLoadedData={handleVideo}
+            className={styles.video}
+            style={{ opacity: isReady ? 1 : 0 }}
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
+            <source src="/assets/bgvideo.mp4" type="video/mp4" />
+          </video> */
 }
