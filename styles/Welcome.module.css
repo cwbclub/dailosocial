@@ -1,7 +1,16 @@
+.loginPageWrapper {
+  display: grid;
+  place-items: center;
+  position: relative;
+
+  isolation: isolate;
+}
+
 .loginPage {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 .loginBox {
@@ -37,6 +46,7 @@
   bottom: 20px;
   text-align: center;
   width: 100%;
+  left: 0;
 }
 .loginPage p a {
   color: var(--color-canwebe);
@@ -73,4 +83,58 @@
   object-fit: cover;
   object-position: top;
   z-index: -2;
+}
+
+/* Responsive */
+@media screen and (min-width: 500px) {
+  .loginPage {
+    max-height: 80%;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    border-radius: 0.8rem;
+    overflow: hidden;
+    max-width: 500px;
+  }
+  .loginBox {
+    position: relative;
+  }
+  .videoDiv {
+    height: 65%;
+  }
+  .loginBox h1 {
+    margin-top: -2rem;
+  }
+  .loginPageWrapper {
+    background: rgb(200, 175, 219);
+    background: linear-gradient(120deg, rgb(0 0 0) 0%, #a29fe8 100%);
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .loginPage {
+    height: 80%;
+    max-height: 780px;
+    flex-direction: row;
+    max-width: 800px;
+    width: 90%;
+  }
+  .videoDiv,
+  .loginBox {
+    height: 100%;
+    width: 50%;
+  }
+  .loginBox {
+    box-shadow: -3px 0 25px rgba(0, 0, 0, 0.3);
+  }
+
+  /* .loginPage p {
+    margin-top: 3rem;
+    position: static;
+  } */
+  .videooverlay {
+    background-color: #546387;
+    opacity: 0.5;
+  }
+  .loginBox h1 {
+    margin-top: 0;
+  }
 }
