@@ -28,7 +28,6 @@ const modules = {
       { color: [] },
       { list: 'ordered' },
       { list: 'bullet' },
-
       'link',
       'clean',
     ],
