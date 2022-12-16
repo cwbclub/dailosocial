@@ -19,6 +19,9 @@ const edu_Font = Dosis({ subsets: ['latin'] })
 function MyApp({ Component, pageProps }) {
   // For Navigation
   const pathname = usePathname()
+
+  const isPublic = pathname === '/welcome'
+
   // Configuration of NProgress
   nProgress.configure({ showSpinner: false })
   console.count('app')
@@ -47,9 +50,9 @@ function MyApp({ Component, pageProps }) {
         <title>DailoSocial</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
       </Head>
-      <main className={edu_Font.className}>
+      <main className={`${edu_Font.className} ${isPublic ? 'public' : ''}`}>
         <AuthContextProvider>
-          {pathname === '/welcome' ? (
+          {isPublic ? (
             <Component {...pageProps} />
           ) : (
             <AuthWrapper>

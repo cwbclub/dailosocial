@@ -41,3 +41,30 @@
   color: #0a7750;
   line-height: 1.3;
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .homeBody {
+    padding: 1.5rem 2rem 8.5rem 28rem;
+    /* margin-block: 1.5rem; */
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .homeBody::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .homeBody::-webkit-scrollbar-track {
+    background-color: var(--color-grey-5);
+    border-radius: 0.7rem;
+    margin-top: 2rem;
+  }
+  .homeBody::-webkit-scrollbar-thumb {
+    background-color: #bfc6da;
+    border-radius: 0.7rem;
+  }
+  .greetDiv p {
+    word-spacing: 0.34rem;
+  }
+}

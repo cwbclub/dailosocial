@@ -17,15 +17,13 @@
   gap: 0.34rem;
   padding: 0.2em 0.5em;
   border-radius: 0.4rem;
+  cursor: pointer;
 }
 
 .imageTopMenu div:global(.active) {
   /* background-color: #b8c2e9; */
   background-color: #a4bae9;
   color: #0b1272;
-}
-.imageTopMenu select {
-  margin-left: auto;
 }
 
 .imageTopMenu select {
@@ -35,6 +33,7 @@
   color: #0b1272;
   border-radius: 0.3em;
   padding: 0.2em 0.45em;
+  cursor: pointer;
 }
 
 .imageTopMenu select:focus,
@@ -55,4 +54,18 @@
 .imagesList:global(.list) {
   grid-template-columns: 1fr;
   gap: 3rem;
+}
+
+@media screen and (min-width: 800px) {
+  .imagesList:global(.list) {
+    padding: 1.5rem 2rem;
+  }
+  .imageTopMenu {
+    padding-inline: 0.6em;
+  }
+
+  .imageTopMenu div:hover:not(:global(.active)) {
+    color: #0b1272;
+    background-color: #d6dbef;
+  }
 }

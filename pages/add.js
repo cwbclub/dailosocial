@@ -61,7 +61,7 @@ export default function Add() {
             Blog
           </Link>
         </div>
-        <div className={s.subpage}>
+        <>
           {menu === 'blog' ? (
             <BlogUpload
               displayName={data?.displayName}
@@ -81,7 +81,7 @@ export default function Add() {
               uid={user?.uid}
             />
           )}
-        </div>
+        </>
       </div>
     </>
   )

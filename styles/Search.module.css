@@ -94,3 +94,31 @@
 .nodata {
   color: var(--color-red-2);
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .usersListWrapper {
+    margin-left: 28rem;
+    margin-right: 1rem;
+    padding-inline: 3em;
+  }
+  .wrapper {
+    height: 5.5rem;
+  }
+
+  .searchBar {
+    width: 100%;
+    position: relative;
+    font-size: 2.2rem;
+  }
+
+  .searchBar input {
+    padding: 0.2em 0.5em 0.2em 2em;
+  }
+
+  .searchBar svg {
+    top: 0.28em;
+    left: 0.28em;
+    font-size: 1.2em;
+  }
+}
