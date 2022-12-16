@@ -38,8 +38,17 @@ export default function Profile() {
   const { data, loading } = useLiveData(`users/${uid}`) //Getting Profile Data like username, photo etc
   const { photos, blogs, loading: dataLoading } = useMainData(uid, isOwn) //Getting Data Photos, Blogs
 
-  const { followingsList, followingsLoading, followersList, followersLoading } =
-    useFriendsList(uid) // Get followings ,  followers list with data list
+  const { dataList: followingsList, isLoading: followingsLoading } =
+    useFriendsList(uid, 'followings') // Get followings list
+  const { dataList: followersList, isLoading: followersLoading } =
+    useFriendsList(uid, 'followers') // Get followers list
+
+  console.log(
+    'Follwongs and Followers List for ',
+    uid,
+    followingsList,
+    followersList
+  )
 
   if (!data?.displayName && !loading) {
     return <Custom404 />

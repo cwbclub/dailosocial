@@ -128,8 +128,17 @@ export const updateBlog = async (uid, id, data) => {
 }
 
 // Get Recomended Users
-export const getSuggestedUsers = async (uid) => {
-  const q = query(collection(db, 'users'), where('uid', '!=', uid), limit(20))
+export const getSuggestedUsers = async (followings, uid) => {
+  let q = query(collection(db, 'users'))
+
+  const chunks = getChunks([...followings, uid])
+
+  for (const chunk of chunks) {
+    console.log('run hota hai', chunk, chunks)
+    q = query(q, where('uid', 'not-in', chunk))
+  }
+
+  q = query(q, limit(7))
   const snapshot = await getDocs(q)
   if (!snapshot.empty) {
     return snapshot.docs.map((item) => item.data())
@@ -138,26 +147,36 @@ export const getSuggestedUsers = async (uid) => {
 
 // Update Following list
 export const toggleFollowing = async (myuid, targetUid, followed) => {
-  const followingsRef = doc(db, 'friends', myuid)
-  const followersRef = doc(db, 'friends', targetUid)
+  const followingsRef = doc(db, 'friends', myuid, 'followings', targetUid)
+  const followersRef = doc(db, 'friends', targetUid, 'followers', myuid)
+
+  // If Already followed
+  if (followed) {
+    await deleteDoc(followingsRef) // Deleting target user uid from own followings
+    await deleteDoc(followersRef) // Deleting own uid from target user's followers
+  } else {
+    await setDoc(followingsRef, {}) // Setting target user's uid to own followings list as {}
+    await setDoc(followersRef, {}) // Setting own user's uid to target user's followers list as {}
+  }
 
   // Update Following List
-  await setDoc(
-    followingsRef,
-    {
-      followings: followed ? arrayRemove(targetUid) : arrayUnion(targetUid),
-    },
-    { merge: true }
-  )
+
+  // await setDoc(
+  //   followingsRef,
+  //   {
+  //     followings: followed ? arrayRemove(targetUid) : arrayUnion(targetUid),
+  //   },
+  //   { merge: true }
+  // )
 
   // Update Followers List
-  await setDoc(
-    followersRef,
-    {
-      followers: followed ? arrayRemove(myuid) : arrayUnion(myuid),
-    },
-    { merge: true }
-  )
+  // await setDoc(
+  //   followersRef,
+  //   {
+  //     followers: followed ? arrayRemove(myuid) : arrayUnion(myuid),
+  //   },
+  //   { merge: true }
+  // )
 }
 
 // get profile
@@ -196,5 +215,36 @@ export const getAllPosts = async (followings, myuid, index) => {
     })
     const [last] = snapshot.docs.slice(-1)
     return { res, last }
+  }
+}
+
+// Get chunk arrays
+export const getChunks = (data) => {
+  const chunks = []
+  let i = 0
+
+  while (i < data?.length) {
+    chunks.push(data.slice(i, i + 10))
+    i += 10
+  }
+
+  return chunks
+}
+
+// Get Friends user info
+export const getFriendsList = async (data) => {
+  if (!data?.length) {
+    return
+  }
+  let q = query(collection(db, 'users'))
+  const chunks = getChunks(data)
+
+  for (const chunk of chunks) {
+    console.log('yeh inside wala fines run hot hai')
+    q = query(q, where('uid', 'in', chunk))
+  }
+  const snapshot = await getDocs(q)
+  if (!snapshot.empty) {
+    return snapshot.docs.map((item) => item.data())
   }
 }

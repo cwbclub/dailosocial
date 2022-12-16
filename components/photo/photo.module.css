@@ -119,4 +119,7 @@
     overflow: hidden;
     border: 1px solid #abbdd1;
   }
+  .photoWrapper:hover {
+    border-color: var(--color-blue-3);
+  }
 }

@@ -38,13 +38,10 @@ export default function UserInfo({
 
     try {
       await toggleFollowing(myuid, uid, followed)
-      console.log(followed, isFollowed)
     } catch (error) {
       console.log(error.message)
     }
   }
-
-  console.log('user info', isFollowed, followed, loading)
 
   return isEdit ? (
     <EditSection
