@@ -19,12 +19,13 @@ export default function useFollowings(uid, type) {
 
           setData(res)
         }
-        console.log('empty bahar for', uid, type)
+        console.log('empty bahar for', uid, type, data)
         setloading(false)
       }
     )
     return () => unsub()
   }, [uid, type])
-
+  console.count('useFriends')
+  console.log(type, uid, data)
   return { data, loading }
 }
