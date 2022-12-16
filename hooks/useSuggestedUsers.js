@@ -9,10 +9,9 @@ export default function useSuggestedUsers(followings, loading, uid) {
     if (!loading && uid) {
       const handleData = async () => {
         try {
-          const res = await getSuggestedUsers(uid)
-
+          const res = await getSuggestedUsers(followings, uid)
           if (res) {
-            setDataList(res.filter((item) => !followings.includes(item?.uid)))
+            setDataList(res)
           }
         } catch (error) {
           console.log(error.message)

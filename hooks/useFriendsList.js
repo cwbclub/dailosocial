@@ -1,54 +1,30 @@
-import { useEffect, useMemo, useState } from 'react'
-import { getProfile } from '../utils/firebase'
-import useLiveData from './useLiveData'
+import { useEffect, useState } from 'react'
+import { getFriendsList } from '../utils/firebase'
+import useFollowings from './useFollowings'
 
-export default function useFriendsList(uid) {
-  const [followersList, setFollowersList] = useState([])
-  const [followingsList, setFollowingsList] = useState([])
-  const [followersLoading, setFollowersLoading] = useState(true)
-  const [followingsLoading, setFollowingsLoading] = useState(true)
+export default function useFriendsList(uid, type) {
+  const [dataList, setDataList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  const { data, loading } = useLiveData(`friends/${uid}`)
-  const followings = useMemo(() => data?.followings || [], [data?.followings])
-  const followers = useMemo(() => data?.followers || [], [data?.followers])
+  const { data, loading } = useFollowings(uid, type)
 
   useEffect(() => {
     const handleData = async () => {
-      let list = []
-      for (const user of followings) {
-        const res = await getProfile(user)
-        console.count('run get profile')
-        list.push(res)
+      setIsLoading(true)
+      setDataList([])
+      try {
+        const res = await getFriendsList(data)
+        if (res) {
+          setDataList(res)
+        }
+        setIsLoading(false)
+      } catch (error) {
+        console.log(error.message)
+        setIsLoading(false)
       }
-      console.log('inside useffect', list)
-
-      setFollowingsList(list)
-      setFollowingsLoading(false)
     }
     !loading && handleData()
-  }, [loading, followings])
+  }, [data, loading, uid, type])
 
-  useEffect(() => {
-    const handleData = async () => {
-      let list = []
-      for (const user of followers) {
-        const res = await getProfile(user)
-        console.count('run get profile')
-        list.push(res)
-      }
-      console.log('inside useffect', list)
-
-      setFollowersList(list)
-      setFollowersLoading(false)
-    }
-    !loading && handleData()
-  }, [loading, followers])
-
-  console.count('useFriends')
-  return {
-    followingsList,
-    followersList,
-    followersLoading,
-    followingsLoading,
-  }
+  return { dataList, isLoading }
 }
