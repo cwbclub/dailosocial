@@ -158,25 +158,6 @@ export const toggleFollowing = async (myuid, targetUid, followed) => {
     await setDoc(followingsRef, {}) // Setting target user's uid to own followings list as {}
     await setDoc(followersRef, {}) // Setting own user's uid to target user's followers list as {}
   }
-
-  // Update Following List
-
-  // await setDoc(
-  //   followingsRef,
-  //   {
-  //     followings: followed ? arrayRemove(targetUid) : arrayUnion(targetUid),
-  //   },
-  //   { merge: true }
-  // )
-
-  // Update Followers List
-  // await setDoc(
-  //   followersRef,
-  //   {
-  //     followers: followed ? arrayRemove(myuid) : arrayUnion(myuid),
-  //   },
-  //   { merge: true }
-  // )
 }
 
 // get profile

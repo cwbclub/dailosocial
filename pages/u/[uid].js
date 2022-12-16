@@ -43,13 +43,6 @@ export default function Profile() {
   const { dataList: followersList, isLoading: followersLoading } =
     useFriendsList(uid, 'followers') // Get followers list
 
-  console.log(
-    'Follwongs and Followers List for ',
-    uid,
-    followingsList,
-    followersList
-  )
-
   if (!data?.displayName && !loading) {
     return <Custom404 />
   }

@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
-import { getFriendsList, getProfile } from '../utils/firebase'
+import { useEffect, useState } from 'react'
+import { getFriendsList } from '../utils/firebase'
 import useFollowings from './useFollowings'
-import useLiveData from './useLiveData'
 
 export default function useFriendsList(uid, type) {
   const [dataList, setDataList] = useState([])
