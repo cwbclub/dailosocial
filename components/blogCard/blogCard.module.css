@@ -66,3 +66,19 @@
   text-transform: capitalize;
   border-bottom: 1px solid grey;
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .blogCard.post {
+    border: none;
+    border-radius: 0.7rem;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.23);
+    border: 1px solid #abbdd1;
+  }
+  .blogCard:hover {
+    border-color: var(--color-blue-3);
+  }
+  .title:hover {
+    text-decoration: underline;
+  }
+}

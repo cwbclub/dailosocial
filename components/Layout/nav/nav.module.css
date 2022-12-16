@@ -19,6 +19,7 @@
   font-size: 1.8rem;
   font-weight: 600;
   color: var(--color-red-1);
+  cursor: pointer;
 }
 /* .wrapper div svg {
   margin-top: 0.2rem;

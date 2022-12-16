@@ -29,3 +29,12 @@
   color: var(--primary-blue);
   font-weight: 500;
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .blogWrapper {
+    position: relative;
+    z-index: 98;
+    background-color: white;
+  }
+}

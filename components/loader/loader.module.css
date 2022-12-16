@@ -9,7 +9,7 @@
   left: 0;
   background-color: white;
   width: 100%;
-  z-index: 98;
+  z-index: 90;
 }
 
 .wrapper p {
@@ -22,4 +22,11 @@
   margin: auto;
   display: block;
   shape-rendering: auto;
+}
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .wrapper:global(.subpage) {
+    padding: 1.5rem 1rem 1rem 28rem;
+  }
 }

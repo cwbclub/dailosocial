@@ -28,18 +28,22 @@ export default function BottomBar({ uid }) {
   return (
     <div className={s.bottomBarWrapper}>
       <div className={`${s.bottomBar}`}>
-        <Link href="/">
-          {isHome ? <RiHome3Fill className="active" /> : <RiHome3Line />}
+        <Link href="/" className={`${isHome ? 'active' : ''}`}>
+          {isHome ? <RiHome3Fill /> : <RiHome3Line />}
+          <span className={s.desktop}>Home</span>
         </Link>
 
-        <Link href="/search">
-          {isSearch ? <RiSearch2Fill className="active" /> : <RiSearch2Line />}
+        <Link href="/search" className={`${isSearch ? 'active' : ''}`}>
+          {isSearch ? <RiSearch2Fill /> : <RiSearch2Line />}
+          <span className={s.desktop}>Search</span>
         </Link>
-        <Link href="/add">
-          {isAdd ? <RiAddCircleFill className="active" /> : <RiAddCircleLine />}
+        <Link href="/add" className={`${isAdd ? 'active' : ''}`}>
+          {isAdd ? <RiAddCircleFill /> : <RiAddCircleLine />}
+          <span className={s.desktop}>Add</span>
         </Link>
-        <Link href={`/u/${uid}`}>
-          {isProfile ? <RiUserFill className="active" /> : <RiUserLine />}
+        <Link href={`/u/${uid}`} className={`${isProfile ? 'active' : ''}`}>
+          {isProfile ? <RiUserFill /> : <RiUserLine />}
+          <span className={s.desktop}>Profile</span>
         </Link>
       </div>
     </div>

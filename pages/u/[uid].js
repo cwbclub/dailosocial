@@ -52,52 +52,54 @@ export default function Profile() {
           {data?.displayName?.toUpperCase() || 'Profile'} | DailoSocial
         </title>
       </Head>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="wrapper">
-          <UserInfo
-            photoURL={data?.photoURL}
-            displayName={data?.displayName}
-            info={data?.info}
-            myuid={myuid}
-            uid={uid}
-          />
+      <div className={s.profilePage}>
+        {loading ? (
+          <Loader subpage={true} />
+        ) : (
+          <div className="wrapper">
+            <UserInfo
+              photoURL={data?.photoURL}
+              displayName={data?.displayName}
+              info={data?.info}
+              myuid={myuid}
+              uid={uid}
+            />
+          </div>
+        )}
+        <SubNavBar uid={uid} menu={menu} />
+        <div className={s.subPage}>
+          {!menu ? (
+            <ImageGallery
+              uid={uid}
+              photos={photos}
+              loading={dataLoading}
+              isOwn={isOwn}
+              imgSort={imgSort}
+              setSort={setSort}
+            />
+          ) : null}
+          {menu === 'blogs' ? (
+            <BlogsList
+              uid={uid}
+              blogs={blogs}
+              loading={dataLoading}
+              isOwn={isOwn}
+              blogSort={blogSort}
+              setSort={setSort}
+            />
+          ) : null}
+          {menu === 'friends' ? (
+            <FriendsList
+              followings={followingsList}
+              followers={followersList}
+              loading1={followingsLoading}
+              loading2={followersLoading}
+              myuid={myuid}
+            />
+          ) : null}
         </div>
-      )}
-      <SubNavBar uid={uid} menu={menu} />
-      <div className={s.subPage}>
-        {!menu ? (
-          <ImageGallery
-            uid={uid}
-            photos={photos}
-            loading={dataLoading}
-            isOwn={isOwn}
-            imgSort={imgSort}
-            setSort={setSort}
-          />
-        ) : null}
-        {menu === 'blogs' ? (
-          <BlogsList
-            uid={uid}
-            blogs={blogs}
-            loading={dataLoading}
-            isOwn={isOwn}
-            blogSort={blogSort}
-            setSort={setSort}
-          />
-        ) : null}
-        {menu === 'friends' ? (
-          <FriendsList
-            followings={followingsList}
-            followers={followersList}
-            loading1={followingsLoading}
-            loading2={followersLoading}
-            myuid={myuid}
-          />
-        ) : null}
+        <ScrollTop />
       </div>
-      <ScrollTop />
     </>
   )
 }

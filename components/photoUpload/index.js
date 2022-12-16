@@ -45,7 +45,7 @@ export default function PhotoUpload({
 
   const handleChange = (e) => {
     const selected = e.target.files[0]
-    if (!acceptedFiles.includes(selected.type)) {
+    if (!acceptedFiles.includes(selected?.type)) {
       toast.error(<b>Please select only JPEG or PNG format</b>)
       return
     }
