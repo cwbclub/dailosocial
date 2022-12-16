@@ -29,7 +29,6 @@ export default function ImageGallery({
     [imgSort, photos]
   )
 
-  console.count('image')
   return (
     <div className={s.mainWrapper}>
       <div className={s.imageTopMenuWrapper}>

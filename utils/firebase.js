@@ -1,7 +1,5 @@
 import {
   addDoc,
-  arrayRemove,
-  arrayUnion,
   collection,
   collectionGroup,
   deleteDoc,
@@ -160,15 +158,6 @@ export const toggleFollowing = async (myuid, targetUid, followed) => {
   }
 }
 
-// get profile
-
-export const getProfile = async (uid) => {
-  const snapshot = await getDoc(doc(db, 'users', uid))
-  if (snapshot.exists) {
-    return snapshot.data()
-  }
-}
-
 // Get All Posts
 export const getAllPosts = async (followings, myuid, index) => {
   // Starting query and privacy===feed data type
@@ -183,7 +172,7 @@ export const getAllPosts = async (followings, myuid, index) => {
   }
 
   // order by timestamps and limit the user to get pagination
-  q = query(q, orderBy('timestamp', 'desc'), limit(2))
+  q = query(q, orderBy('timestamp', 'desc'), limit(7))
 
   // If last index was given
   if (index) {
@@ -198,19 +187,6 @@ export const getAllPosts = async (followings, myuid, index) => {
 
     return { res, last }
   }
-
-  // const snapshot = await getDocs(colRef)
-  // console.count('Get Posts')
-  // if (!snapshot.empty) {
-  //   let res = []
-  //   snapshot.docs.forEach((item) => {
-  //     if (followings.includes(item.data()?.uid) || item.data()?.uid === myuid) {
-  //       res.push({ ...item.data(), id: item.id })
-  //     }
-  //   })
-  //   const [last] = snapshot.docs.slice(-1)
-  //   return { res, last }
-  // }
 }
 
 // Get chunk arrays

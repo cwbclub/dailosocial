@@ -12,7 +12,6 @@ export default function useFollowings(uid, type) {
     const unsub = onSnapshot(
       collection(db, 'friends', uid, type),
       (snapshot) => {
-        console.count('useFriends snapshot')
         if (!snapshot.empty) {
           const res = snapshot.docs.map((item) => item.id)
           setData(res)
@@ -24,6 +23,6 @@ export default function useFollowings(uid, type) {
     )
     return () => unsub()
   }, [uid, type])
-  console.count('useFriends')
+
   return { data, loading }
 }
