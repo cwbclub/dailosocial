@@ -8,18 +8,16 @@ export default function useFollowings(uid, type) {
 
   useEffect(() => {
     setloading(true)
-    setData([])
+    // setData([])
     const unsub = onSnapshot(
       collection(db, 'friends', uid, type),
       (snapshot) => {
         if (!snapshot.empty) {
           const res = snapshot.docs.map((item) => item.id)
-
-          console.log('Not empty for', uid, type, res)
-
           setData(res)
+        } else {
+          setData([])
         }
-        console.log('empty bahar for', uid, type)
         setloading(false)
       }
     )

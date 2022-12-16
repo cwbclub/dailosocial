@@ -45,7 +45,6 @@ export default function useMainData(uid, isOwn) {
           })
         }
         dispatch({ type: 'DONE' })
-        console.count('photos')
       })
       return () => unsub()
     }

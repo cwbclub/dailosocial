@@ -1,7 +1,5 @@
 import {
   addDoc,
-  arrayRemove,
-  arrayUnion,
   collection,
   collectionGroup,
   deleteDoc,
@@ -160,41 +158,33 @@ export const toggleFollowing = async (myuid, targetUid, followed) => {
   }
 }
 
-// get profile
-
-export const getProfile = async (uid) => {
-  const snapshot = await getDoc(doc(db, 'users', uid))
-  if (snapshot.exists) {
-    return snapshot.data()
-  }
-}
-
 // Get All Posts
 export const getAllPosts = async (followings, myuid, index) => {
-  const colRef = index
-    ? query(
-        collectionGroup(db, 'posts'),
-        where('privacy', '==', 'feed'),
-        orderBy('timestamp', 'desc'),
-        limit(10),
-        startAfter(index)
-      )
-    : query(
-        collectionGroup(db, 'posts'),
-        where('privacy', '==', 'feed'),
-        orderBy('timestamp', 'desc'),
-        limit(20)
-      )
-  const snapshot = await getDocs(colRef)
-  console.count('Get Posts')
+  // Starting query and privacy===feed data type
+  let q = query(collectionGroup(db, 'posts'), where('privacy', '==', 'feed'))
+
+  // Get the followings list chunks including own
+  const chunks = getChunks([...followings, myuid])
+
+  // loop over chunks and add query
+  for (const chunk of chunks) {
+    q = query(q, where('uid', 'in', chunk))
+  }
+
+  // order by timestamps and limit the user to get pagination
+  q = query(q, orderBy('timestamp', 'desc'), limit(7))
+
+  // If last index was given
+  if (index) {
+    q = query(q, startAfter(index))
+  }
+
+  // Getting the snapshot
+  const snapshot = await getDocs(q)
   if (!snapshot.empty) {
-    let res = []
-    snapshot.docs.forEach((item) => {
-      if (followings.includes(item.data()?.uid) || item.data()?.uid === myuid) {
-        res.push({ ...item.data(), id: item.id })
-      }
-    })
+    const res = snapshot.docs.map((item) => ({ ...item.data(), id: item.id }))
     const [last] = snapshot.docs.slice(-1)
+
     return { res, last }
   }
 }
