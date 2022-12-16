@@ -1,8 +1,8 @@
 import s from './loader.module.css'
 
-export default function Loader() {
+export default function Loader({ subpage }) {
   return (
-    <div className={s.wrapper}>
+    <div className={`${s.wrapper} ${subpage ? 'subpage' : ''}`}>
       <div>
         <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
           <path

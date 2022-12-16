@@ -18,9 +18,28 @@
   border-radius: 0.5rem;
   padding-block: 0.3em;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .optionWrapper div.active {
   background-color: var(--color-blue-2);
   color: white;
+}
+
+@media (hover: hover) {
+  .optionWrapper div:hover:not(.active) {
+    color: var(--color-blue-4);
+  }
+}
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .privacyDiv {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
+  .optionWrapper {
+    flex-grow: 1;
+  }
 }

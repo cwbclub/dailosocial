@@ -82,11 +82,18 @@
   gap: 6px;
 }
 
+.btn:global(.blue):active {
+  background-color: #2e29cb;
+}
+
 /* Red */
 .btn:global(.red) {
   color: white;
   background-color: var(--color-red-2);
   border: 1.5px solid var(--color-red-2);
+}
+.btn:global(.red):active {
+  background-color: #aa0758;
 }
 
 /* Updating */
@@ -101,4 +108,23 @@
   border-radius: 7px;
   background-color: var(--color-blue-4);
   z-index: -1;
+}
+
+@media (hover: hover) {
+  .btn:global(.blue-light):hover {
+    background-color: #c9c9e1;
+  }
+  .btn:global(.blue-border):hover {
+    background-color: #a396dd;
+  }
+  .btn:global(.blue):hover {
+    background-color: #4641e7;
+  }
+  .btn:global(.red):hover {
+    background-color: #c11e6f;
+  }
+
+  .btn:global(.red-border):hover {
+    background-color: #e6bbbd;
+  }
 }

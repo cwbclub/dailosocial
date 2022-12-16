@@ -31,3 +31,9 @@
 .userCard button.unfollow {
   color: var(--color-red-2);
 }
+
+@media screen and (min-width: 800px) {
+  .userCard a:hover {
+    color: var(--color-blue-4);
+  }
+}

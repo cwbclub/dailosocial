@@ -35,7 +35,7 @@ export default function Login() {
       <Head>
         <title>Welcome | DailoSocial</title>
       </Head>
-      <div className="fullHeight">
+      <div className={`${s.loginPageWrapper} fullHeight`}>
         <div className={s.loginPage}>
           <div className={s.videoDiv}>
             <div className={s.videooverlay} />
@@ -70,17 +70,17 @@ export default function Login() {
                 Sign in with Google
               </button>
             )}
+            <p>
+              Powered by{' '}
+              <a
+                href="https://canwebe.tech"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                CanWeBe!
+              </a>
+            </p>
           </div>
-          <p>
-            Powered by{' '}
-            <a
-              href="https://canwebe.tech"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              CanWeBe!
-            </a>
-          </p>
         </div>
       </div>
     </>

@@ -109,3 +109,14 @@
 .imgBottomDiv select:active {
   outline: 1px solid #0b1272;
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .photoWrapper {
+    border: none;
+    border-radius: 0.7rem;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.23);
+    overflow: hidden;
+    border: 1px solid #abbdd1;
+  }
+}
