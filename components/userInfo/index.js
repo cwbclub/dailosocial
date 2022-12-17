@@ -2,12 +2,14 @@ import { FaEdit } from 'react-icons/fa'
 import Image from 'next/image'
 import s from './userInfo.module.css'
 import Button from '../Button'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import userImg from '../../public/user.webp'
 import dynamic from 'next/dynamic'
 import { RiUserFollowFill, RiUserUnfollowFill } from 'react-icons/ri'
 import { toggleFollowing } from '../../utils/firebase'
 import { useFriends } from '../../context/friendsContext'
+import { debounce } from 'lodash'
+
 const EditSection = dynamic(() => import('./editSection'), {
   loading: () => <p className="loading">Loading..</p>,
 })
@@ -27,13 +29,17 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
   // Handle Following
   const handleFollowing = async () => {
     setFollowed((prev) => !prev)
-
     try {
       await toggleFollowing(myuid, uid, followed)
     } catch (error) {
       console.log(error.message)
     }
   }
+
+  const debounceHandleFollowing = useMemo(
+    () => debounce(handleFollowing, 1000, { leading: true }),
+    []
+  )
 
   return (
     <div className={`${s.userInfoWrapper} wrapper`}>
@@ -66,7 +72,6 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
                 {isOwn}No info Found edit your info now
               </p>
             ) : null}
-
             {isOwn ? (
               <Button types="xs primary" onClick={() => handleEdit(true)}>
                 <FaEdit /> Edit Profile
@@ -74,7 +79,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
             ) : (
               <Button
                 disabled={loading}
-                onClick={handleFollowing}
+                onClick={debounceHandleFollowing}
                 types={`xs ${followed ? 'secondary' : 'primary'}`}
               >
                 {loading ? (
