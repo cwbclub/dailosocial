@@ -21,7 +21,7 @@ export default function useLogin() {
       if (res) {
         const { displayName, uid, photoURL } = res?.user
 
-        await addUser(uid, displayName?.toLowerCase(), photoURL)
+        await addUser(uid, displayName?.toLowerCase()?.trim(), photoURL)
         dispatch({ type: 'LOGIN', payload: res.user })
         toast.success(<b>Welcome Back to DailoSocial</b>, { id })
         setIsLoading(false)
