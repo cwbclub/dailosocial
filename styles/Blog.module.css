@@ -36,5 +36,14 @@
     position: relative;
     z-index: 98;
     background-color: white;
+    padding-inline: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .blogWrapper {
+    padding-inline: 3rem;
+    max-width: 90rem;
+    margin-left: 0;
   }
 }

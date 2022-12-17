@@ -119,4 +119,13 @@
     overflow: hidden;
     border: 1px solid #abbdd1;
   }
+  .photoWrapper:hover {
+    border-color: var(--color-blue-3);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .photoWrapper {
+    max-width: 61rem;
+  }
 }

@@ -321,3 +321,9 @@ pre,
     width: 100%;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  main {
+    max-width: 1070px;
+  }
+}

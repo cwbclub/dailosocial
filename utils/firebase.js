@@ -1,7 +1,5 @@
 import {
   addDoc,
-  arrayRemove,
-  arrayUnion,
   collection,
   collectionGroup,
   deleteDoc,
@@ -40,6 +38,24 @@ export const addUser = async (uid, displayName, photoURL) => {
 export const updateProfile = async (uid, data) => {
   const docRef = doc(db, `users/${uid}`)
   await updateDoc(docRef, data)
+  if (data?.displayName) {
+    const blogRef = query(collection(db, 'blogs'), where('uid', '==', uid))
+    const postsRef = collection(db, 'users', uid, 'posts')
+    await updateUsername(data?.displayName, blogRef)
+    await updateUsername(data?.displayName, postsRef)
+  }
+}
+
+// updating username
+const updateUsername = async (displayName, ref) => {
+  const snapshot = await getDocs(ref)
+  if (!snapshot.empty) {
+    snapshot.docs.map((item) => {
+      updateDoc(item.ref, {
+        displayName,
+      })
+    })
+  }
 }
 
 // Adding Posts
@@ -128,8 +144,16 @@ export const updateBlog = async (uid, id, data) => {
 }
 
 // Get Recomended Users
-export const getSuggestedUsers = async (uid) => {
-  const q = query(collection(db, 'users'), where('uid', '!=', uid), limit(20))
+export const getSuggestedUsers = async (followings, uid) => {
+  let q = query(collection(db, 'users'))
+
+  const chunks = getChunks([...followings, uid])
+
+  for (const chunk of chunks) {
+    q = query(q, where('uid', 'not-in', chunk))
+  }
+
+  q = query(q, limit(7))
   const snapshot = await getDocs(q)
   if (!snapshot.empty) {
     return snapshot.docs.map((item) => item.data())
@@ -138,63 +162,76 @@ export const getSuggestedUsers = async (uid) => {
 
 // Update Following list
 export const toggleFollowing = async (myuid, targetUid, followed) => {
-  const followingsRef = doc(db, 'friends', myuid)
-  const followersRef = doc(db, 'friends', targetUid)
+  const followingsRef = doc(db, 'friends', myuid, 'followings', targetUid)
+  const followersRef = doc(db, 'friends', targetUid, 'followers', myuid)
 
-  // Update Following List
-  await setDoc(
-    followingsRef,
-    {
-      followings: followed ? arrayRemove(targetUid) : arrayUnion(targetUid),
-    },
-    { merge: true }
-  )
-
-  // Update Followers List
-  await setDoc(
-    followersRef,
-    {
-      followers: followed ? arrayRemove(myuid) : arrayUnion(myuid),
-    },
-    { merge: true }
-  )
-}
-
-// get profile
-
-export const getProfile = async (uid) => {
-  const snapshot = await getDoc(doc(db, 'users', uid))
-  if (snapshot.exists) {
-    return snapshot.data()
+  // If Already followed
+  if (followed) {
+    await deleteDoc(followingsRef) // Deleting target user uid from own followings
+    await deleteDoc(followersRef) // Deleting own uid from target user's followers
+  } else {
+    await setDoc(followingsRef, {}) // Setting target user's uid to own followings list as {}
+    await setDoc(followersRef, {}) // Setting own user's uid to target user's followers list as {}
   }
 }
 
 // Get All Posts
 export const getAllPosts = async (followings, myuid, index) => {
-  const colRef = index
-    ? query(
-        collectionGroup(db, 'posts'),
-        where('privacy', '==', 'feed'),
-        orderBy('timestamp', 'desc'),
-        limit(10),
-        startAfter(index)
-      )
-    : query(
-        collectionGroup(db, 'posts'),
-        where('privacy', '==', 'feed'),
-        orderBy('timestamp', 'desc'),
-        limit(20)
-      )
-  const snapshot = await getDocs(colRef)
-  console.count('Get Posts')
+  // Starting query and privacy===feed data type
+  let q = query(collectionGroup(db, 'posts'), where('privacy', '==', 'feed'))
+
+  // Get the followings list chunks including own
+  const chunks = getChunks([...followings, myuid])
+
+  // loop over chunks and add query
+  for (const chunk of chunks) {
+    q = query(q, where('uid', 'in', chunk))
+  }
+
+  // order by timestamps and limit the user to get pagination
+  q = query(q, orderBy('timestamp', 'desc'), limit(7))
+
+  // If last index was given
+  if (index) {
+    q = query(q, startAfter(index))
+  }
+
+  // Getting the snapshot
+  const snapshot = await getDocs(q)
   if (!snapshot.empty) {
-    let res = []
-    snapshot.docs.forEach((item) => {
-      if (followings.includes(item.data()?.uid) || item.data()?.uid === myuid) {
-        res.push({ ...item.data(), id: item.id })
-      }
-    })
+    const res = snapshot.docs.map((item) => ({ ...item.data(), id: item.id }))
     const [last] = snapshot.docs.slice(-1)
+
     return { res, last }
+  }
+}
+
+// Get chunk arrays
+export const getChunks = (data) => {
+  const chunks = []
+  let i = 0
+
+  while (i < data?.length) {
+    chunks.push(data.slice(i, i + 10))
+    i += 10
+  }
+
+  return chunks
+}
+
+// Get Friends user info
+export const getFriendsList = async (data) => {
+  if (!data?.length) {
+    return
+  }
+  let q = query(collection(db, 'users'))
+  const chunks = getChunks(data)
+
+  for (const chunk of chunks) {
+    q = query(q, where('uid', 'in', chunk))
+  }
+  const snapshot = await getDocs(q)
+  if (!snapshot.empty) {
+    return snapshot.docs.map((item) => item.data())
   }
 }

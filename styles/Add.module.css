@@ -38,3 +38,10 @@
     flex-direction: column;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .addPage {
+    padding-right: 2rem;
+    padding-left: 30rem;
+  }
+}

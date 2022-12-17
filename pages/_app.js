@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
 
   // Configuration of NProgress
   nProgress.configure({ showSpinner: false })
-  console.count('app')
+
   // UseEffect for nprogress
   useEffect(() => {
     const handleStart = () => nProgress.start()

@@ -107,3 +107,18 @@
 .editSection .btnDiv button {
   flex-basis: 100%;
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .userInfoWrapper {
+    padding: 1.5rem 2rem 0rem 28rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .userInfoWrapper {
+    margin-left: 30rem;
+    padding-left: 0;
+    max-width: 65rem;
+  }
+}

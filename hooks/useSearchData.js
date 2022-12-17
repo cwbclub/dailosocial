@@ -1,21 +1,29 @@
-import { collection, onSnapshot, query, where } from 'firebase/firestore'
+import {
+  collection,
+  endAt,
+  onSnapshot,
+  orderBy,
+  query,
+  startAt,
+} from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { db } from '../lib/firebase'
 
 export default function useSearchData(search) {
   const [searchData, setSearchData] = useState()
   const [searchLoading, setSearchLoading] = useState(false)
-  // .where('name', '>=', queryText)
-  // .where('name', '<=', queryText + '\uf8ff')
+
   useEffect(() => {
     let unsub
     if (search.length > 3) {
       setSearchLoading(true)
+      setSearchData()
       unsub = onSnapshot(
         query(
           collection(db, 'users'),
-          where('displayName', '>=', search.trim().toLowerCase()),
-          where('displayName', '<=', search.trim().toLowerCase() + '~')
+          orderBy('displayName'),
+          startAt(search.toLowerCase().trim()),
+          endAt(search.toLowerCase().trim() + '~')
         ),
         (snapshot) => {
           if (!snapshot.empty) {

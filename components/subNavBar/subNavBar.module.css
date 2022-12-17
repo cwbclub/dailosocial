@@ -43,3 +43,18 @@
     color: var(--primary-blue);
   }
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .subNavBar {
+    margin-left: 28rem;
+    margin-right: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .subNavBar {
+    margin-left: 30rem;
+    max-width: 65rem;
+  }
+}

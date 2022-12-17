@@ -5,7 +5,15 @@
 
 /* Media Queries */
 @media screen and (min-width: 800px) {
-  .profilePage {
-    padding: 1.5rem 1rem 0rem 28rem;
+  .subPage {
+    margin-left: 28rem;
+    margin-right: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .subPage {
+    margin-left: 30rem;
+    max-width: 65rem;
   }
 }

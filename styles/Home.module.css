@@ -68,3 +68,9 @@
     word-spacing: 0.34rem;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .homeBody {
+    padding-left: 30rem;
+  }
+}

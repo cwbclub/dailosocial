@@ -54,12 +54,12 @@ export default function EditSection({
   // Checking what changes done
   const checkchanges = () => {
     if (name.toLowerCase() !== displayName && myinfo === info) {
-      return { displayName: name.toLowerCase() }
+      return { displayName: name.toLowerCase().trim() }
     }
     if (myinfo !== info && name.toLowerCase() === displayName) {
       return { info: myinfo }
     } else {
-      return { displayName: name.toLowerCase(), info: myinfo }
+      return { displayName: name.toLowerCase().trim(), info: myinfo }
     }
   }
 
