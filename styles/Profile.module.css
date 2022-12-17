@@ -6,6 +6,14 @@
 /* Media Queries */
 @media screen and (min-width: 800px) {
   .subPage {
-    padding: 0 1rem 13rem 28rem;
+    margin-left: 28rem;
+    margin-right: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .subPage {
+    margin-left: 30rem;
+    max-width: 65rem;
   }
 }

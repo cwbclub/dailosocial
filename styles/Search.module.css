@@ -99,7 +99,7 @@
 @media screen and (min-width: 800px) {
   .usersListWrapper {
     margin-left: 28rem;
-    margin-right: 1rem;
+    margin-right: 2rem;
     padding-inline: 3em;
   }
   .wrapper {
@@ -120,5 +120,12 @@
     top: 0.28em;
     left: 0.28em;
     font-size: 1.2em;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .usersListWrapper {
+    margin-left: 30rem;
+    max-width: 61rem;
   }
 }

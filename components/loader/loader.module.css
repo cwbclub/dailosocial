@@ -27,6 +27,12 @@
 /* Media Queries */
 @media screen and (min-width: 800px) {
   .wrapper:global(.subpage) {
-    padding: 1.5rem 1rem 1rem 28rem;
+    padding: 1.5rem 2rem 1rem 28rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .wrapper:global(.subpage) {
+    padding-left: 30rem;
   }
 }

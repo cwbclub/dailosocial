@@ -82,3 +82,10 @@
     text-decoration: underline;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .blogCard.post {
+    min-width: 61rem;
+    width: fit-content;
+  }
+}
