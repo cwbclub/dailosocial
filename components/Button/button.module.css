@@ -21,7 +21,7 @@
   padding: 0;
 }
 
-.btn:global(.xs) svg {
+.btn:global(.xs):not(:global(.delete)) svg {
   margin-top: -0.23rem;
 }
 

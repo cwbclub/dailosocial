@@ -30,6 +30,7 @@
   margin: 0;
   padding: 0;
   font: inherit;
+  scroll-margin-top: 6.6rem;
 }
 /*
   3. Allow percentage-based heights in the application

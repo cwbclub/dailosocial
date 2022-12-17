@@ -14,6 +14,7 @@ import {
   startAfter,
   updateDoc,
   where,
+  writeBatch,
 } from 'firebase/firestore'
 import { deleteObject, ref } from 'firebase/storage'
 import { db, storage } from '../lib/firebase'
@@ -234,4 +235,48 @@ export const getFriendsList = async (data) => {
   if (!snapshot.empty) {
     return snapshot.docs.map((item) => item.data())
   }
+}
+
+// Delete Account
+export const deleteAccount = async (uid) => {
+  // Batch
+  const batch = writeBatch(db)
+
+  // Col REf
+  const blogsRef = query(collection(db, 'blogs'), where('uid', '==', uid))
+  const followingsRef = collection(db, 'friends', uid, 'followings')
+  const followersRef = collection(db, 'friends', uid, 'followers')
+  const postsRef = collection(db, 'users', uid, 'posts')
+
+  // Doc Ref
+  const friendsRef = doc(db, 'friends', uid)
+  const userRef = doc(db, 'users', uid)
+
+  // Delete Operation
+  const deleteData = async (loc) => {
+    const snapshot = await getDocs(loc)
+    if (!snapshot.empty) {
+      snapshot.docs.forEach((item) => {
+        batch.delete(item.ref)
+      })
+    }
+  }
+
+  // First delete all images
+  const postsSnapshot = await getDocs(postsRef)
+  if (!postsSnapshot.empty) {
+    postsSnapshot.docs.forEach((item) => {
+      if (item.data()?.fileRef) {
+        const fileLoc = ref(storage, item.data().fileRef)
+        deleteObject(fileLoc)
+      }
+      batch.delete(item.ref)
+    })
+  }
+  await deleteData(blogsRef) //blogs data
+  await deleteData(followingsRef) //followings data
+  await deleteData(followersRef) //followers data
+  batch.delete(friendsRef)
+  batch.delete(userRef)
+  await batch.commit()
 }

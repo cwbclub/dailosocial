@@ -66,6 +66,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
                 {isOwn}No info Found edit your info now
               </p>
             ) : null}
+
             {isOwn ? (
               <Button types="xs primary" onClick={() => handleEdit(true)}>
                 <FaEdit /> Edit Profile
