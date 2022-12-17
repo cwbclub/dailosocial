@@ -10,7 +10,6 @@ import UserInfo from '../../components/userInfo'
 import useFriendsList from '../../hooks/useFriendsList'
 import Head from 'next/head'
 const Custom404 = dynamic(() => import('../404'))
-const ScrollTop = dynamic(() => import('../../components/scrollTop'))
 const Loader = dynamic(() => import('../../components/loader'))
 const ImageGallery = dynamic(() => import('../../components/imageGallery'))
 const BlogsList = dynamic(() => import('../../components/BlogsList'))
@@ -98,7 +97,6 @@ export default function Profile() {
           />
         ) : null}
       </div>
-      <ScrollTop />
     </>
   )
 }

@@ -21,9 +21,6 @@ export default function Home() {
 
   const { posts, postsLoading, handleData, isEmpty } = usePosts()
 
-  // if (!postsLoading && posts?.length) {
-  //   return <ContentLoader title="Getting Posts Data" />
-  // }
   const btnRef = useRef()
 
   useEffect(() => {

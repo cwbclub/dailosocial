@@ -2,10 +2,15 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
-import { FaHourglassStart, FaSync, FaTimes } from 'react-icons/fa'
-import { RiCamera3Fill } from 'react-icons/ri'
+import { FaCandyCane, FaHourglassStart, FaSync, FaTimes } from 'react-icons/fa'
+import {
+  RiCamera3Fill,
+  RiDeleteBin5Fill,
+  RiDeleteBin6Line,
+} from 'react-icons/ri'
+import useLogout from '../../../hooks/useLogout'
 import { storage } from '../../../lib/firebase'
-import { updateProfile } from '../../../utils/firebase'
+import { deleteAccount, getTest, updateProfile } from '../../../utils/firebase'
 import Button from '../../Button'
 import s from '../userInfo.module.css'
 
@@ -23,6 +28,7 @@ export default function EditSection({
   const [myinfo, setMyinfo] = useState(info)
   const [isLoading, setIsLoading] = useState(false)
   const [progress, setProgress] = useState(0)
+  const { logout } = useLogout()
 
   // Ref
   const fileref = useRef()
@@ -139,6 +145,26 @@ export default function EditSection({
       }
     }
   }
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    const isConfirm = window.confirm(
+      'Are you sure you want to delete your account completely??'
+    )
+    if (isConfirm) {
+      setIsLoading(true)
+      const id = toast.loading(<b>Deleting please wait..</b>)
+      try {
+        await deleteAccount(uid)
+        await logout()
+        setIsLoading(false)
+        toast.success(<b>Deleted Successfully</b>, { id })
+      } catch (error) {
+        console.log(error.message)
+        toast.error(<b>{error.message}</b>, { id })
+        setIsLoading(false)
+      }
+    }
+  }
 
   // Cleanup function
 
@@ -164,6 +190,9 @@ export default function EditSection({
           <RiCamera3Fill />
         </button>
       </div>
+      <Button types="xs secondary delete" onClick={handleDelete}>
+        <RiDeleteBin6Line /> Delete this account
+      </Button>
       <input
         ref={fileref}
         type="file"
