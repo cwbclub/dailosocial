@@ -1,6 +1,7 @@
+import { debounce } from 'lodash'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { RiUserFollowFill, RiUserUnfollowFill } from 'react-icons/ri'
 import { toggleFollowing } from '../../utils/firebase'
@@ -19,6 +20,11 @@ export default function UserCard({ data, followed, myuid }) {
       toast.error(<b>{error.message}</b>)
     }
   }
+
+  const debounceHandleClick = useMemo(
+    () => debounce(handleClick, 1000, { leading: true }),
+    []
+  )
   const isOwn = uid === myuid
 
   return (
@@ -37,7 +43,7 @@ export default function UserCard({ data, followed, myuid }) {
       {isOwn ? null : (
         <button
           className={isFollowed ? s.unfollow : null}
-          onClick={handleClick}
+          onClick={debounceHandleClick}
         >
           {isFollowed ? (
             <>
