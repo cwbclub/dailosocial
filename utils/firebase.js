@@ -38,6 +38,24 @@ export const addUser = async (uid, displayName, photoURL) => {
 export const updateProfile = async (uid, data) => {
   const docRef = doc(db, `users/${uid}`)
   await updateDoc(docRef, data)
+  if (data?.displayName) {
+    const blogRef = query(collection(db, 'blogs'), where('uid', '==', uid))
+    const postsRef = collection(db, 'users', uid, 'posts')
+    await updateUsername(data?.displayName, blogRef)
+    await updateUsername(data?.displayName, postsRef)
+  }
+}
+
+// updating username
+const updateUsername = async (displayName, ref) => {
+  const snapshot = await getDocs(ref)
+  if (!snapshot.empty) {
+    snapshot.docs.map((item) => {
+      updateDoc(item.ref, {
+        displayName,
+      })
+    })
+  }
 }
 
 // Adding Posts
@@ -132,7 +150,6 @@ export const getSuggestedUsers = async (followings, uid) => {
   const chunks = getChunks([...followings, uid])
 
   for (const chunk of chunks) {
-    console.log('run hota hai', chunk, chunks)
     q = query(q, where('uid', 'not-in', chunk))
   }
 
@@ -211,7 +228,6 @@ export const getFriendsList = async (data) => {
   const chunks = getChunks(data)
 
   for (const chunk of chunks) {
-    console.log('yeh inside wala fines run hot hai')
     q = query(q, where('uid', 'in', chunk))
   }
   const snapshot = await getDocs(q)

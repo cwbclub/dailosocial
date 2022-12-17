@@ -26,7 +26,6 @@ export default function useSearchData(search) {
           endAt(search.toLowerCase().trim() + '~')
         ),
         (snapshot) => {
-          console.log(snapshot.empty, search)
           if (!snapshot.empty) {
             setSearchData(snapshot.docs.map((item) => item.data()))
           }
