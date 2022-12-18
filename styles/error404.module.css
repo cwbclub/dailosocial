@@ -17,3 +17,17 @@
   font-size: 2rem;
   color: var(--color-grey-3);
 }
+
+/* Media Queries */
+@media screen and (min-width: 800px) {
+  .wrapper {
+    padding-right: 2rem;
+    padding-left: 28rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .wrapper {
+    padding-left: 30rem;
+  }
+}
