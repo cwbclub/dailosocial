@@ -53,14 +53,16 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
         />
       ) : (
         <div className={s.userInfoDiv}>
-          <div className={s.img}>
-            <Image
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
-              src={photoURL || userImg}
-              alt="User Avatar"
-              fill
-            />
+          <div className={s.roundedCorner}>
+            <div className={s.img}>
+              <Image
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+                src={photoURL || userImg}
+                alt="User Avatar"
+                fill
+              />
+            </div>
           </div>
 
           <p className={s.name}>{displayName}</p>

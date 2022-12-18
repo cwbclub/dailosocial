@@ -1,14 +1,18 @@
+.roundedCorner {
+  border-radius: 50%;
+  border: 1px solid var(--color-blue-3);
+  padding: 4px;
+  margin-bottom: 0.5rem;
+}
+
 .img {
   border-radius: 50%;
   width: 10.3rem;
   height: 10.3rem;
-  outline: 1px solid var(--color-blue-3);
-  outline-offset: 4px;
-  margin-bottom: 0.5rem;
   position: relative;
   overflow: hidden;
-  border-radius: 50%;
 }
+
 .img img {
   border-radius: 50%;
   object-fit: cover;
