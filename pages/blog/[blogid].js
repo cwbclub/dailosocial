@@ -49,8 +49,8 @@ export default function BlogPage() {
 
   const share = () => {
     const shareData = {
-      text: 'Read this Blog only at DailoSocial',
-      title: data?.title || 'My Blog',
+      title: 'Read this Blog only at DailoSocial',
+      text: data?.title || 'My Blog',
       url: 'https://dailosocial.vercel.app' + router.asPath,
     }
     if (navigator.canShare(shareData)) {

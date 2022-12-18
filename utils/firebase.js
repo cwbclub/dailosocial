@@ -24,9 +24,9 @@ export const addUser = async (uid, displayName, photoURL) => {
   const docRef = doc(db, `users/${uid}`)
 
   // For checking existing user
-  const res = await getDoc(docRef)
+  const snapshot = await getDoc(docRef)
 
-  if (!res.exists()) {
+  if (!snapshot.exists()) {
     await setDoc(docRef, {
       displayName,
       photoURL,

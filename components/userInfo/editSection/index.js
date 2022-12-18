@@ -174,22 +174,25 @@ export default function EditSection({
 
   return (
     <form onSubmit={handleSubmit} className={s.editSection}>
-      <div className={s.img}>
-        <Image
-          placeholder="blur"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
-          src={img}
-          alt="User Avatar"
-          fill
-        />
-        <button
-          onClick={handlePic}
-          disabled={isLoading}
-          className={s.changePic}
-        >
-          <RiCamera3Fill />
-        </button>
+      <div className={s.roundedCorner}>
+        <div className={s.img}>
+          <Image
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+            src={img}
+            alt="User Avatar"
+            fill
+          />
+          <button
+            onClick={handlePic}
+            disabled={isLoading}
+            className={s.changePic}
+          >
+            <RiCamera3Fill />
+          </button>
+        </div>
       </div>
+
       <Button types="xs secondary delete" onClick={handleDelete}>
         <RiDeleteBin6Line /> Delete this account
       </Button>
