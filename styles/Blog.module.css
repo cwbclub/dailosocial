@@ -37,6 +37,7 @@
     z-index: 98;
     background-color: white;
     padding-inline: 2rem;
+    min-height: calc(100% - 5.5rem);
   }
 }
 
