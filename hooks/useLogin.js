@@ -20,7 +20,7 @@ export default function useLogin() {
       const res = await signInWithPopup(auth, googleProvider)
       if (res) {
         const { displayName, uid, photoURL } = res?.user
-        await addUser(uid, displayName?.toLowerCase(), photoURL)
+        await addUser(uid, displayName?.toLowerCase()?.trim(), photoURL)
         dispatch({ type: 'LOGIN', payload: res.user })
         toast.success(<b>Welcome Back to DailoSocial</b>, { id })
         setIsLoading(false)
