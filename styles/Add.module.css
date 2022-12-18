@@ -33,7 +33,7 @@
 @media screen and (min-width: 800px) {
   .addPage {
     padding: 1.5rem 1rem 1rem 28rem;
-    min-height: calc(100vh - 5.5rem);
+    min-height: calc(100% - 5.5rem);
     display: flex;
     flex-direction: column;
   }
