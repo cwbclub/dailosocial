@@ -220,7 +220,7 @@ pre,
 #post-content ul,
 #editor-content ol,
 #post-content ol {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 /* Strong */
@@ -249,7 +249,7 @@ pre,
 #editor-content h2,
 #post-content h2 {
   font-size: 2.5rem;
-  line-height: 1.14;
+  line-height: 1.2;
   font-weight: 600;
 }
 
@@ -271,6 +271,11 @@ pre,
 #editor-content ul li,
 #editor-content ol li {
   padding-left: 0;
+}
+
+#editor-content li:not(:last-child),
+#post-content li:not(:last-child) {
+  margin-bottom: 0.9rem;
 }
 
 /* Image */
