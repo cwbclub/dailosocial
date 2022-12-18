@@ -6,8 +6,7 @@ import { useState } from 'react'
 import { useAuth } from '../context/authContext'
 import useLiveData from '../hooks/useLiveData'
 import s from '../styles/Add.module.css'
-// import BlogUpload from '../components/blogUpload'
-// import PhotoUpload from '../components/photoUpload'
+
 const BlogUpload = dynamic(() => import('../components/blogUpload'), {
   loading: () => <p className="loading">Loading...</p>,
 })

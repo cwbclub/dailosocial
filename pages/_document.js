@@ -5,7 +5,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta name="theme-color" content="#002cc0" />
+          <meta name="theme-color" content="#5f59f7" />
           <meta
             name="description"
             content="It is a dailylife journal and photo gallery app where we can store and share our blogs and photos with our friends and relatives."

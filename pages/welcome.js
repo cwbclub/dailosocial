@@ -86,24 +86,3 @@ export default function Login() {
     </>
   )
 }
-
-{
-  /* <div className={styles.videooverlay} />
-          <div
-            style={{ opacity: !isReady ? 1 : 0 }}
-            className={styles.thumbnail}
-          >
-            <Image src={thumb} alt={'Thumbnail'} layout="fill" priority />
-          </div>
-          <video
-            onLoadedData={handleVideo}
-            className={styles.video}
-            style={{ opacity: isReady ? 1 : 0 }}
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/assets/bgvideo.mp4" type="video/mp4" />
-          </video> */
-}

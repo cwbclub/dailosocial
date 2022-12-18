@@ -27,7 +27,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#5f59f7",
-  "theme_color": "#002cc0",
+  "theme_color": "#5f59f7",
   "orientation": "portrait",
   "categories": ["productivity", "social"]
 }
