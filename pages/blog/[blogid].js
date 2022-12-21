@@ -68,6 +68,10 @@ export default function BlogPage() {
     <>
       <Head>
         <title>{data?.title || 'Blog'} | DailoSocial</title>
+        <meta
+          property="og:image"
+          content={'localhost:3000/api/og?title=' + title}
+        />
       </Head>
       {isLoading ? (
         <Loader />
