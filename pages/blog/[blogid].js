@@ -70,7 +70,7 @@ export default function BlogPage() {
         <title>{data?.title || 'Blog'} | DailoSocial</title>
         <meta
           property="og:image"
-          content={'https://dailosocialogimg.vercel.app/api/og?title=' + title}
+          content={'https://dailosocialogimg.vercel.app/api/og?param=' + title}
         />
       </Head>
       {isLoading ? (
