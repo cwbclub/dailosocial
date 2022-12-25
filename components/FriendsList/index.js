@@ -10,6 +10,7 @@ export default function FriendsList({
   loading1,
   loading2,
   myuid,
+  isOwn,
 }) {
   const [followingMenu, setFollowingMenu] = useState(true)
 
@@ -20,13 +21,13 @@ export default function FriendsList({
           onClick={() => setFollowingMenu(true)}
           className={followingMenu ? s.active : null}
         >
-          Followings
+          {isOwn ? 'Followings' : 'Follows'} ({followings?.length})
         </div>
         <div
           onClick={() => setFollowingMenu(false)}
           className={followingMenu ? null : s.active}
         >
-          Followers
+          Followers ({followers?.length})
         </div>
       </div>
       {followingMenu

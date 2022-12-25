@@ -94,6 +94,7 @@ export default function Profile() {
             loading1={followingsLoading}
             loading2={followersLoading}
             myuid={myuid}
+            isOwn={isOwn}
           />
         ) : null}
       </div>
