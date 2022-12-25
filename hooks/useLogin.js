@@ -29,7 +29,7 @@ export default function useLogin() {
         throw new Error('Something went wrong, Try Again!')
       }
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(<b>{error.message}</b>, { id })
       setIsLoading(false)
     }

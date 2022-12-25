@@ -12,7 +12,7 @@ export default function useLogout() {
       dispatch({ type: 'LOGOUT' })
       toast.success(<b>Logout done</b>)
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(<b>{error.message}</b>)
     }
   }

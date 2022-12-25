@@ -19,7 +19,7 @@ export default function useFriendsList(uid, type) {
         }
         setIsLoading(false)
       } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         setIsLoading(false)
       }
     }
