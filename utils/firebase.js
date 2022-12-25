@@ -280,3 +280,14 @@ export const deleteAccount = async (uid) => {
   batch.delete(userRef)
   await batch.commit()
 }
+
+// Handle Like Function
+export const handleLike = async (liked, postId, userId) => {
+  const docRef = doc(db, 'posts', postId, 'likes', userId)
+
+  if (liked) {
+    await setDoc(docRef, {})
+  } else {
+    await deleteDoc(docRef)
+  }
+}

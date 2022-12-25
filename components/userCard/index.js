@@ -16,7 +16,7 @@ export default function UserCard({ data, followed, myuid }) {
     try {
       await toggleFollowing(myuid, uid, isFollowed)
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(<b>{error.message}</b>)
     }
   }

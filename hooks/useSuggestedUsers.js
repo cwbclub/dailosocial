@@ -14,7 +14,7 @@ export default function useSuggestedUsers(followings, loading, uid) {
             setDataList(res)
           }
         } catch (error) {
-          console.log(error.message)
+          console.error(error.message)
         }
         setSuggestLoading(false)
       }

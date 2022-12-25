@@ -40,7 +40,7 @@ export default function PostsContextProvider({ children }) {
         dispatch({ type: 'EMPTY' })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error(<b>{error.message}</b>)
       dispatch({ type: 'DONE' })
     }

@@ -136,7 +136,7 @@ export default function EditSection({
         toast.success(<b>Update Done</b>, { id })
       }
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(<b>{error.message}</b>, { id })
 
       // Update when in mount
@@ -159,7 +159,7 @@ export default function EditSection({
         setIsLoading(false)
         toast.success(<b>Deleted Successfully</b>, { id })
       } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         toast.error(<b>{error.message}</b>, { id })
         setIsLoading(false)
       }

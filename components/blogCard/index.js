@@ -26,7 +26,7 @@ export default function BlogCard({ data, editMode, uid, displayName }) {
         toast.success(<b>Deleted Successfully</b>, { id: toastId })
         setIsLoading(false)
       } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         toast.error(<b>{error.message}</b>, { id: toastId })
         setIsLoading(false)
       }

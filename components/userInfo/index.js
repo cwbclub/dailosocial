@@ -32,7 +32,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
     try {
       await toggleFollowing(myuid, uid, followed)
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
   }
 
