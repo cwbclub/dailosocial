@@ -12,6 +12,7 @@ import Loader from '../../components/loader'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { RiShareFill } from 'react-icons/ri'
+import LikeBtn from '../../components/likeBtn'
 const Custom404 = dynamic(() => import('../404'))
 
 export default function BlogPage() {
@@ -34,7 +35,7 @@ export default function BlogPage() {
         setIsLoading(false)
       } catch (error) {
         toast.error(<b>{error.message}</b>)
-        console.log(error.message)
+        console.error(error.message)
         setIsLoading(false)
       }
     }
@@ -85,10 +86,16 @@ export default function BlogPage() {
               By <Link href={'/u/' + uid}>{displayName}</Link> ,
             </p>
             <p>{moment(timestamp).format('dddd, Do MMM YY')}</p>
-            <button onClick={share}>
+            <button className={s.shareBtn} onClick={share}>
               <RiShareFill /> share
             </button>
+            <LikeBtn
+              userId={user?.uid}
+              postId={blogid}
+              isOwn={user?.uid === uid}
+            />
           </div>
+
           <div id="post-content">{parse(content)}</div>
         </div>
       )}

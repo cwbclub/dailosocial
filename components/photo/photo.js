@@ -27,7 +27,7 @@ export default function Photo({
         await deletePost(uid, id, fileRef)
         toast.success(<b>Deleted Succesfully</b>, { id: toastid })
       } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         toast.error(<b>{error.message}</b>, { id: toastid })
       }
     }
@@ -39,7 +39,7 @@ export default function Photo({
       await updatePost(uid, id, e.target.value)
       toast.success(<b>Updated Succesfully</b>, { id: toastid })
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(<b>{error.message}</b>, { id: toastid })
     }
   }

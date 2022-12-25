@@ -118,7 +118,7 @@ export default function BlogUpload({ uid, displayName, loading }) {
         setIsLoading(false)
       }
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(<b>{error.message}</b>, { id: toastId })
       if (!isCancel.current) {
         setIsLoading(false)
@@ -159,7 +159,7 @@ export default function BlogUpload({ uid, displayName, loading }) {
       toast.success(<b>Updated Done Successfully</b>, { id: toastId })
       setIsLoading(false)
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(<b>{error.message}</b>, { id: toastId })
       setIsLoading(false)
     }

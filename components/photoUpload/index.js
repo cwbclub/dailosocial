@@ -83,7 +83,7 @@ export default function PhotoUpload({
       },
       (error) => {
         // Handle unsuccessful uploads
-        console.log(error)
+        console.error(error)
 
         if (!error.code === 'storage/canceled') {
           toast.error(<b>{error.message}</b>)
