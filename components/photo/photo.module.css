@@ -8,7 +8,7 @@
   /* padding-top: 1rem; */
   border-top: 1px solid #a5a5a5;
   border-bottom: 1px solid grey;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
 }
 
 /* For grid */
@@ -57,14 +57,6 @@
   font-size: 1.5rem;
   margin-top: 0.6rem;
 }
-
-/* .imgBottomDiv select {
-  margin-left: auto;
-  border: none;
-  border-radius: 0.3em;
-  padding: 0.2em 0.3em;
-  background-color: var(--color-grey-3);
-} */
 
 .viewBtn,
 .dltBtn {
@@ -115,7 +107,7 @@
   .photoWrapper {
     border: none;
     border-radius: 0.7rem;
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     border: 1px solid #abbdd1;
   }
