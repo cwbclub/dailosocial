@@ -37,7 +37,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
   }
 
   const debounceHandleFollowing = useMemo(
-    () => debounce(handleFollowing, 1000, { leading: true }),
+    () => debounce(handleFollowing, 700, { leading: true }),
     []
   )
 

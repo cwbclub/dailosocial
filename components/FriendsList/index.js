@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useFriends } from '../../context/friendsContext'
 import ContentLoader from '../contentLoader'
 import ErrorImg from '../errorImg'
 import UserCard from '../userCard'
@@ -13,7 +14,8 @@ export default function FriendsList({
   isOwn,
 }) {
   const [followingMenu, setFollowingMenu] = useState(true)
-
+  const { followings: ownFollowings } = useFriends()
+  console.log(ownFollowings)
   return (
     <div className="wrapper">
       <div className={s.subNavBar}>
@@ -31,13 +33,13 @@ export default function FriendsList({
         </div>
       </div>
       {followingMenu
-        ? renderLists(followings, loading1, myuid, followings)
-        : renderLists(followers, loading2, myuid, followings)}
+        ? renderLists(followings, loading1, myuid, ownFollowings)
+        : renderLists(followers, loading2, myuid, ownFollowings)}
     </div>
   )
 }
 
-const renderLists = (data, loading, myuid, followings) => {
+const renderLists = (data, loading, myuid, ownFollowings) => {
   return loading ? (
     <ContentLoader title="Getting Friends Data" />
   ) : data?.length ? (
@@ -47,7 +49,7 @@ const renderLists = (data, loading, myuid, followings) => {
           key={user?.uid}
           data={user}
           myuid={myuid}
-          followed={followings.some((item) => item.uid === user?.uid)}
+          followed={ownFollowings.some((item) => item === user?.uid)}
         />
       ))}
     </div>
