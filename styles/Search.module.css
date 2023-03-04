@@ -104,6 +104,9 @@
   }
   .wrapper {
     height: 5.5rem;
+    position: sticky;
+    top: 0;
+    background-color: white;
   }
 
   .searchBar {
