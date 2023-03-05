@@ -2,7 +2,7 @@ import { FaEdit } from 'react-icons/fa'
 import Image from 'next/image'
 import s from './userInfo.module.css'
 import Button from '../Button'
-import { useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import userImg from '../../public/user.webp'
 import dynamic from 'next/dynamic'
 import { RiUserFollowFill, RiUserUnfollowFill } from 'react-icons/ri'
@@ -30,14 +30,20 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
   const handleFollowing = async () => {
     setFollowed((prev) => !prev)
     try {
-      await toggleFollowing(myuid, uid, followed)
+      debounceHandleFollowing(myuid, uid, followed)
     } catch (error) {
-      console.error(error.message)
+      console.log('User Info Handle FOlowing:', error.message)
     }
   }
 
-  const debounceHandleFollowing = useMemo(
-    () => debounce(handleFollowing, 700, { leading: true }),
+  const debounceHandleFollowing = useCallback(
+    debounce(
+      (myuid, uid, followed) => toggleFollowing(myuid, uid, followed),
+      1000,
+      {
+        leading: true,
+      }
+    ),
     []
   )
 
@@ -81,7 +87,7 @@ export default function UserInfo({ photoURL, displayName, info, myuid, uid }) {
             ) : (
               <Button
                 disabled={loading}
-                onClick={debounceHandleFollowing}
+                onClick={handleFollowing}
                 types={`xs ${followed ? 'secondary' : 'primary'}`}
               >
                 {loading ? (
