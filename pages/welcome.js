@@ -73,7 +73,7 @@ export default function Login() {
             <p>
               Powered by{' '}
               <a
-                href="https://canwebe.tech"
+                href="https://www.canwebe.in"
                 target="_blank"
                 rel="noopener noreferrer"
               >
