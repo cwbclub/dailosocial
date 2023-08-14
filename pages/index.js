@@ -34,6 +34,7 @@ export default function Home() {
         { threshold: 1 }
       )
       observer.observe(btnRef.current)
+      return ()=>observer.unsubscribe(btnRef.current)
     }
   }, [postsLoading, btnRef?.current])
 
