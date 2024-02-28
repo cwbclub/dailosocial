@@ -20,7 +20,7 @@ export default function AuthContextProvider({ children }) {
       dispatch({ type: 'AUTHREADY', payload: authUser })
     })
 
-    return () => unsub()
+    return () => unsub && unsub()
   }, [auth])
 
   return (
